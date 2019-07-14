@@ -4,4 +4,6 @@ export enum SCREENS {
   MULTI_PLAYER = 'multi-player',
   STANDARD_POKER = 'standard-poker',
   FIBONACCI_POKER = 'fibonacci-poker',
+  T_SHIRT_POKER = 't-shirt-poker',
+  RISK_POKER = 'risk-poker',
 }

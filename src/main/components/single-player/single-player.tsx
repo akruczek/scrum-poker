@@ -5,6 +5,8 @@ import { AppContainer } from '../../../core/styled/app-container/app-container';
 import { NavigationProps } from '../../../core/navigation/navigation.model';
 import standardPokerIcon from '../../../../assets/custom-icons/standard-poker.png';
 import fibonacciPokerIcon from '../../../../assets/custom-icons/fibonacci-poker.png';
+import tShirtPokerIcon from '../../../../assets/custom-icons/t-shirt-poker.png';
+import riskPokerIcon from '../../../../assets/custom-icons/risk-poker.png';
 import { ListItemModel } from './models/list-item.model';
 import { ListItem } from './components/list-item/list-item';
 import { SCREENS } from '../../../core/navigation/screens';
@@ -30,10 +32,21 @@ export class SinglePlayer extends React.Component<NavigationProps, {}> {
       icon: fibonacciPokerIcon,
       description: 'Fibonacci Scrum Poker'
     },
+    {
+      name: 'T-Shirt',
+      icon: tShirtPokerIcon,
+      description: 'T-Shirt Scrum Poker',
+    },
+    {
+      name: 'Risk',
+      icon: riskPokerIcon,
+      description: 'Risk Planning',
+    },
   ];
 
   handleNavigate(name: string) {
     const routeName = `${R.toLower(name)}-poker`;
+    console.log(routeName);
     this.props.navigation.navigate(routeName);
   }
 

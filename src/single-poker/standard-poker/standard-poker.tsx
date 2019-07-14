@@ -8,7 +8,7 @@ import { PokerCard } from '../models/poker-card.models';
 import { Button, Icon } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
 import { SCREENS } from '../../core/navigation/screens';
-import { FullScreenCard } from './full-screen-card';
+import { FullScreenCard } from '../full-screen-card/full-screen-card';
 
 interface State {
   selectedCard: PokerCard | null;
@@ -31,7 +31,7 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
     ),
   });
 
-  private cards: PokerCard[] = [
+  public cards: PokerCard[] = [
     { value: 0, label: '0' },
     { value: 0.5, label: '½' },
     { value: 1, label: '1' },
