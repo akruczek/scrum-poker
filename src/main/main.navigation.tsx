@@ -9,7 +9,7 @@ interface Props {
 }
 
 const HomeStack = createStackNavigator({
-  SinglePlayer,
+  'single-player': SinglePlayer,
 });
 
 HomeStack.navigationOptions = {
@@ -20,7 +20,7 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  MultiPlayer,
+  'multi-player': MultiPlayer,
 });
 
 LinksStack.navigationOptions = {
@@ -31,7 +31,7 @@ LinksStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings,
+  'settings': Settings,
 });
 
 SettingsStack.navigationOptions = {

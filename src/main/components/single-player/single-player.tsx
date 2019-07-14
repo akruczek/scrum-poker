@@ -1,28 +1,53 @@
 import React from 'react';
-import { Text } from '../../../core/styled/text/text.styled';
-import { TEXT_SIZES } from '../../../core/styled/text/text.model';
-import { Container } from '../../../core/styled/container/container.styled';
+import * as R from 'ramda';
 import { ScrollContainer } from '../../../core/styled/scroll-container/scroll-container.styled';
-import { Image } from '../../../core/styled/image/image.styled';
 import { AppContainer } from '../../../core/styled/app-container/app-container';
 import { NavigationProps } from '../../../core/navigation/navigation.model';
-import logo from '../../../../assets/images/briisk-logo.png';
+import standardPokerIcon from '../../../../assets/custom-icons/standard-poker.png';
+import fibonacciPokerIcon from '../../../../assets/custom-icons/fibonacci-poker.png';
+import { ListItemModel } from './models/list-item.model';
+import { ListItem } from './components/list-item/list-item';
+import { SCREENS } from '../../../core/navigation/screens';
 
 export class SinglePlayer extends React.Component<NavigationProps, {}> {
+  constructor(props: NavigationProps) {
+    super(props);
+    this.handleNavigate = this.handleNavigate.bind(this);
+  }
+
   static navigationOptions = {
     title: 'Single Player',
   };
+
+  private items = [
+    {
+      name: 'Standard',
+      icon: standardPokerIcon,
+      description: 'Standard Scrum Poker'
+    },
+    {
+      name: 'Fibonacci',
+      icon: fibonacciPokerIcon,
+      description: 'Fibonacci Scrum Poker'
+    },
+  ];
+
+  handleNavigate(name: string) {
+    const routeName = `${R.toLower(name)}-poker`;
+    this.props.navigation.navigate(routeName);
+  }
 
   render() {
     return (
       <AppContainer>
         <ScrollContainer>
-          <Container alignItems="center" margins="40px 0 0">
-            <Image source={logo} size={120} />
-            <Text size={TEXT_SIZES.BIG}>
-              Single player mode
-            </Text>
-          </Container>
+          {this.items.map((item: ListItemModel) => (
+            <ListItem
+                key={item.name}
+                item={item}
+                handlePress={this.handleNavigate}
+            />
+          ))}
         </ScrollContainer>
       </AppContainer>
     );

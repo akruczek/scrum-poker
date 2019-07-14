@@ -1,4 +1,7 @@
 export enum SCREENS {
-  MAIN = 'Main',
-  COUNTER = 'Counter',
+  SETTINGS = 'settings',
+  SINGLE_PLAYER = 'single-player',
+  MULTI_PLAYER = 'multi-player',
+  STANDARD_POKER = 'standard-poker',
+  FIBONACCI_POKER = 'fibonacci-poker',
 }
