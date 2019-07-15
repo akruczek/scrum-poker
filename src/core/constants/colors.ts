@@ -11,5 +11,10 @@ export const colors = {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
-  link: '#2e78b7'
+  link: '#2e78b7',
+  greenCard: '#36802D',
+  yellowCard: '#E9D700',
+  orangeCard: '#FF6600',
+  purpleCard: '#E3007D',
+  redCard: '#F80100',
 };

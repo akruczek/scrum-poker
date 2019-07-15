@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import { StandardPoker } from './standard-poker/standard-poker';
 import { FibonacciPoker } from './fibonacci-poker/fibonacci-poker';
 import { TShirtPoker } from './t-shirt-poker/t-shirt-poker';
+import { RiskPoker } from './risk-poker/risk-poker';
 
 export const StandardPokerNavigation = createStackNavigator({
   'standard-poker': StandardPoker,
@@ -25,4 +26,12 @@ export const TShirtPokerNavigation = createStackNavigator({
 
 TShirtPokerNavigation.navigationOptions = {
   tabBarLabel: 'T-Shirt Poker',
+};
+
+export const RiskPokerNavigation = createStackNavigator({
+  'risk-poker': RiskPoker,
+})
+
+RiskPokerNavigation.navigationOptions = {
+  tabBarLabel: 'Risk Poker',
 };

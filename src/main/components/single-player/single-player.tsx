@@ -46,7 +46,6 @@ export class SinglePlayer extends React.Component<NavigationProps, {}> {
 
   handleNavigate(name: string) {
     const routeName = `${R.toLower(name)}-poker`;
-    console.log(routeName);
     this.props.navigation.navigate(routeName);
   }
 

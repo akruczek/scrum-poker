@@ -4,11 +4,14 @@ import { ScrollContainer } from '../../core/styled/scroll-container/scroll-conta
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { NavigationProps } from '../../core/navigation/navigation.model';
 import { Container } from '../../core/styled/container/container.styled';
-import { PokerCard } from '../models/poker-card.models';
+import { PokerCard, CARD_COLORS } from '../models/poker-card.models';
 import { Button, Icon } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
 import { SCREENS } from '../../core/navigation/screens';
 import { FullScreenCard } from '../full-screen-card/full-screen-card';
+import { colors } from '../../core/constants/colors';
+import { isRiskCard } from '../helpers/is-risk-card.helper';
+import { getCardColorStyle, getCardTitleStyle } from '../helpers/get-card-style.helpers';
 
 interface State {
   selectedCard: PokerCard | null;
@@ -51,6 +54,18 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
     this.setState({ selectedCard: card || null });
   }
 
+  private getButtonStyle = (value: any) => ({
+    width: 80,
+    height: 120,
+    margin: 10,
+    ...getCardColorStyle(value),
+  });
+
+  private getButtonTitleStyle = (value: any) => ({
+    fontSize: 30,
+    ...getCardTitleStyle(value),
+  });
+
   render() {
     return (
       <AppContainer>
@@ -61,8 +76,8 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
                 <Button
                     title={card.label}
                     onPress={() => this.handleSelect(card)}
-                    buttonStyle={{ width: 80, height: 120, margin: 10, }}
-                    titleStyle={{ fontSize: 30 }}
+                    buttonStyle={this.getButtonStyle(card.value)}
+                    titleStyle={this.getButtonTitleStyle(card.value)}
                     raised
                 />
               </View>
