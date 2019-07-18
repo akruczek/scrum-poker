@@ -38,6 +38,7 @@
     "@types/styled-components": "^4.1.15",
     "babel-plugin-module-resolver": "^3.2.0",
     "expo": "^33.0.0",
+    "firebase": "^6.3.0",
     "jest": "^24.8.0",
     "ramda": "^0.26.1",
     "react": "16.8.3",

@@ -8,22 +8,22 @@ interface Props {
   focused: boolean;
 }
 
-const HomeStack = createStackNavigator({
+const SinglePlayerStack = createStackNavigator({
   'single-player': SinglePlayer,
 });
 
-HomeStack.navigationOptions = {
+SinglePlayerStack.navigationOptions = {
   tabBarLabel: 'Single',
   tabBarIcon: (props: Props) => (
     <TabBarIcon focused={props.focused} icon={ICONS.CONTACT} />
   ),
 };
 
-const LinksStack = createStackNavigator({
+const MultiPlayerStack = createStackNavigator({
   'multi-player': MultiPlayer,
 });
 
-LinksStack.navigationOptions = {
+MultiPlayerStack.navigationOptions = {
   tabBarLabel: 'Multi',
   tabBarIcon: (props: Props) => (
     <TabBarIcon focused={props.focused} icon={ICONS.CONTACTS} />
@@ -42,7 +42,7 @@ SettingsStack.navigationOptions = {
 };
 
 export const MainTabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  MultiPlayerStack,
+  SinglePlayerStack,
   SettingsStack,
 });
