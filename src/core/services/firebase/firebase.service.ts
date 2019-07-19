@@ -10,8 +10,26 @@ export class Firebase {
     });
   }
 
-  static signIn(email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password);
+  static signIn(email: string, password: string, callback?: (data: any) => void) {
+    const callCallback = (response: any) => {
+      if (callback) {
+        callback({
+          email: response.user.email,
+        });
+      }
+    };
+
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(callCallback)
+      .catch((error: any) => {
+        if (error.code === 'auth/user-not-found') {
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((response: any) => {
+              firebase.auth().signInWithEmailAndPassword(response.user.email, password)
+                .then(callCallback);
+            });
+        }
+      });
   }
 
   static post(path: string, data: {[key: string]: any}) {

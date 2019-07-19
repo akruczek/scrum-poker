@@ -7,7 +7,7 @@ import { Auth } from '../../../multi-poker/auth/auth';
 import { Dashboard } from '../../../multi-poker/dashboard/dashboard';
 
 interface StateProps {
-  token: string | null;
+  email: string;
 }
 
 export class _MultiPlayer extends React.Component<NavigationProps & StateProps, {}> {
@@ -20,7 +20,7 @@ export class _MultiPlayer extends React.Component<NavigationProps & StateProps, 
   }
 
   render() {
-    return this.props.token ? (
+    return this.props.email ? (
       <Dashboard />
     ) : (
       <Auth />
@@ -29,7 +29,7 @@ export class _MultiPlayer extends React.Component<NavigationProps & StateProps, 
 }
 
 const mapStateToProps = R.applySpec<StateProps>({
-  token: R.path([ 'firebase', 'model', 'token' ]),
+  email: R.path([ 'auth', 'model', 'email' ]),
 });
 
 export const MultiPlayer = connect<StateProps, any, {}>(
