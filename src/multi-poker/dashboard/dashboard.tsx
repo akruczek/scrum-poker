@@ -9,11 +9,14 @@ import { RoomModel } from '../models/room.models';
 import { Firebase } from '../../core/services/firebase/firebase.service';
 import { isPresent } from '../../core/helpers/ramda';
 import { Preloader } from '../../core/components/preloader/preloader';
-import { setRooms } from './store/dashboard.actions';
+import { setRooms, setRoom } from './store/dashboard.actions';
 import { Dispatch, bindActionCreators } from 'redux';
+import { NavigationProps } from '../../core/navigation/navigation.model';
+import { SCREENS } from '../../core/navigation/screens';
 
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
+  setRoom: (room: RoomModel) => void;
 }
 
 interface StateProps {
@@ -24,14 +27,21 @@ interface State {
   isPending: boolean;
 }
 
-export class _Dashboard extends React.Component<StateProps & DispatchProps, State> {
-  constructor(props: StateProps & DispatchProps) {
+export class _Dashboard extends React.Component<StateProps & DispatchProps & NavigationProps, State> {
+  constructor(props: StateProps & DispatchProps & NavigationProps) {
     super(props);
     this.state = {
       isPending: false,
     };
 
     this.updateRooms = this.updateRooms.bind(this);
+    this.handleNavigate = this.handleNavigate.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ isPending: true }, () => {
+      Firebase.listen('/rooms', this.updateRooms);
+    });
   }
 
   updateRooms(rooms: RoomModel[]) {
@@ -41,10 +51,9 @@ export class _Dashboard extends React.Component<StateProps & DispatchProps, Stat
     });
   }
 
-  componentDidMount() {
-    this.setState({ isPending: true }, () => {
-      Firebase.listen('/rooms', this.updateRooms);
-    });
+  handleNavigate(room: RoomModel) {
+    this.props.setRoom(room);
+    this.props.navigation.navigate(SCREENS.ROOM);
   }
 
   render() {
@@ -54,9 +63,9 @@ export class _Dashboard extends React.Component<StateProps & DispatchProps, Stat
     return (
       <AppContainer>
         <ScrollContainer>
-          {isPresent(rooms) && rooms.map((room: any) => (
+          {isPresent(rooms) && rooms.map((room: RoomModel) => (
             <React.Fragment key={room.id}>
-              <TouchableOpacity onPress={() => null}>
+              <TouchableOpacity onPress={() => this.handleNavigate(room)}>
                 <ListItem
                     title={room.name}
                     subtitle={room.name}
@@ -79,7 +88,7 @@ const mapStateToProps = R.applySpec<StateProps>({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { setRooms },
+  { setRooms, setRoom },
   dispatch,
 );
 

@@ -6,4 +6,5 @@ export enum SCREENS {
   FIBONACCI_POKER = 'fibonacci-poker',
   T_SHIRT_POKER = 't-shirt-poker',
   RISK_POKER = 'risk-poker',
+  ROOM = 'room',
 }
