@@ -20,11 +20,9 @@ export class _MultiPlayer extends React.Component<NavigationProps & StateProps, 
   }
 
   render() {
-    return this.props.email ? (
-      <Dashboard />
-    ) : (
-      <Auth />
-    );
+    return this.props.email
+      ? <Dashboard />
+      : <Auth />;
   }
 }
 

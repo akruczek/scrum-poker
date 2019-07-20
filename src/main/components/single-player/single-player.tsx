@@ -9,7 +9,6 @@ import tShirtPokerIcon from '../../../../assets/custom-icons/t-shirt-poker.png';
 import riskPokerIcon from '../../../../assets/custom-icons/risk-poker.png';
 import { ListItemModel } from './models/list-item.model';
 import { ListItem } from './components/list-item/list-item';
-import { SCREENS } from '../../../core/navigation/screens';
 
 export class SinglePlayer extends React.Component<NavigationProps, {}> {
   constructor(props: NavigationProps) {

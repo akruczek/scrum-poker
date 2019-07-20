@@ -5,46 +5,36 @@ import { AppContainer } from '../../core/styled/app-container/app-container';
 import { Container } from '../../core/styled/container/container.styled';
 import { Button, Input } from 'react-native-elements';
 import { Text } from '../../core/styled/text/text.styled';
-import { Firebase } from '../../core/services/firebase/firebase.service';
-import { UserModel } from '../../core/models/auth.models';
 import { Dispatch, bindActionCreators } from 'redux';
-import { setUser } from './store/auth.actions';
+import { signIn } from './store/auth.actions';
 import { Preloader } from '../../core/components/preloader/preloader';
 
 interface State {
-  isPending: boolean;
   email: string;
 }
 
 interface StateProps {
-  user: UserModel;
+  isPending: boolean;
 }
 
 interface DispatchProps {
-  setUser: (user: UserModel) => void;
+  signIn: (email: string) => void;
 }
 
 export class _Auth extends React.Component<DispatchProps & StateProps, State> {
-  constructor(props: State & StateProps & DispatchProps) {
+  constructor(props: StateProps & DispatchProps) {
     super(props);
     this.state = {
-      isPending: false,
       email: '',
     };
   }
 
-  handleSubmitSuccess(data: UserModel) {
-    this.setState({ isPending: false });
-    this.props.setUser(data);
-  }
-
   async handleSubmit() {
-    this.setState({ isPending: true });
-    Firebase.signIn(this.state.email, 'password', this.handleSubmitSuccess.bind(this));
+    this.props.signIn(this.state.email);
   }
 
   handleChange(field: string, value: string) {
-    this.setState({ [field]: value } as any);
+    this.setState({ [field]: value } as {});
   }
 
   render() {
@@ -64,21 +54,21 @@ export class _Auth extends React.Component<DispatchProps & StateProps, State> {
 
         <Button title="JOIN" onPress={this.handleSubmit.bind(this)} />
 
-        {this.state.isPending && <Preloader />}
+        {this.props.isPending && <Preloader />}
       </AppContainer>
     );
   }
 }
 
 const mapStateToProps = R.applySpec<StateProps>({
-  user: R.path([ 'auth', 'model' ]),
+  isPending: R.path([ 'auth', 'isPending' ]),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { setUser },
+  { signIn },
   dispatch,
 );
 
-export const Auth = connect<StateProps, any, {}>(
+export const Auth = connect<StateProps, DispatchProps, any>(
   mapStateToProps, mapDispatchToProps,
-)(_Auth as any);
+)(_Auth);
