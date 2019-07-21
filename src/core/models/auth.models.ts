@@ -1,3 +1,5 @@
+import { PokerCard } from '../../single-poker/models/poker-card.models';
+
 export interface AuthStateModel {
   isPending: boolean;
   model: UserModel;
@@ -6,4 +8,5 @@ export interface AuthStateModel {
 
 export interface UserModel {
   email: string;
+  selectedValue?: PokerCard | null;
 }

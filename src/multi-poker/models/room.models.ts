@@ -15,4 +15,5 @@ export interface RoomModel {
   name: string;
   description: string;
   users: UserModel[];
+  discovered?: boolean;
 }

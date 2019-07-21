@@ -1,6 +1,8 @@
 import { combineEpics } from 'redux-observable';
 import { signInEpic, signInSuccessEpic, signOutEpic } from '../multi-poker/auth/store/auth.epics';
-import { addRoomEpic, removeRoomEpic, addUserEpic } from '../multi-poker/dashboard/store/dashboard.epics';
+import {
+  addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic,
+} from '../multi-poker/dashboard/store/dashboard.epics';
 
 export const epics = combineEpics(
   signInEpic,
@@ -9,4 +11,7 @@ export const epics = combineEpics(
   addRoomEpic,
   removeRoomEpic,
   addUserEpic,
+  showDownEpic,
+  resetEpic,
+  setValueEpic,
 );

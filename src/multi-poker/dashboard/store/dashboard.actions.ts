@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { RoomModel } from '../../models/room.models';
 import { UserModel } from '../../../core/models/auth.models';
+import { PokerCard } from '../../../single-poker/models/poker-card.models';
 
 export enum DASHBOARD_ACTIONS {
   SET_ROOMS = '[Dashboard]: Set rooms',
@@ -14,6 +15,15 @@ export enum DASHBOARD_ACTIONS {
   ADD_USER = '[Room]: Add user',
   ADD_USER_SUCCESS = '[Room]: Add user success',
   ADD_USER_ERROR = '[Room]: Add user error',
+  SHOW_DOWN = '[Room]: Show down',
+  SHOW_DOWN_SUCCESS = '[Room]: Show down success',
+  SHOW_DOWN_ERROR = '[Room]: Show down error',
+  RESET = '[Room]: Reset',
+  RESET_SUCCESS = '[Room]: Reset success',
+  RESET_ERROR = '[Room]: Reset error',
+  SET_VALUE = '[Room]: Set value',
+  SET_VALUE_SUCCESS = '[Room]: Set value success',
+  SET_VALUE_ERROR = '[Room]: Set value error',
 }
 
 export interface SetRoomsAction extends Action {
@@ -57,6 +67,25 @@ export interface AddUserSuccessAction extends Action {
   payload: RoomModel;
 }
 
+export interface RoomPayload {
+  room: RoomModel;
+  index: number;
+}
+
+export interface RoomAction extends Action {
+  payload: RoomPayload;
+}
+
+export interface SetValuePayload {
+  roomIndex: number;
+  userIndex: number;
+  value: PokerCard;
+}
+
+export interface SetValueAction extends Action {
+  payload: SetValuePayload;
+}
+
 export type DashboardActions =
   SetRoomsAction &
   SetRoomAction &
@@ -65,7 +94,9 @@ export type DashboardActions =
   AddUserAction &
   AddUserSuccessAction &
   RemoveRoomAction &
-  RemoveRoomSuccessAction;
+  RemoveRoomSuccessAction &
+  RoomAction &
+  SetValueAction;
 
 const newAction = <P>(type: DASHBOARD_ACTIONS) =>
   (payload?: P): { type: DASHBOARD_ACTIONS, payload?: P } => ({ type, payload });
@@ -84,3 +115,15 @@ export const removeRoomError = newAction<any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERRO
 export const addUser = newAction<AddUserPayload>(DASHBOARD_ACTIONS.ADD_USER);
 export const addUserSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_USER_SUCCESS);
 export const addUserError = newAction<UserModel>(DASHBOARD_ACTIONS.ADD_USER_ERROR);
+
+export const showDown = newAction<RoomPayload>(DASHBOARD_ACTIONS.SHOW_DOWN);
+export const showDownSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN_SUCCESS);
+export const showDownError = newAction<any>(DASHBOARD_ACTIONS.SHOW_DOWN_ERROR);
+
+export const reset = newAction<RoomPayload>(DASHBOARD_ACTIONS.RESET);
+export const resetSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.RESET_SUCCESS);
+export const resetError = newAction<any>(DASHBOARD_ACTIONS.RESET_ERROR);
+
+export const setValue = newAction<SetValuePayload>(DASHBOARD_ACTIONS.SET_VALUE);
+export const setValueSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SET_VALUE_SUCCESS);
+export const setValueError = newAction<any>(DASHBOARD_ACTIONS.SET_VALUE_ERROR);
