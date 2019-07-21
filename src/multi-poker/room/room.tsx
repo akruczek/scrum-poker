@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { TouchableOpacity } from 'react-native';
-import { ListItem, Divider } from 'react-native-elements';
+import { ListItem, Divider, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
@@ -10,6 +10,7 @@ import { Firebase } from '../../core/services/firebase/firebase.service';
 import { isPresent, parseName } from '../../core/helpers';
 import { RoomModel } from '../models/room.models';
 import { NavigationProps } from '../../core/navigation/navigation.model';
+import { SCREENS } from '../../core/navigation/screens';
 
 interface State {
   users: UserModel[];
@@ -29,12 +30,17 @@ export class _Room extends React.Component<StateProps & NavigationProps, State> 
     this.getUsers = this.getUsers.bind(this);
   }
 
-  static navigationOptions = {
+  static navigationOptions = (props: NavigationProps & StateProps) => ({
     title: 'Room',
-  };
+    headerLeft: (
+      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => props.navigation.navigate(SCREENS.MULTI_PLAYER)}>
+        <Icon name="arrow-back" />
+      </TouchableOpacity>
+    ),
+  });
 
   componentDidMount() {
-    Firebase.listen('/users', this.getUsers);
+    Firebase.listen(`/rooms/${this.props.room.id}/users`, this.getUsers);
   }
 
   getUsers(users: UserModel[]) {
@@ -43,7 +49,6 @@ export class _Room extends React.Component<StateProps & NavigationProps, State> 
 
   render() {
     const { users } = this.state;
-    const { room } = this.props;
 
     return (
       <AppContainer>

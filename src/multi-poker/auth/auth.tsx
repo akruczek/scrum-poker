@@ -8,6 +8,11 @@ import { Text } from '../../core/styled/text/text.styled';
 import { Dispatch, bindActionCreators } from 'redux';
 import { signIn } from './store/auth.actions';
 import { Preloader } from '../../core/components/preloader/preloader';
+import { AUTH_TYPES } from '../models/auth.models';
+
+interface Props {
+  type: AUTH_TYPES;
+}
 
 interface State {
   email: string;
@@ -21,19 +26,32 @@ interface DispatchProps {
   signIn: (email: string) => void;
 }
 
-export class _Auth extends React.Component<DispatchProps & StateProps, State> {
-  constructor(props: StateProps & DispatchProps) {
+export class _Auth extends React.Component<DispatchProps & StateProps & Props, State> {
+  constructor(props: StateProps & DispatchProps & Props) {
     super(props);
     this.state = {
       email: '',
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit() {
+  private content = {
+    buttonText: {
+      [AUTH_TYPES.JOIN]: 'JOIN',
+      [AUTH_TYPES.LOGIN]: 'LOGIN',
+    },
+    title: {
+      [AUTH_TYPES.JOIN]: 'JOIN SESSION',
+      [AUTH_TYPES.LOGIN]: 'SIGN IN',
+    },
+  };
+
+  private handleSubmit() {
     this.props.signIn(this.state.email);
   }
 
-  handleChange(field: string, value: string) {
+  private handleChange(field: string, value: string) {
     this.setState({ [field]: value } as {});
   }
 
@@ -42,7 +60,7 @@ export class _Auth extends React.Component<DispatchProps & StateProps, State> {
       <AppContainer>
         <Container alignItems="center" justifyContent="center" margins="0 0 100px">
           <Text margins="0 0 20px">
-            JOIN SESSION
+            {this.content.title[this.props.type]}
           </Text>
 
           <Input
@@ -52,7 +70,10 @@ export class _Auth extends React.Component<DispatchProps & StateProps, State> {
           />
         </Container>
 
-        <Button title="JOIN" onPress={this.handleSubmit.bind(this)} />
+        <Button
+            title={this.content.buttonText[this.props.type]}
+            onPress={this.handleSubmit}
+        />
 
         {this.props.isPending && <Preloader />}
       </AppContainer>
@@ -69,6 +90,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
   dispatch,
 );
 
-export const Auth = connect<StateProps, DispatchProps, any>(
+export const Auth = connect<StateProps, DispatchProps, Props>(
   mapStateToProps, mapDispatchToProps,
 )(_Auth);

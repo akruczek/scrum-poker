@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import * as firebase from 'firebase';
-import { Platform, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
+import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import { loadAssets } from './assets/load-assets';
 import { AppNavigator } from './App.navigation';
@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 import { appStore } from './src/store/configure-store';
 import { Container } from './src/core/styled/container/container.styled';
 import { ifElse, isPlatform } from './src/core/helpers';
+import { Firebase } from './src/core/services/firebase/firebase.service';
+import { Storage } from './src/core/services/device-storage/device-storage.service';
+import { Dispatch, bindActionCreators } from 'redux';
+import { signIn, AUTH_ACTIONS } from './src/multi-poker/auth/store/auth.actions';
 
 interface Props {
   skipLoadingScreen?: boolean;
@@ -18,14 +22,25 @@ interface State {
   isLoadingComplete: boolean;
 }
 
-export default class App extends React.Component<Props, State> {
-  constructor(props: Props & State) {
+interface DispatchProps {
+  signIn: (email: string) => void;
+}
+
+export default class _App extends React.Component<Props & DispatchProps, State> {
+  constructor(props: Props & DispatchProps) {
     super(props);
     this.state = {
-      isLoadingComplete: false,  
+      isLoadingComplete: false,
     };
 
     this.loadingComplete = this.loadingComplete.bind(this);
+  }
+  
+  componentDidMount() {
+    Firebase.initialize();
+    Storage
+      .get('userEmail')
+      .then(payload => payload ? appStore.dispatch({ type: AUTH_ACTIONS.SIGN_IN, payload }) : {});
   }
 
   isLoading() {
@@ -57,3 +72,12 @@ export default class App extends React.Component<Props, State> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
+  { signIn },
+  dispatch,
+);
+
+export const App = connect<any, DispatchProps, Props>(
+  null, mapDispatchToProps,
+)(_App);

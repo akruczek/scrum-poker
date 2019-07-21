@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { AuthStateModel } from '../../../core/models/auth.models';
 import {
   AUTH_ACTIONS, AuthActions,
-  SignInAction, SignInSuccessAction, SignInErrorAction,
+  SignInAction, SignInSuccessAction, SignInErrorAction, SignOutAction, signOut,
 } from './auth.actions';
 
 const initialState: AuthStateModel = {
@@ -26,10 +26,28 @@ const signInErrorReducer = (action: SignInErrorAction) => R.pipe(
   R.assoc('error', action.payload),
 );
 
+const signOutReducer = (_: SignOutAction) => R.pipe(
+  R.assoc('isPending', true),
+  R.assoc('model', {}),
+);
+
+const signOutSuccessReducer = (_: SignOutAction) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('model', {}),
+);
+
+const signOutErrorReducer = (action: SignOutAction) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('error', action.payload),
+);
+
 const reducers = {
   [AUTH_ACTIONS.SIGN_IN]: signInReducer,
   [AUTH_ACTIONS.SIGN_IN_SUCCESS]: signInSuccessReducer,
   [AUTH_ACTIONS.SIGN_IN_ERROR]: signInErrorReducer,
+  [AUTH_ACTIONS.SIGN_OUT]: signOutReducer,
+  [AUTH_ACTIONS.SIGN_OUT_SUCCESS]: signOutSuccessReducer,
+  [AUTH_ACTIONS.SIGN_OUT_ERROR]: signOutErrorReducer,
 };
 
 const selectReducer = (type: AUTH_ACTIONS): any =>
