@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { TouchableOpacity } from 'react-native';
 import { ListItem, Divider, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 import { UserModel } from '../../core/models/auth.models';
@@ -11,6 +12,7 @@ import { isPresent, parseName } from '../../core/helpers';
 import { RoomModel } from '../models/room.models';
 import { NavigationProps } from '../../core/navigation/navigation.model';
 import { SCREENS } from '../../core/navigation/screens';
+import { addUser, AddUserPayload } from '../dashboard/store/dashboard.actions';
 
 interface State {
   users: UserModel[];
@@ -18,10 +20,16 @@ interface State {
 
 interface StateProps {
   room: RoomModel;
+  rooms: RoomModel[];
+  user: UserModel;
 }
 
-export class _Room extends React.Component<StateProps & NavigationProps, State> {
-  constructor(props: StateProps & NavigationProps) {
+interface DispatchProps {
+  addUser: (user: AddUserPayload) => void;
+}
+
+export class _Room extends React.Component<StateProps & NavigationProps & DispatchProps, State> {
+  constructor(props: StateProps & NavigationProps & DispatchProps) {
     super(props);
     this.state = {
       users: [],
@@ -41,6 +49,14 @@ export class _Room extends React.Component<StateProps & NavigationProps, State> 
 
   componentDidMount() {
     Firebase.listen(`/rooms/${this.props.room.id}/users`, this.getUsers);
+
+    if (!this.props.room.users.map(u => u.email).includes(this.props.user.email)) {
+      this.props.addUser({
+        user: this.props.user,
+        index: this.props.room.users.length,
+        roomIndex: R.findIndex(R.propEq('id', this.props.room.id))(this.props.rooms),
+      });
+    }
   }
 
   getUsers(users: UserModel[]) {
@@ -73,8 +89,15 @@ export class _Room extends React.Component<StateProps & NavigationProps, State> 
 
 const mapStateToProps = R.applySpec<StateProps>({
   room: R.path([ 'rooms', 'model' ]),
+  rooms: R.path([ 'rooms', 'models' ]),
+  user: R.path([ 'auth', 'model' ]),
 });
 
-export const Room = connect<StateProps, any, any>(
-  mapStateToProps, null,
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
+  { addUser },
+  dispatch,
+);
+
+export const Room = connect<StateProps, DispatchProps, any>(
+  mapStateToProps, mapDispatchToProps,
 )(_Room);

@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { RoomModel } from '../../models/room.models';
+import { UserModel } from '../../../core/models/auth.models';
 
 export enum DASHBOARD_ACTIONS {
   SET_ROOMS = '[Dashboard]: Set rooms',
@@ -10,6 +11,9 @@ export enum DASHBOARD_ACTIONS {
   REMOVE_ROOM = '[Dashboard]: Remove room',
   REMOVE_ROOM_SUCCESS = '[Dashboard]: Remove room success',
   REMOVE_ROOM_ERROR = '[Dashboard]: Remove room error',
+  ADD_USER = '[Room]: Add user',
+  ADD_USER_SUCCESS = '[Room]: Add user success',
+  ADD_USER_ERROR = '[Room]: Add user error',
 }
 
 export interface SetRoomsAction extends Action {
@@ -31,10 +35,6 @@ export interface AddRoomSuccessAction extends Action {
   payload: RoomModel[];
 }
 
-export interface AddRoomErrorAction extends Action {
-  payload: any;
-}
-
 export interface RemoveRoomAction extends Action {
   payload: number;
 }
@@ -43,8 +43,18 @@ export interface RemoveRoomSuccessAction extends Action {
   payload: RoomModel[];
 }
 
-export interface RemoveRoomErrorAction extends Action {
-  payload: any;
+export interface AddUserPayload {
+  user: UserModel;
+  index: number;
+  roomIndex: number;
+}
+
+export interface AddUserAction extends Action {
+  payload: AddUserPayload;
+}
+
+export interface AddUserSuccessAction extends Action {
+  payload: RoomModel;
 }
 
 export type DashboardActions =
@@ -52,10 +62,10 @@ export type DashboardActions =
   SetRoomAction &
   AddRoomAction &
   AddRoomSuccessAction &
-  AddRoomErrorAction &
+  AddUserAction &
+  AddUserSuccessAction &
   RemoveRoomAction &
-  RemoveRoomSuccessAction &
-  RemoveRoomErrorAction;
+  RemoveRoomSuccessAction;
 
 const newAction = <P>(type: DASHBOARD_ACTIONS) =>
   (payload?: P): { type: DASHBOARD_ACTIONS, payload?: P } => ({ type, payload });
@@ -70,3 +80,7 @@ export const addRoomError = newAction<any>(DASHBOARD_ACTIONS.ADD_ROOM_ERROR);
 export const removeRoom = newAction<number>(DASHBOARD_ACTIONS.REMOVE_ROOM);
 export const removeRoomSuccess = newAction<RoomModel[]>(DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS);
 export const removeRoomError = newAction<any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERROR);
+
+export const addUser = newAction<AddUserPayload>(DASHBOARD_ACTIONS.ADD_USER);
+export const addUserSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_USER_SUCCESS);
+export const addUserError = newAction<UserModel>(DASHBOARD_ACTIONS.ADD_USER_ERROR);

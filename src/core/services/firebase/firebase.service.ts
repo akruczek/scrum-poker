@@ -11,17 +11,20 @@ export class Firebase {
   }
 
   static signIn(email: string, password: string): any {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
+    return firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .then((signInResponse: any) => ({ email: signInResponse.user.email }))
-      .catch((error: any): any => {
-        if (error.code === 'auth/user-not-found') {
-          return firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((response: any) => {
-              return firebase.auth().signInWithEmailAndPassword(response.user.email, password)
-                .then((signUpResponse: any) => ({ email: signUpResponse.user.email }));
-            });
-        }
-      });
+      .catch((error: any): any => error.code !== 'auth/user-not-found' ? null :
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((response: any) => firebase
+            .auth()
+            .signInWithEmailAndPassword(response.user.email, password)
+            .then((signUpResponse: any) => ({ email: signUpResponse.user.email }))
+          )
+      );
   }
 
   static post(path: string, data: {[key: string]: any} | null, callback?: (data: any) => void) {

@@ -5,6 +5,7 @@ import {
   DashboardActions, SetRoomsAction, SetRoomAction,
   AddRoomAction,
   RemoveRoomAction,
+  AddUserAction,
 } from './dashboard.actions';
 
 const initialState: RoomsStateModel = {
@@ -28,6 +29,10 @@ const removeRoomReducer = (action: RemoveRoomAction) => R.evolve({
   models: R.remove(action.payload, 1),
 });
 
+const addUserReducer = (action: AddUserAction) => R.evolve({
+  models: R.append(action.payload),
+});
+
 const roomsReducers = {
   [DASHBOARD_ACTIONS.SET_ROOMS]: setRoomsReducer,
   [DASHBOARD_ACTIONS.SET_ROOM]: setRoomReducer,
@@ -35,6 +40,7 @@ const roomsReducers = {
   [DASHBOARD_ACTIONS.ADD_ROOM_SUCCESS]: setRoomsReducer,
   [DASHBOARD_ACTIONS.REMOVE_ROOM]: removeRoomReducer,
   [DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS]: setRoomsReducer,
+  [DASHBOARD_ACTIONS.ADD_USER]: addUserReducer,
 };
 
 const selectReducer = (type: DASHBOARD_ACTIONS, reducers: any): any =>
