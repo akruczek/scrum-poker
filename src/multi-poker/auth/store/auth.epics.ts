@@ -1,5 +1,5 @@
 import { ActionsObservable, ofType } from 'redux-observable';
-import { pluck, switchMap } from 'rxjs/operators';
+import { pluck, switchMap, tap } from 'rxjs/operators';
 import { Firebase } from '../../../core/services/firebase/firebase.service';
 import { UserModel } from '../../../core/models/auth.models';
 import { Storage } from '../../../core/services/device-storage/device-storage.service';

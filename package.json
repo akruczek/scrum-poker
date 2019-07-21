@@ -45,6 +45,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
+    "react-native-swipeable-row": "^0.8.1",
     "react-navigation": "^3.11.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
