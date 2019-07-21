@@ -1,5 +1,4 @@
 import React from 'react';
-import * as R from 'ramda';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { NavigationProps } from '../../core/navigation/navigation.model';
@@ -9,9 +8,8 @@ import { Button, Icon } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
 import { SCREENS } from '../../core/navigation/screens';
 import { FullScreenCard } from '../full-screen-card/full-screen-card';
-import { colors } from '../../core/constants/colors';
-import { isRiskCard } from '../helpers/is-risk-card.helper';
 import { getCardColorStyle, getCardTitleStyle } from '../helpers/get-card-style.helpers';
+import { CARDS, CARDS_STACK } from '../../core/constants/cards';
 
 interface State {
   selectedCard: PokerCard | null;
@@ -34,21 +32,7 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
     ),
   });
 
-  public cards: PokerCard[] = [
-    { value: 0, label: '0' },
-    { value: 0.5, label: '½' },
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-    { value: 5, label: '5' },
-    { value: 8, label: '8' },
-    { value: 13, label: '13' },
-    { value: 20, label: '20' },
-    { value: 40, label: '40' },
-    { value: 100, label: '100' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
-  ];
+  public cards: PokerCard[] = CARDS_STACK[CARDS.STANDARD_POKER];
 
   private handleSelect(card?: PokerCard) {
     this.setState({ selectedCard: card || null });

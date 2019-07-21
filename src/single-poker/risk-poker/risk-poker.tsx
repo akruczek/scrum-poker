@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { SCREENS } from '../../core/navigation/screens';
 import { StandardPoker } from '../standard-poker/standard-poker';
+import { CARDS_STACK, CARDS } from '../../core/constants/cards';
 
 export class RiskPoker extends StandardPoker {
   static navigationOptions = (props: NavigationProps) => ({
@@ -16,13 +17,5 @@ export class RiskPoker extends StandardPoker {
     ),
   });
 
-  public cards: PokerCard[] = [
-    { value: 'risk-green', label: 'green' },
-    { value: 'risk-yellow', label: 'yellow' },
-    { value: 'risk-orange', label: 'orange' },
-    { value: 'risk-purple', label: 'purple' },
-    { value: 'risk-red', label: 'red' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
-  ];
+  public cards: PokerCard[] = CARDS_STACK[CARDS.RISK_POKER];
 }

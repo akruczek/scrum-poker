@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { SCREENS } from '../../core/navigation/screens';
 import { StandardPoker } from '../standard-poker/standard-poker';
+import { CARDS_STACK, CARDS } from '../../core/constants/cards';
 
 export class TShirtPoker extends StandardPoker {
   static navigationOptions = (props: NavigationProps) => ({
@@ -16,14 +17,5 @@ export class TShirtPoker extends StandardPoker {
     ),
   });
 
-  public cards: PokerCard[] = [
-    { value: 'XS', label: 'XS' },
-    { value: 'S', label: 'S' },
-    { value: 'M', label: 'M' },
-    { value: 'L', label: 'L' },
-    { value: 'XL', label: 'XL' },
-    { value: 'XLL', label: 'XLL' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
-  ];
+  public cards: PokerCard[] = CARDS_STACK[CARDS.T_SHIRT_POKER];
 }
