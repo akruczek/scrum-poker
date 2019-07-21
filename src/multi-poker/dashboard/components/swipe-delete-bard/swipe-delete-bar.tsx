@@ -10,7 +10,7 @@ export const SwipeDeleteBar = (props: Props) => (
   <View
       style={{
         backgroundColor: colors.secondary,
-        width: 380,
+        width: '100%',
         paddingRight: 20,
         height: props.height,
         flexDirection: 'row',

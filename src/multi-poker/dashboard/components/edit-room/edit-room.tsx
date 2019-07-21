@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Container } from '../../../../core/styled/container/container.styled';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
@@ -39,6 +40,14 @@ export class EditRoom extends React.Component<Props, State> {
     this.setState({ [field]: value } as {});
   }
 
+  private handleSubmit() {
+    this.props.handleSubmit({
+      ...R.pick([ 'name', 'description' ], this.state),
+      users: [],
+      discovered: false,
+    });
+  }
+
   render() {
     const { type } = this.props;
     const dividerStyle = (space: 10 | 20) => ({ marginTop: space, marginBottom: space });
@@ -68,7 +77,7 @@ export class EditRoom extends React.Component<Props, State> {
 
           <Button
               title="CREATE"
-              onPress={() => this.props.handleSubmit({ ...this.state })}
+              onPress={() => this.handleSubmit()}
           />
           <Divider style={dividerStyle(10)} />
           <Button

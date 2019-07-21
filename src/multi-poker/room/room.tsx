@@ -8,7 +8,7 @@ import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 import { UserModel } from '../../core/models/auth.models';
 import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent, parseName } from '../../core/helpers';
+import { isPresent, parseName, rejectNil } from '../../core/helpers';
 import { RoomModel } from '../models/room.models';
 import { NavigationProps } from '../../core/navigation/navigation.model';
 import { SCREENS } from '../../core/navigation/screens';
@@ -66,9 +66,15 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
       this.props.addUser({
         user: this.props.user,
         index: (this.props.room.users || []).length,
-        roomIndex: R.findIndex(R.propEq('id', this.props.room.id))(this.props.rooms),
+        roomIndex: this.getRoomIndex(),
       });
     }
+  }
+
+  getRoomIndex() {
+    return R.findIndex(
+      r => R.propOr('', 'id', r) === this.props.room.id,
+    )(this.props.rooms);
   }
 
   getUsers(room: RoomModel) {
@@ -88,7 +94,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
   handleShowDown() {
     this.props.showDown({
       room: this.props.room,
-      index: R.findIndex(R.propEq('id', this.props.room.id))(this.props.rooms),
+      index: this.getRoomIndex(),
     });
   }
 
@@ -99,7 +105,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
         discovered: false,
         users: this.props.room.users.map(u => ({ ...u, selectedValue: null })),
       },
-      index: R.findIndex(R.propEq('id', this.props.room.id))(this.props.rooms),
+      index: this.getRoomIndex(),
     });
   }
 
@@ -114,7 +120,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
     this.setState({ isSelecting: false });
     this.props.setValue({
       value: card,
-      roomIndex: R.findIndex(R.propEq('id', this.props.room.id))(this.props.rooms),
+      roomIndex: this.getRoomIndex(),
       userIndex: R.findIndex(R.propEq('email', this.props.user.email))(this.props.room.users),
     });
 

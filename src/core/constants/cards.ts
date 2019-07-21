@@ -18,8 +18,8 @@ export const CARDS_STACK = {
     { value: 20, label: '20' },
     { value: 40, label: '40' },
     { value: 100, label: '100' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
+    { value: '∞', label: '∞' },
+    { value: '?', label: '?' },
   ],
   [CARDS.FIBONACCI_POKER]: [
     { value: 0, label: '0' },
@@ -34,8 +34,8 @@ export const CARDS_STACK = {
     { value: 55, label: '55' },
     { value: 89, label: '89' },
     { value: 144, label: '144' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
+    { value: '∞', label: '∞' },
+    { value: '?', label: '?' },
   ],
   [CARDS.T_SHIRT_POKER]: [
     { value: 'XS', label: 'XS' },
@@ -44,8 +44,8 @@ export const CARDS_STACK = {
     { value: 'L', label: 'L' },
     { value: 'XL', label: 'XL' },
     { value: 'XLL', label: 'XLL' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
+    { value: '∞', label: '∞' },
+    { value: '?', label: '?' },
   ],
   [CARDS.RISK_POKER]: [
     { value: 'risk-green', label: 'green' },
@@ -53,7 +53,7 @@ export const CARDS_STACK = {
     { value: 'risk-orange', label: 'orange' },
     { value: 'risk-purple', label: 'purple' },
     { value: 'risk-red', label: 'red' },
-    { value: Infinity, label: '∞' },
-    { value: undefined, label: '?' },
+    { value: '∞', label: '∞' },
+    { value: '?', label: '?' },
   ],
 };
