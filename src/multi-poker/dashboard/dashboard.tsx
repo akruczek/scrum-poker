@@ -1,21 +1,22 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { ListItem, Divider } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import Swipeable from 'react-native-swipeable-row';
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
 import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent } from '../../core/helpers/ramda';
+import { isPresent, findIndexBy } from '../../core/helpers/ramda';
 import { Preloader } from '../../core/components/preloader/preloader';
 import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.actions';
 import { Dispatch, bindActionCreators } from 'redux';
 import { NavigationProps } from '../../core/navigation/navigation.model';
 import { SCREENS } from '../../core/navigation/screens';
 import { EditRoom } from './components/edit-room/edit-room';
-import { SwipeDeleteBar } from './components/swipe-delete-bard/swipe-delete-bar';
+import { getNewRoomId } from './helpers/get-new-room-id.helper';
+import { ListedRoom } from './components/listed-room/listed-room';
+import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
+import { prepareNewRoom } from './helpers/prepare-new-room.helper';
+import { toggleValue } from '../../core/helpers/toggle-value/toggle-value.helper';
 
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
@@ -46,6 +47,9 @@ export class _Dashboard extends React.Component<StateProps & DispatchProps & Nav
     this.updateRooms = this.updateRooms.bind(this);
     this.handleNavigate = this.handleNavigate.bind(this);
     this.handleAddRoom = this.handleAddRoom.bind(this);
+    this.handleRemoveRoom = this.handleRemoveRoom.bind(this);
+    this.toggleSwiping = this.toggleSwiping.bind(this);
+    this.toggleCreateRoom = this.toggleCreateRoom.bind(this);
   }
 
   componentDidMount() {
@@ -67,74 +71,44 @@ export class _Dashboard extends React.Component<StateProps & DispatchProps & Nav
   }
 
   toggleCreateRoom(value?: boolean) {
-    this.setState(state => ({
-      isCreatingRoom: R.isNil(value) ? !state.isCreatingRoom : value
-    }));
+    this.setState(toggleValue('isCreatingRoom', value))
   }
 
-  getNewRoomId() {
-    const ids = R.pipe<RoomModel[], any[], any[], number[]>(
-      R.map(R.prop('id')),
-      R.reject(R.isNil),
-      R.map(Number),
-    )(this.props.rooms);
-
-    return R.inc(Math.max(...ids));
+  toggleSwiping(value?: boolean) {
+    this.setState(toggleValue('isSwiping', value));
   }
 
   handleAddRoom(room: RoomModel) {
     this.toggleCreateRoom(false);
-    this.props.addRoom({
-      room: {
-        id: this.getNewRoomId(),
-        ...room,
-      },
-      index: this.props.rooms.length,
-    });
+    this.props.addRoom(
+      prepareNewRoom(room, this.props.rooms)
+    );
   }
 
   handleRemoveRoom(room: RoomModel) {
-    const index = R.findIndex(v => R.propOr('', 'id', v) === room.id)(this.props.rooms);
+    const index = findIndexBy('id', room.id)(this.props.rooms);
     this.props.removeRoom(index);
   }
 
   render() {
     const { rooms } = this.props;
     const { isPending, isCreatingRoom, isSwiping } = this.state;
-    const swipeHeight = isSwiping ? 80 : 0;
 
     return (
       <AppContainer>
         <ScrollContainer>
           {isPresent(rooms) && rooms.map((room: RoomModel) => room && (
-            <React.Fragment key={room.id}>
-              <Swipeable
-                  onSwipeStart={() => this.setState({ isSwiping: true })}
-                  leftContent={<SwipeDeleteBar height={swipeHeight} />}
-                  leftActionActivationDistance={200}
-                  onLeftActionRelease={() => this.handleRemoveRoom(room)}
-              >
-                <TouchableOpacity onPress={() => this.handleNavigate(room)}>
-                  <ListItem
-                      title={room.name}
-                      subtitle={R.propOr(room.name, 'description', room)}
-                      rightIcon={{ name: 'arrow-forward' }}
-                      containerStyle={{ height: 80 }}
-                  />
-                </TouchableOpacity>
-              </Swipeable>
-              <Divider />
-            </React.Fragment>
+            <ListedRoom
+                key={room.id}
+                room={room}
+                isSwiping={isSwiping}
+                handleRemoveRoom={this.handleRemoveRoom}
+                handleNavigate={this.handleNavigate}
+                toggleSwiping={this.toggleSwiping}
+            />
           ))}
 
-          <TouchableOpacity onPress={() => this.toggleCreateRoom(true)}>
-            <ListItem
-                title="Add Room"
-                subtitle="Add new Room"
-                rightIcon={{ name: 'add' }}
-            />
-          </TouchableOpacity>
-          <Divider />
+          <ListedNewRoom toggleCreateRoom={this.toggleCreateRoom} />
         </ScrollContainer>
 
         {isCreatingRoom && (
