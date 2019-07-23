@@ -2,9 +2,10 @@ import React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { NavigationProps } from '../../../core/navigation/navigation.model';
-import { Auth } from '../../../multi-poker/auth/auth';
 import { Dashboard } from '../../../multi-poker/dashboard/dashboard';
-import { AUTH_TYPES } from '../../../multi-poker/models/auth.models';
+import { ifElse } from '../../../core/helpers';
+import { Auth } from '../../../auth/auth';
+import { AUTH_TYPES } from '../../../auth/models/auth.models';
 
 interface StateProps {
   email: string;
@@ -16,9 +17,11 @@ export class _MultiPlayer extends React.Component<NavigationProps & StateProps, 
   };
 
   render() {
-    return this.props.email
-      ? <Dashboard navigation={this.props.navigation} />
-      : <Auth type={AUTH_TYPES.JOIN} />;
+    return ifElse(
+      this.props.email,
+      <Dashboard navigation={this.props.navigation} />,
+      <Auth type={AUTH_TYPES.JOIN} />
+    );
   }
 }
 

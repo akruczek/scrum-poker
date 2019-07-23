@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
-import { AppContainer } from '../../core/styled/app-container/app-container';
-import { Container } from '../../core/styled/container/container.styled';
 import { Button, Input } from 'react-native-elements';
-import { Text } from '../../core/styled/text/text.styled';
 import { Dispatch, bindActionCreators } from 'redux';
+import { AppContainer } from '../core/styled/app-container/app-container';
+import { Container } from '../core/styled/container/container.styled';
+import { Text } from '../core/styled/text/text.styled';
 import { signIn } from './store/auth.actions';
-import { Preloader } from '../../core/components/preloader/preloader';
-import { AUTH_TYPES } from '../models/auth.models';
+import { Preloader } from '../core/components/preloader/preloader';
+import { AUTH_TYPES } from './models/auth.models';
 
 interface Props {
   type: AUTH_TYPES;

@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { signInEpic, signInSuccessEpic, signOutEpic } from '../multi-poker/auth/store/auth.epics';
+import { signInEpic, signInSuccessEpic, signOutEpic } from '../auth/store/auth.epics';
 import {
   addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic,
 } from '../multi-poker/dashboard/store/dashboard.epics';

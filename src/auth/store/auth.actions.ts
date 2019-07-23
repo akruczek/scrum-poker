@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { UserModel } from '../../../core/models/auth.models';
+import { UserModel } from '../models/auth.models';
 
 export enum AUTH_ACTIONS {
   SIGN_IN = '[Auth]: Sign in',

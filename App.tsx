@@ -12,7 +12,7 @@ import { ifElse, isPlatform } from './src/core/helpers';
 import { Firebase } from './src/core/services/firebase/firebase.service';
 import { Storage } from './src/core/services/device-storage/device-storage.service';
 import { Dispatch, bindActionCreators } from 'redux';
-import { signIn, AUTH_ACTIONS } from './src/multi-poker/auth/store/auth.actions';
+import { signIn, AUTH_ACTIONS } from './src/auth/store/auth.actions';
 
 interface Props {
   skipLoadingScreen?: boolean;

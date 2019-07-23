@@ -1,9 +1,9 @@
 import { ActionsObservable, ofType } from 'redux-observable';
-import { pluck, switchMap, tap } from 'rxjs/operators';
-import { Firebase } from '../../../core/services/firebase/firebase.service';
-import { UserModel } from '../../../core/models/auth.models';
-import { Storage } from '../../../core/services/device-storage/device-storage.service';
-import { EMPTY_ACTION } from '../../../core/constants/store';
+import { pluck, switchMap } from 'rxjs/operators';
+import { Firebase } from '../../core/services/firebase/firebase.service';
+import { Storage } from '../../core/services/device-storage/device-storage.service';
+import { EMPTY_ACTION } from '../../core/constants/store';
+import { UserModel } from '../models/auth.models';
 import {
   AUTH_ACTIONS,
   SignInAction, signInError, signInSuccess, SignInSuccessAction,
