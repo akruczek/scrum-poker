@@ -1,4 +1,4 @@
-import { UserModel } from '../../core/models/auth.models';
+import { UserModel } from '../../auth/models/auth.models';
 
 export enum EDIT_ROOMS_TYPES {
   CREATE = 'create',

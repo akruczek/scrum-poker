@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { SinglePlayer, MultiPlayer, Settings } from './components';
 import { TabBarIcon } from '../core/components/tab-bar-icon/tab-bar-icon';
 import { ICONS } from '../core/constants/icons';
+import { SinglePlayer } from './single-player/single-player';
+import { MultiPlayer } from './multi-player/multi-player';
+import { Settings } from './settings/settings';
 
 interface Props {
   focused: boolean;

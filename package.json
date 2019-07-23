@@ -25,6 +25,7 @@
     ]
   },
   "dependencies": {
+    "@briisk/tslint-config": "^0.1.0",
     "@expo/samples": "2.1.1",
     "@reactivex/rxjs": "^6.5.2",
     "@types/expo": "^32.0.13",

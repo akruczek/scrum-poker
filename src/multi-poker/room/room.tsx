@@ -1,20 +1,20 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { TouchableOpacity } from 'react-native';
-import { ListItem, Divider, Icon, Button, colors } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
-import { UserModel } from '../../core/models/auth.models';
 import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent, parseName, rejectNil } from '../../core/helpers';
+import { isPresent } from '../../core/helpers';
 import { RoomModel } from '../models/room.models';
 import { NavigationProps } from '../../core/navigation/navigation.model';
 import { SCREENS } from '../../core/navigation/screens';
-import { Text } from '../../core/styled/text/text.styled';
 import { SelectCard } from '../dashboard/components/select-card/select-card';
-import { PokerCard } from '../../single-poker/models/poker-card.models';
+import { UserModel } from '../../auth/models/auth.models';
+import { ListedUser } from './components/listed-user/listed-user';
+import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
+import { HeaderBackButton } from '../../core/components/header-back-button/header-back-button';
+import { PokerCard } from '../../core/models/poker-card.models';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
@@ -48,15 +48,14 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
 
     this.getUsers = this.getUsers.bind(this);
     this.handleSelectCard = this.handleSelectCard.bind(this);
+    this.handleOnListItemPress = this.handleOnListItemPress.bind(this);
+    this.handleShowDown = this.handleShowDown.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   static navigationOptions = (props: NavigationProps & StateProps) => ({
     title: 'Room',
-    headerLeft: (
-      <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => props.navigation.navigate(SCREENS.MULTI_PLAYER)}>
-        <Icon name="arrow-back" />
-      </TouchableOpacity>
-    ),
+    headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.MULTI_PLAYER} />
   });
 
   componentDidMount() {
@@ -80,15 +79,6 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
   getUsers(room: RoomModel) {
     this.setState({ users: room.users });
     this.props.setRoom(room);
-  }
-
-  getIcon(user: UserModel) {
-    return R.cond([
-      [ R.isNil, R.always('live-help') ],
-      [ value => isPresent(value) && !(this.props.room || {}).discovered, R.always('check') ],
-      [ value => isPresent(value) && !!(this.props.room || {}).discovered, R.always('format-list') ],
-      [ R.T, R.always('live-help') ]
-    ])(user.selectedValue);
   }
 
   handleShowDown() {
@@ -116,7 +106,6 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
   }
 
   handleSelectCard(card: PokerCard) {
-    console.log('select card -> ', card);
     this.setState({ isSelecting: false });
     this.props.setValue({
       value: card,
@@ -127,43 +116,26 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
   }
 
   render() {
-    const { users } = this.state;
-    const isValuePresent = (user: UserModel) => !!(this.props.room || {}).discovered && isPresent(user.selectedValue);
+    const { users, isSelecting } = this.state;
+    const { room } = this.props;
 
     return (
       <AppContainer>
         <ScrollContainer>
           {isPresent(users) && (users || []).map((user: UserModel) => (
-            <React.Fragment key={user.email}>
-              <TouchableOpacity onPress={() => this.handleOnListItemPress(user)}>
-                <ListItem
-                    title={parseName(user.email)}
-                    subtitle={user.email}
-                    rightIcon={isValuePresent(user) ? undefined : { name: this.getIcon(user) }}
-                    rightElement={isValuePresent(user) || (user.email === this.props.user.email && isPresent(user.selectedValue))
-                        ? <Text>{R.pathOr('?', [ 'selectedValue', 'label' ], user)}</Text>
-                        : undefined}
-                />
-              </TouchableOpacity>
-              <Divider />
-            </React.Fragment>
+            <ListedUser
+                key={user.email}
+                onListItemPress={this.handleOnListItemPress}
+                room={room}
+                user={user}
+                email={this.props.user.email}
+            />
           ))}
         </ScrollContainer>
 
-        <Button
-            title="SHOW DOWN"
-            onPress={() => this.handleShowDown()}
-        />
+        <RoomButtonsSet handleReset={this.handleReset} handleShowDown={this.handleShowDown} />
 
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-
-        <Button
-            title="RESET"
-            buttonStyle={{ backgroundColor: colors.secondary }}
-            onPress={() => this.handleReset()}
-        />
-
-        {this.state.isSelecting && <SelectCard handleSelect={this.handleSelectCard} />}
+        {isSelecting && <SelectCard handleSelect={this.handleSelectCard} />}
       </AppContainer>
     );
   }

@@ -7,7 +7,6 @@ import {
   addRoomError, addRoomSuccess, AddRoomAction,
   RemoveRoomAction, removeRoomSuccess, removeRoomError, AddUserAction, AddUserPayload, addUserSuccess, addUserError, RoomAction, RoomPayload, showDownSuccess, showDownError, resetSuccess, resetError, SetValueAction, SetValuePayload, setValueSuccess, setValueError,
 } from './dashboard.actions';
-import { EMPTY_ACTION } from '../../../core/constants/store';
 
 const addRoom = (payload: { room: RoomModel, index: number }) => Firebase
   .post(`/rooms/${payload.index}`, payload.room)

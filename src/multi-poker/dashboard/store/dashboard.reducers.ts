@@ -1,13 +1,8 @@
 import * as R from 'ramda';
 import { RoomsStateModel } from '../../models/room.models';
 import {
-  DASHBOARD_ACTIONS,
-  DashboardActions, SetRoomsAction, SetRoomAction,
-  AddRoomAction,
-  RemoveRoomAction,
-  AddUserAction,
-  RoomAction,
-  SetValueAction,
+  DASHBOARD_ACTIONS, DashboardActions, SetRoomsAction, SetRoomAction,
+  AddRoomAction, RemoveRoomAction, AddUserAction, RoomAction, SetValueAction,
 } from './dashboard.actions';
 
 const initialState: RoomsStateModel = {

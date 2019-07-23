@@ -1,16 +1,15 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import { MainTabNavigator } from './src/main/main.navigation';
-import * as SinglePokerNavigations from './src/single-poker/single-poker.navigation';
+import { SinglePoker } from './src/single-poker/single-poker';
 import * as MultiPokerNavigations from './src/multi-poker/multi-poker.navigation';
-import * as SettingsNavigations from './src/settings/settings.navigation';
 
 export const AppNavigator = createAppContainer(
   createSwitchNavigator(
     {
       Main: MainTabNavigator,
-      ...SinglePokerNavigations,
+      SinglePoker: createStackNavigator({ 'single-poker': SinglePoker }),
       ...MultiPokerNavigations,
-      ...SettingsNavigations,
-    }
+    },
   ),
 );

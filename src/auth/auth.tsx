@@ -9,6 +9,7 @@ import { Text } from '../core/styled/text/text.styled';
 import { signIn } from './store/auth.actions';
 import { Preloader } from '../core/components/preloader/preloader';
 import { AUTH_TYPES } from './models/auth.models';
+import { KeyboardAvoidingContainer } from '../core/styled/keyboard-avoiding-container/keyboard-avoiding-container';
 
 interface Props {
   type: AUTH_TYPES;
@@ -64,14 +65,16 @@ export class _Auth extends React.Component<DispatchProps & StateProps & Props, S
 
     return (
       <AppContainer>
-        <Container alignItems="center" justifyContent="center" margins="0 0 100px">
-          <Text margins="0 0 20px" children={title[type]} />
-          <Input value={email} placeholder="Email" onChangeText={this.handleChange('email')} />
-        </Container>
+        <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
+          <Container alignItems="center" justifyContent="center" margins="0 0 100px">
+            <Text margins="0 0 20px" children={title[type]} />
+            <Input value={email} placeholder="Email" onChangeText={this.handleChange('email')} />
+          </Container>
 
-        <Button title={buttonText[type]} onPress={this.handleSubmit} />
+          <Button title={buttonText[type]} onPress={this.handleSubmit} />
 
-        {isPending && <Preloader />}
+          {isPending && <Preloader />}
+        </KeyboardAvoidingContainer>
       </AppContainer>
     );
   }

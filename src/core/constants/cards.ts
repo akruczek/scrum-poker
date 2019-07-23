@@ -43,7 +43,7 @@ export const CARDS_STACK = {
     { value: 'M', label: 'M' },
     { value: 'L', label: 'L' },
     { value: 'XL', label: 'XL' },
-    { value: 'XLL', label: 'XLL' },
+    { value: 'XXL', label: 'XXL' },
     { value: '∞', label: '∞' },
     { value: '?', label: '?' },
   ],
