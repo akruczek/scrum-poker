@@ -51,6 +51,8 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
   });
 
   render() {
+    const { selectedCard } = this.state;
+
     return (
       <AppContainer>
         <ScrollContainer showsVerticalScrollIndicator={false}>
@@ -69,11 +71,8 @@ export class StandardPoker extends React.Component<NavigationProps, State> {
           </Container>
         </ScrollContainer>
 
-        {this.state.selectedCard && (
-          <FullScreenCard
-              card={this.state.selectedCard}
-              handleBackPress={() => this.handleSelect()}
-          />
+        {selectedCard && (
+          <FullScreenCard card={selectedCard} handleBackPress={() => this.handleSelect()} />
         )}
       </AppContainer>
     );

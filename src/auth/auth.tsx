@@ -51,31 +51,27 @@ export class _Auth extends React.Component<DispatchProps & StateProps & Props, S
     this.props.signIn(this.state.email);
   }
 
-  private handleChange(field: string, value: string) {
-    this.setState({ [field]: value } as {});
+  private handleChange(field: string) {
+    return (value: string) => {
+      this.setState({ [field]: value } as {});
+    };
   }
 
   render() {
+    const { email } = this.state;
+    const { title, buttonText } = this.content;
+    const { isPending, type } = this.props;
+
     return (
       <AppContainer>
         <Container alignItems="center" justifyContent="center" margins="0 0 100px">
-          <Text margins="0 0 20px">
-            {this.content.title[this.props.type]}
-          </Text>
-
-          <Input
-              value={this.state.email}
-              placeholder="Email"
-              onChangeText={(value: string) => this.handleChange('email', value)}
-          />
+          <Text margins="0 0 20px" children={title[type]} />
+          <Input value={email} placeholder="Email" onChangeText={this.handleChange('email')} />
         </Container>
 
-        <Button
-            title={this.content.buttonText[this.props.type]}
-            onPress={this.handleSubmit}
-        />
+        <Button title={buttonText[type]} onPress={this.handleSubmit} />
 
-        {this.props.isPending && <Preloader />}
+        {isPending && <Preloader />}
       </AppContainer>
     );
   }
