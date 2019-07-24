@@ -15,10 +15,6 @@ interface Props {
   type: AUTH_TYPES;
 }
 
-interface State {
-  email: string;
-}
-
 interface StateProps {
   isPending: boolean;
 }
@@ -27,17 +23,10 @@ interface DispatchProps {
   signIn: (email: string) => void;
 }
 
-export class _Auth extends React.Component<DispatchProps & StateProps & Props, State> {
-  constructor(props: StateProps & DispatchProps & Props) {
-    super(props);
-    this.state = {
-      email: '',
-    };
+export const _Auth = (props: DispatchProps & StateProps & Props) => {
+  const [ email, setEmail ] = React.useState('');
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  private content = {
+  const content = {
     buttonText: {
       [AUTH_TYPES.JOIN]: 'JOIN',
       [AUTH_TYPES.LOGIN]: 'LOGIN',
@@ -48,37 +37,24 @@ export class _Auth extends React.Component<DispatchProps & StateProps & Props, S
     },
   };
 
-  private handleSubmit() {
-    this.props.signIn(this.state.email);
-  }
+  const { type, isPending } = props;
+  const { buttonText, title } = content;
 
-  private handleChange(field: string) {
-    return (value: string) => {
-      this.setState({ [field]: value } as {});
-    };
-  }
+  return (
+    <AppContainer>
+      <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
+        <Container alignItems="center" justifyContent="center" margins="0 0 100px">
+          <Text margins="0 0 20px" children={title[type]} />
+          <Input value={email} placeholder="Email" onChangeText={setEmail} />
+        </Container>
 
-  render() {
-    const { email } = this.state;
-    const { title, buttonText } = this.content;
-    const { isPending, type } = this.props;
+        <Button title={buttonText[type]} onPress={() => props.signIn(email)} />
 
-    return (
-      <AppContainer>
-        <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
-          <Container alignItems="center" justifyContent="center" margins="0 0 100px">
-            <Text margins="0 0 20px" children={title[type]} />
-            <Input value={email} placeholder="Email" onChangeText={this.handleChange('email')} />
-          </Container>
-
-          <Button title={buttonText[type]} onPress={this.handleSubmit} />
-
-          {isPending && <Preloader />}
-        </KeyboardAvoidingContainer>
-      </AppContainer>
-    );
-  }
-}
+        {isPending && <Preloader />}
+      </KeyboardAvoidingContainer>
+    </AppContainer>
+  );
+};
 
 const mapStateToProps = R.applySpec<StateProps>({
   isPending: R.path([ 'auth', 'isPending' ]),

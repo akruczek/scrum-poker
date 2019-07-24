@@ -11,31 +11,18 @@ interface DispatchProps {
   signOut: () => void;
 }
 
-export class _SettingsOverview extends React.Component<DispatchProps & NavigationProps, {}> {
-  constructor(props: DispatchProps & NavigationProps) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleLogout() {
-    this.props.signOut();
-  }
-
-  render() {
-    return (
-      <AppContainer>
-        <Container justifyContent="flex-end" margins="20px 0 0">
-          <Button
-              title="Logout"
-              onPress={this.handleLogout}
-              icon={{ name: 'exit-to-app', color: 'white' }}
-              titleStyle={{ fontSize: 18 }}
-          />
-        </Container>
-      </AppContainer>
-    );
-  }
-}
+export const _SettingsOverview = (props: DispatchProps & NavigationProps) => (
+  <AppContainer>
+    <Container justifyContent="flex-end" margins="20px 0 0">
+      <Button
+          title="Logout"
+          onPress={props.signOut}
+          icon={{ name: 'exit-to-app', color: 'white' }}
+          titleStyle={{ fontSize: 18 }}
+      />
+    </Container>
+  </AppContainer>
+);
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
   { signOut },
