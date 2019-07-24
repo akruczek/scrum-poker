@@ -5,6 +5,7 @@ export const loadAssets = async (): Promise<any> => {
     Asset.loadAsync([
       require('./images/robot-dev.png'),
       require('./images/robot-prod.png'),
+      require('./images/logo.png'),
     ]),
     Font.loadAsync({
       'space-mono': require('./fonts/SpaceMono-Regular.ttf'),

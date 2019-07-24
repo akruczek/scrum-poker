@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/briisk-logo.png",
+    "icon": "./assets/images/logo.png",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
