@@ -3,13 +3,13 @@ import { ScrollContainer } from '../core/styled/scroll-container/scroll-containe
 import { AppContainer } from '../core/styled/app-container/app-container';
 import { NavigationProps } from '../core/navigation/navigation.model';
 import { Container } from '../core/styled/container/container.styled';
-import { View } from 'react-native';
 import { CARDS, CARDS_STACK } from '../core/constants/cards';
 import { HeaderBackButton } from '../core/components/header-back-button/header-back-button';
 import { SCREENS } from '../core/navigation/screens';
 import { CardButton } from '../core/components/card-button/card-button';
 import { PokerCard } from '../core/models/poker-card.models';
 import { FullScreenCard } from './full-screen-card/full-screen-card';
+import { ViewContainer } from '../core/styled/view-container/view-container';
 
 interface State {
   selectedCard: PokerCard | null;
@@ -45,9 +45,9 @@ export class SinglePoker extends React.Component<NavigationProps, State> {
         <ScrollContainer showsVerticalScrollIndicator={false}>
           <Container margins="25px 0 0" flexDirection="row" justifyContent="space-around" flexWrap="wrap">
             {this.cards.map((card: PokerCard) => (
-              <View key={card.label} style={{ marginBottom: 10 }}>
+              <ViewContainer key={card.label} margins="0 0 10px">
                 <CardButton card={card} handleSelect={this.handleSelect} />
-              </View>
+              </ViewContainer>
             ))}
           </Container>
         </ScrollContainer>
