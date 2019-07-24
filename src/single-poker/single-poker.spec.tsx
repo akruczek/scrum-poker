@@ -24,15 +24,5 @@ describe('SinglePoker', () => {
       expect(wrapper.root.findAllByType(CardButton).length)
         .toEqual(CARDS_STACK[CARDS.RISK_POKER].length);
     });
-
-    describe('when selectedCard state is not nil', () => {
-      beforeEach(() => {
-        wrapper.getInstance().setState({ selectedCard: true });
-      });
-
-      it('should display one FullScreenCard', () => {
-        expect(wrapper.root.findByType(FullScreenCard)).toBeTruthy();
-      });
-    });
   });
 });

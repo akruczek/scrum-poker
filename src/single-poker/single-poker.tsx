@@ -11,51 +11,34 @@ import { PokerCard } from '../core/models/poker-card.models';
 import { FullScreenCard } from './full-screen-card/full-screen-card';
 import { ViewContainer } from '../core/styled/view-container/view-container';
 
-interface State {
-  selectedCard: PokerCard | null;
-}
+const _SinglePoker = ({ navigation }: NavigationProps) => {
+  const [ selectedCard, handleSelect ] = React.useState();
 
-export class SinglePoker extends React.Component<NavigationProps, State> {
-  constructor(props: NavigationProps) {
-    super(props);
-    this.state = {
-      selectedCard: null,
-    };
+  const cardsStack: CARDS = navigation.getParam('cards');
+  const cards: PokerCard[] = CARDS_STACK[cardsStack];
 
-    this.handleSelect = this.handleSelect.bind(this);
-  }
+  return (
+    <AppContainer>
+      <ScrollContainer showsVerticalScrollIndicator={false}>
+        <Container margins="25px 0 0" flexDirection="row" justifyContent="space-around" flexWrap="wrap">
+          {cards.map((card: PokerCard) => (
+            <ViewContainer key={card.label} margins="0 0 10px">
+              <CardButton card={card} handleSelect={handleSelect} />
+            </ViewContainer>
+          ))}
+        </Container>
+      </ScrollContainer>
 
-  static navigationOptions = (props: NavigationProps) => ({
-    title: props.navigation.getParam('title'),
-    headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.SINGLE_PLAYER} />,
-  });
+      {selectedCard && (
+        <FullScreenCard card={selectedCard} handleBackPress={() => handleSelect(null)} />
+      )}
+    </AppContainer>
+  );
+};
 
-  private cardsStack: CARDS = this.props.navigation.getParam('cards');
-  public cards: PokerCard[] = CARDS_STACK[this.cardsStack];
+_SinglePoker.navigationOptions = ({ navigation }: NavigationProps) => ({
+  title: navigation.getParam('title'),
+  headerLeft: <HeaderBackButton navigation={navigation} screen={SCREENS.SINGLE_PLAYER} />,
+});
 
-  private handleSelect(card?: PokerCard) {
-    this.setState({ selectedCard: card || null });
-  }
-
-  render() {
-    const { selectedCard } = this.state;
-
-    return (
-      <AppContainer>
-        <ScrollContainer showsVerticalScrollIndicator={false}>
-          <Container margins="25px 0 0" flexDirection="row" justifyContent="space-around" flexWrap="wrap">
-            {this.cards.map((card: PokerCard) => (
-              <ViewContainer key={card.label} margins="0 0 10px">
-                <CardButton card={card} handleSelect={this.handleSelect} />
-              </ViewContainer>
-            ))}
-          </Container>
-        </ScrollContainer>
-
-        {selectedCard && (
-          <FullScreenCard card={selectedCard} handleBackPress={() => this.handleSelect()} />
-        )}
-      </AppContainer>
-    );
-  }
-}
+export const SinglePoker = _SinglePoker;
