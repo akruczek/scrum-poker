@@ -10,6 +10,7 @@ import { signIn } from './store/auth.actions';
 import { Preloader } from '../core/components/preloader/preloader';
 import { AUTH_TYPES } from './models/auth.models';
 import { KeyboardAvoidingContainer } from '../core/styled/keyboard-avoiding-container/keyboard-avoiding-container';
+import { validateEmail } from './helpers/validate-email.helper';
 
 interface Props {
   type: AUTH_TYPES;
@@ -25,6 +26,7 @@ interface DispatchProps {
 
 export const _Auth = (props: DispatchProps & StateProps & Props) => {
   const [ email, setEmail ] = React.useState('');
+  const [ error, throwError ] = React.useState('');
 
   const content = {
     buttonText: {
@@ -37,6 +39,19 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
     },
   };
 
+  const handleSignIn = (email: string) => {
+    if (validateEmail(email)) {
+      props.signIn(email)
+    } else {
+      throwError('Wrong email!')
+    };
+  };
+
+  const handleChange = (email: string) => {
+    throwError('');
+    setEmail(email);
+  };
+
   const { type, isPending } = props;
   const { buttonText, title } = content;
 
@@ -45,10 +60,16 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
       <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
         <Container alignItems="center" justifyContent="center" margins="0 0 100px">
           <Text margins="0 0 20px" children={title[type]} />
-          <Input value={email} placeholder="Email" onChangeText={setEmail} />
+          <Input
+              value={email}
+              placeholder="Email"
+              onChangeText={handleChange}
+              errorMessage={error}
+              errorStyle={{ position: 'absolute', top: 40 }}
+          />
         </Container>
 
-        <Button title={buttonText[type]} onPress={() => props.signIn(email)} />
+        <Button title={buttonText[type]} onPress={() => handleSignIn(email)} />
 
         {isPending && <Preloader />}
       </KeyboardAvoidingContainer>

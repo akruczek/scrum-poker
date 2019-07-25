@@ -15,6 +15,7 @@ import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { HeaderBackButton } from '../../core/components/header-back-button/header-back-button';
 import { PokerCard } from '../../core/models/poker-card.models';
+import { getEstimation } from './helpers/get-estimation/get-estimation.helper';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
@@ -112,7 +113,11 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
       roomIndex: this.getRoomIndex(),
       userIndex: R.findIndex(R.propEq('email', this.props.user.email))(this.props.room.users),
     });
+  }
 
+  getEstimation(): (number|string)[] | null {
+    const { discovered, users } = this.props.room;
+    return discovered ? getEstimation(users) : null;
   }
 
   render() {
@@ -129,6 +134,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
                 room={room}
                 user={user}
                 email={this.props.user.email}
+                estimations={this.getEstimation()}
             />
           ))}
         </ScrollContainer>
