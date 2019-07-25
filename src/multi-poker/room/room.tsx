@@ -125,7 +125,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
     const { room } = this.props;
 
     return (
-      <AppContainer>
+      <AppContainer fullHorizontal>
         <ScrollContainer>
           {isPresent(users) && (users || []).map((user: UserModel) => (
             <ListedUser

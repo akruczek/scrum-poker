@@ -16,6 +16,8 @@ export enum COLORS {
   PURPLE_CARD = 'purpleCard',
   RED_CARD = 'redCard',
   GREEN_OPACITY = 'greenOpacity',
+  RED_OPACITY = 'redOpacity',
+  YELLOW_OPACITY = 'yellowOpacity',
   WHITE = 'white',
 }
 
@@ -37,5 +39,7 @@ export const colors = {
   purpleCard: '#E3007D',
   redCard: '#F80100',
   greenOpacity: 'rgba(54, 128, 45, 0.3)',
+  redOpacity: 'rgba(217, 30, 24, 0.3)',
+  yellowOpacity: 'rgba(245, 229, 27, 0.3)',
   white: 'white',
 };

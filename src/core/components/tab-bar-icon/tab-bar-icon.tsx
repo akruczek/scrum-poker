@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { colors } from '../../constants/colors';
+import { colors, COLORS } from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 interface Props {
@@ -14,7 +14,7 @@ export class TabBarIcon extends React.Component<Props, {}> {
           name={this.props.icon}
           size={26}
           style={{ marginBottom: -3 }}
-          color={this.props.focused ? colors.tabIconSelected : colors.tabIconDefault}
+          color={this.props.focused ? colors[COLORS.TAB_ICON_SELECTED] : colors[COLORS.TAB_ICON_DEFAULT]}
       />
     );
   }

@@ -21,6 +21,7 @@ export const CardIcon = (props: Props) => {
   const buttonTitleStyle = {
     fontSize: 20,
     display: isRiskCard(value) ? 'none' as 'none' : 'flex' as 'flex',
+    fontFamily: 'space-mono',
   };
  
   return (

@@ -6,7 +6,7 @@ import { AppContainer } from '../../core/styled/app-container/app-container';
 import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
 import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent, findIndexBy } from '../../core/helpers/ramda';
+import { isPresent, findIndexBy, rejectNil } from '../../core/helpers/ramda';
 import { Preloader } from '../../core/components/preloader/preloader';
 import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.actions';
 import { NavigationProps } from '../../core/navigation/navigation.model';
@@ -96,7 +96,7 @@ export class _Dashboard extends React.Component<StateProps & DispatchProps & Nav
     return (
       <AppContainer>
         <ScrollContainer>
-          {isPresent(rooms) && rooms.map((room: RoomModel) => room && (
+          {isPresent(rooms) && rejectNil(rooms).map((room: RoomModel) => room && (
             <ListedRoom
                 key={room.id}
                 room={room}

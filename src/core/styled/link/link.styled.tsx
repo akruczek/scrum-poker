@@ -3,7 +3,7 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import styled from 'styled-components/native';
 import { Text } from '../text/text.styled';
 import { TextProps } from 'react-native';
-import { colors } from '../../constants/colors';
+import { colors, COLORS } from '../../constants/colors';
 import { TEXT_SIZES } from '../text/text.model';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const StyledLink = styled(Text)`
-  color: ${colors.link};
+  color: ${colors[COLORS.LINK]};
 `;
 
 export const Link = (props: TouchableOpacityProps & Props & TextProps) => (
