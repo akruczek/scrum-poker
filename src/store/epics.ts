@@ -3,6 +3,7 @@ import { signInEpic, signInSuccessEpic, signOutEpic } from '../auth/store/auth.e
 import {
   addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic,
 } from '../multi-poker/dashboard/store/dashboard.epics';
+import { getTranslationsEpic } from '../core/services/translations/store/translations.epics';
 
 export const epics = combineEpics(
   signInEpic,
@@ -14,4 +15,5 @@ export const epics = combineEpics(
   showDownEpic,
   resetEpic,
   setValueEpic,
+  getTranslationsEpic,
 );
