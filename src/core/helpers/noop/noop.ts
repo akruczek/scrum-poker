@@ -1,1 +1,1 @@
-export const NOOP = () => null;
+export const NOOP = (arg?: any) => null;

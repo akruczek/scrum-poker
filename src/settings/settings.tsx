@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer } from '../core/styled/app-container/app-container';

@@ -4,7 +4,9 @@ export enum LANGUAGE_CODES {
 };
 
 export enum TRANSLATIONS {
-  SINGLE_POKER = 'single_poker',
+  MULTI_PLAYER = 'multi_player',
+  SINGLE_PLAYER = 'single_player',
+  SETTINGS = 'settings',
 }
 
 export type Translation = {[key: string]: string};
@@ -12,5 +14,6 @@ export type Translation = {[key: string]: string};
 export interface TranslationsStateModel {
   isPending: boolean;
   models: Translation[];
+  language: LANGUAGE_CODES;
   error: {};
 }

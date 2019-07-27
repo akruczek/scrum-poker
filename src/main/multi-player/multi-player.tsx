@@ -6,24 +6,22 @@ import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { ifElse } from '../../core/helpers';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';
+import { translate } from '../../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../../core/models/translations.models';
 
 interface StateProps {
   email: string;
 }
 
-export class _MultiPlayer extends React.Component<StateProps & NavigationProps, {}> {
-  static navigationOptions = {
-    title: 'Multi Player',
-  };
-  
-  render() {
-    return ifElse(
-      this.props.email,
-      <Dashboard navigation={this.props.navigation} />,
-      <Auth type={AUTH_TYPES.JOIN} />
-    );
-  }
-};
+export const _MultiPlayer = ({ email, navigation }: StateProps & NavigationProps) => ifElse(
+  email,
+  <Dashboard navigation={navigation} />,
+  <Auth type={AUTH_TYPES.JOIN} />
+);
+
+_MultiPlayer.navigationOptions = () => ({
+  title: translate(TRANSLATIONS.MULTI_PLAYER),
+})
 
 const mapStateToProps = R.applySpec<StateProps>({
   email: R.path([ 'auth', 'model', 'email' ]),

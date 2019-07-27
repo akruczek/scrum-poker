@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import { loadAssets } from './assets/load-assets';
@@ -9,8 +8,6 @@ import { appStore } from './src/store/configure-store';
 import { Container } from './src/core/styled/container/container.styled';
 import { ifElse, isPlatform } from './src/core/helpers';
 import { Firebase } from './src/core/services/firebase/firebase.service';
-import { Storage } from './src/core/services/device-storage/device-storage.service';
-import { AUTH_ACTIONS } from './src/auth/store/auth.actions';
 import { LANGUAGE_CODES } from './src/core/models/translations.models';
 import { Translations } from './src/core/services/translations/translations.service';
 import { AuthService } from './src/core/services/auth/auth.service';
