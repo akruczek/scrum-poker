@@ -6,7 +6,7 @@ import { AppNavigator } from './App.navigation';
 import { Provider } from 'react-redux';
 import { appStore } from './src/store/configure-store';
 import { Container } from './src/core/styled/container/container.styled';
-import { ifElse, isPlatform } from './src/core/helpers';
+import { ifElse, isPlatform, isBlank } from './src/core/helpers';
 import { Firebase } from './src/core/services/firebase/firebase.service';
 import { LANGUAGE_CODES } from './src/core/models/translations.models';
 import { Translations } from './src/core/services/translations/translations.service';
@@ -41,7 +41,7 @@ export default class App extends React.Component<Props & DispatchProps, State> {
   }
 
   isLoading() {
-    return !this.state.isLoadingComplete && !this.props.skipLoadingScreen;
+    return (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) || isBlank(appStore.getState().translations.models);
   }
   
   loadingError(error: any) {

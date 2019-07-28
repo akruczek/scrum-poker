@@ -8,6 +8,8 @@ import { Text } from '../../../../core/styled/text/text.styled';
 import { TEXT_SIZES } from '../../../../core/styled/text/text.model';
 import { AppContainer } from '../../../../core/styled/app-container/app-container';
 import { Separator } from '../../../../core/styled/separator/separator';
+import { translate } from '../../../../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../../../../core/models/translations.models';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -32,8 +34,8 @@ export class EditRoom extends React.Component<Props, State> {
 
   private content = {
     title: {
-      [EDIT_ROOMS_TYPES.CREATE]: 'Create Room',
-      [EDIT_ROOMS_TYPES.UPDATE]: 'Update Room',
+      [EDIT_ROOMS_TYPES.CREATE]: translate(TRANSLATIONS.CREATE_ROOM),
+      [EDIT_ROOMS_TYPES.UPDATE]: translate(TRANSLATIONS.UPDATE_ROOM),
     }
   };
 
@@ -63,25 +65,25 @@ export class EditRoom extends React.Component<Props, State> {
             <Separator margin={10} />
             <Input
                 value={this.state.name}
-                placeholder="Name"
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
                 onChangeText={(value: string) => this.handleChange('name', value)}
             />
             <Separator margin={20} />
             <Input
                 value={this.state.description}
-                placeholder="Description"
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
                 onChangeText={(value: string) => this.handleChange('description', value)}
             />
             <Separator margin={20} />
           </Container>
 
           <Button
-              title="CREATE"
+              title={translate(TRANSLATIONS.CREATE)}
               onPress={() => this.handleSubmit()}
           />
           <Separator margin={10} />
           <Button
-              title="DISMISS"
+              title={translate(TRANSLATIONS.DISMISS)}
               onPress={this.props.handleDismiss}
               buttonStyle={{ backgroundColor: colors.secondary }}
           />

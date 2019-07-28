@@ -16,6 +16,7 @@ const SinglePlayerStack = createStackNavigator({
 
 SinglePlayerStack.navigationOptions = {
   tabBarLabel: 'Single',
+  tabBarOptions: { showLabel: false },
   tabBarIcon: (props: Props) => (
     <TabBarIcon focused={props.focused} icon={ICONS.CONTACT} />
   ),
@@ -27,6 +28,7 @@ const MultiPlayerStack = createStackNavigator({
 
 MultiPlayerStack.navigationOptions = {
   tabBarLabel: 'Multi',
+  tabBarOptions: { showLabel: false },
   tabBarIcon: (props: Props) => (
     <TabBarIcon focused={props.focused} icon={ICONS.CONTACTS} />
   ),
@@ -38,6 +40,7 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Settings',
+  tabBarOptions: { showLabel: false },
   tabBarIcon: (props: Props) => (
     <TabBarIcon focused={props.focused} icon={ICONS.OPTIONS} />
   ),

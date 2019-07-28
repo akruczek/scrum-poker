@@ -19,6 +19,8 @@ import { getEstimation } from './helpers/get-estimation/get-estimation.helper';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
+import { translate } from '../../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../../core/models/translations.models';
 
 interface State {
   users: UserModel[];
@@ -55,7 +57,7 @@ export class _Room extends React.Component<StateProps & NavigationProps & Dispat
   }
 
   static navigationOptions = (props: NavigationProps & StateProps) => ({
-    title: 'Room',
+    title: translate(TRANSLATIONS.ROOM),
     headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.MULTI_PLAYER} />
   });
 

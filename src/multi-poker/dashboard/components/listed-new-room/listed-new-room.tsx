@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
+import { translate } from '../../../../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../../../../core/models/translations.models';
 
 interface Props {
   toggleCreateRoom: (value?: boolean) => void;
@@ -10,8 +12,8 @@ export const ListedNewRoom = (props: Props) => (
   <>
     <TouchableOpacity onPress={() => props.toggleCreateRoom(true)}>
       <ListItem
-          title="Add Room"
-          subtitle="Add new Room"
+          title={translate(TRANSLATIONS.ADD_ROOM)}
+          subtitle={translate(TRANSLATIONS.ADD_NEW_ROOM)}
           rightIcon={{ name: 'add' }}
       />
     </TouchableOpacity>

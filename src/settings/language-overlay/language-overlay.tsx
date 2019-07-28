@@ -3,12 +3,12 @@ import * as Expo from 'expo';
 import { Overlay, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { LANGUAGE_CODES } from '../../core/models/translations.models';
+import { LANGUAGE_CODES, TRANSLATIONS } from '../../core/models/translations.models';
 import { setLanguage } from '../../core/services/translations/store/translations.actions';
-import { ifElse } from '../../core/helpers';
 import { Text } from '../../core/styled/text/text.styled';
 import { Container } from '../../core/styled/container/container.styled';
 import { TEXT_SIZES } from '../../core/styled/text/text.model';
+import { translate } from '../../core/services/translations/translations.service';
 
 interface Props {
   isVisible: boolean;
@@ -36,22 +36,32 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
     Expo.Updates.reload();
   }
 
+  // TODO: map on LANGUAGE_CODES
+
   return (
     <>
       <Overlay isVisible={reloadInformation} onBackdropPress={handleClose} height={160}>
         <Container justifyContent="space-around">
           <Text size={TEXT_SIZES.SMALL}>
-            You need to reload App to see changes
+            {translate(TRANSLATIONS.RELOAD_REQUEST)}
           </Text>
 
           <Button title="Reload" onPress={handleReload} />
         </Container>
       </Overlay>
 
-      <Overlay isVisible={isVisible && !reloadInformation} onBackdropPress={handleClose} height={140}>
+      <Overlay isVisible={isVisible && !reloadInformation} onBackdropPress={handleClose} height={180}>
         <>
-          <ListItem title="English" onPress={() => handleChangeLanguage(LANGUAGE_CODES.EN)} />
-          <ListItem title="Polski" onPress={() => handleChangeLanguage(LANGUAGE_CODES.PL)} />
+          <ListItem
+              title={translate(TRANSLATIONS.LANGUAGE_EN)}
+              subtitle={translate(TRANSLATIONS.LANGUAGE_EN_NATIVE)}
+              onPress={() => handleChangeLanguage(LANGUAGE_CODES.EN)}
+          />
+          <ListItem
+              title={translate(TRANSLATIONS.LANGUAGE_PL)}
+              subtitle={translate(TRANSLATIONS.LANGUAGE_PL_NATIVE)}
+              onPress={() => handleChangeLanguage(LANGUAGE_CODES.PL)}
+          />
         </>
       </Overlay>
     </>

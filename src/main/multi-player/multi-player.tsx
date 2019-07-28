@@ -21,7 +21,7 @@ export const _MultiPlayer = ({ email, navigation }: StateProps & NavigationProps
 
 _MultiPlayer.navigationOptions = () => ({
   title: translate(TRANSLATIONS.MULTI_PLAYER),
-})
+});
 
 const mapStateToProps = R.applySpec<StateProps>({
   email: R.path([ 'auth', 'model', 'email' ]),

@@ -6,6 +6,8 @@ import { AppContainer } from '../core/styled/app-container/app-container';
 import { Container } from '../core/styled/container/container.styled';
 import { signOut } from '../auth/store/auth.actions';
 import { NavigationProps } from '../core/navigation/navigation.model';
+import { translate } from '../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../core/models/translations.models';
 
 interface DispatchProps {
   signOut: () => void;
@@ -15,7 +17,7 @@ export const _SettingsOverview = (props: DispatchProps & NavigationProps) => (
   <AppContainer>
     <Container justifyContent="flex-end" margins="20px 0 0">
       <Button
-          title="Logout"
+          title={translate(TRANSLATIONS.LOGOUT)}
           onPress={props.signOut}
           icon={{ name: 'exit-to-app', color: 'white' }}
           titleStyle={{ fontSize: 18 }}

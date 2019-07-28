@@ -11,6 +11,8 @@ import { Preloader } from '../core/components/preloader/preloader';
 import { AUTH_TYPES } from './models/auth.models';
 import { KeyboardAvoidingContainer } from '../core/styled/keyboard-avoiding-container/keyboard-avoiding-container';
 import { validateEmail } from './helpers/validate-email.helper';
+import { translate } from '../core/services/translations/translations.service';
+import { TRANSLATIONS } from '../core/models/translations.models';
 
 interface Props {
   type: AUTH_TYPES;
@@ -30,20 +32,20 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
 
   const content = {
     buttonText: {
-      [AUTH_TYPES.JOIN]: 'JOIN',
-      [AUTH_TYPES.LOGIN]: 'LOGIN',
+      [AUTH_TYPES.JOIN]: translate(TRANSLATIONS.JOIN),
+      [AUTH_TYPES.LOGIN]: translate(TRANSLATIONS.LOGIN),
     },
     title: {
-      [AUTH_TYPES.JOIN]: 'JOIN SESSION',
-      [AUTH_TYPES.LOGIN]: 'SIGN IN',
+      [AUTH_TYPES.JOIN]: translate(TRANSLATIONS.JOIN_SESSION),
+      [AUTH_TYPES.LOGIN]: translate(TRANSLATIONS.SIGN_IN),
     },
   };
 
   const handleSignIn = (email: string) => {
     if (validateEmail(email)) {
-      props.signIn(email)
+      props.signIn(email);
     } else {
-      throwError('Wrong email!')
+      throwError(translate(TRANSLATIONS.WRONG_EMAIL));
     };
   };
 
