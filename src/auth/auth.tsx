@@ -13,6 +13,7 @@ import { KeyboardAvoidingContainer } from '../core/styled/keyboard-avoiding-cont
 import { validateEmail } from './helpers/validate-email.helper';
 import { translate } from '../core/services/translations/translations.service';
 import { TRANSLATIONS } from '../core/models/translations.models';
+import { getDefault } from '../core/helpers';
 
 interface Props {
   type: AUTH_TYPES;
@@ -57,6 +58,8 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
   const { type, isPending } = props;
   const { buttonText, title } = content;
 
+  const buttonTitle = getDefault(String)(buttonText[type]);
+
   return (
     <AppContainer>
       <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
@@ -71,7 +74,7 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
           />
         </Container>
 
-        <Button title={buttonText[type]} onPress={() => handleSignIn(email)} />
+        <Button title={buttonTitle} onPress={() => handleSignIn(email)} />
 
         {isPending && <Preloader />}
       </KeyboardAvoidingContainer>

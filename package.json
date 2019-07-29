@@ -23,7 +23,10 @@
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/**/*.{ts,tsx}"
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.{model,models}.ts",
+      "!src/**/*.spec.{ts,tsx}",
+      "!src/**/index.ts"
     ]
   },
   "dependencies": {
