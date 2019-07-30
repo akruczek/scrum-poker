@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { ListItem, Divider } from 'react-native-elements';
 import { View } from 'react-native';
-import { parseName, isPresent, isBlank } from '../../../../core/helpers';
+import { parseBriiskName, isPresent } from '../../../../core/helpers';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
 import { TouchableListItem } from '../../styled/touchable-list-item/touchable-list-item';
@@ -48,7 +48,7 @@ export const ListedUser = (props: Props) => {
   return (
     <View>
       <TouchableListItem onPress={handlePress} color={color}>
-        <ListItem title={parseName(user.email)} subtitle={user.email} rightElement={rightElement} />
+        <ListItem title={parseBriiskName(user.email)} subtitle={user.email} rightElement={rightElement} />
       </TouchableListItem>
       <Divider />
     </View>

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 
-export const parseName = R.when(
+export const parseBriiskName = R.when(
   R.includes('@briisk.co'),
   R.pipe(
     R.split('@') as any,
