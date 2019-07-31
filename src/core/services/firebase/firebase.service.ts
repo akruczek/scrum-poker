@@ -1,12 +1,13 @@
 import * as firebase from "firebase";
+import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL, FIREBASE_STORAGE_BUCKET } from 'react-native-dotenv';
 
 export class Firebase {
   static initialize() {
     firebase.initializeApp({
-      apiKey: 'AIzaSyAamD-D95QmqIlgH5FftPgnsOAoZHTaP7g',
-      authDomain: "scrum-poker-f91ed.firebaseapp.com",
-      databaseURL: "https://scrum-poker-f91ed.firebaseio.com",
-      storageBucket: "scrum-poker-f91ed.appspot.com"
+      apiKey: FIREBASE_API_KEY,
+      authDomain: FIREBASE_AUTH_DOMAIN,
+      databaseURL: FIREBASE_DATABASE_URL,
+      storageBucket: FIREBASE_STORAGE_BUCKET,
     });
   }
 
