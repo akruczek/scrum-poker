@@ -3,8 +3,8 @@ import { translate, Translations } from './translations.service';
 import { Storage } from '../device-storage/device-storage.service';
 import { TRANSLATIONS_ACTIONS } from './store/translations.actions';
 import { LANGUAGE_CODES } from '../../models/translations.models';
-import * as pl from '../../../../assets/translations/pl.json';
-import * as en from '../../../../assets/translations/en.json';
+import * as pl from '@assets/translations/pl.json';
+import * as en from '@assets/translations/en.json';
 
 describe('Translations Service', () => {
   describe('when translate function was called', () => {

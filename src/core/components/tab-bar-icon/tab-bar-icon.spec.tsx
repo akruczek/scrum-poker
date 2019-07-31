@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { TabBarIcon } from './tab-bar-icon';
 import { Ionicons } from '@expo/vector-icons';
+import { TabBarIcon } from './tab-bar-icon';
 import { COLORS, colors } from '../../constants/colors';
 
 describe('TabBarIcon', () => {

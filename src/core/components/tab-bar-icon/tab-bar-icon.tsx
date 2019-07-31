@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { colors, COLORS } from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { colors, COLORS } from '../../constants/colors';
 
 interface Props {
   icon: string;

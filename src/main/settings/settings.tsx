@@ -1,15 +1,15 @@
 import React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
-import { NavigationProps } from '../../core/navigation/navigation.model';
+import { NavigationProps } from '@core/navigation/navigation.model';
+import { ifElse } from '@core/helpers';
+import { HeaderRightIcon } from '@core/components';
+import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
+import { translate } from '@core/services/translations/translations.service';
 import { SettingsOverview } from '../../settings/settings';
-import { ifElse } from '../../core/helpers';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';
-import { HeaderRightIcon } from '../../core/components/header-right-icon/header-right-icon';
 import { LanguageOverlay } from '../../settings/language-overlay/language-overlay';
-import { LANGUAGE_CODES, TRANSLATIONS } from '../../core/models/translations.models';
-import { translate } from '../../core/services/translations/translations.service';
 
 interface StateProps {
   email: string;

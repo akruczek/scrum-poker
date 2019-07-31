@@ -1,6 +1,6 @@
 import * as R from 'ramda';
-import { colors } from '../../constants/colors';
 import { colors as elementColors } from 'react-native-elements';
+import { colors } from '../../constants/colors';
 import { isRiskCard } from '../is-risk-card/is-risk-card.helper';
 import { CardColors, CARD_COLORS } from '../../models/poker-card.models';
 

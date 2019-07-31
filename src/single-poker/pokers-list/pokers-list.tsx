@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { AppContainer } from '../../core/styled/app-container/app-container';
-import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
-import { PokerModel } from '../../core/models/poker.models';
-import { pokers } from '../../core/constants/pokers';
+import { AppContainer, ScrollContainer } from '@core/styled';
+import { PokerModel } from '@core/models';
+import { pokers } from '@core/constants';
 import { ListItem } from '../list-item/list-item';
 
 interface Props {

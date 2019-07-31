@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Button, colors } from 'react-native-elements';
-import { Separator } from '../../../../core/styled/separator/separator';
-import { Container } from '../../../../core/styled/container/container.styled';
-import { translate } from '../../../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../../../core/models/translations.models';
+import { Separator, Container } from '@core/styled';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
 
 interface Props {
   handleShowDown: () => void;

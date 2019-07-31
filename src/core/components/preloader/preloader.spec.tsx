@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Modal, ActivityIndicator } from 'react-native';
 import renderer from 'react-test-renderer';
 import { Preloader } from './preloader';
-import { Modal, ActivityIndicator } from 'react-native';
 
 describe('Preloader', () => {
   describe('when Preloader was mounted', () => {

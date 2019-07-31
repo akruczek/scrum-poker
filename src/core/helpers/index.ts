@@ -1,3 +1,4 @@
+export * from './encode-basic-authorization/encode-basic-authorization.helper';
 export * from './ramda';
 export * from './is-platform/is-platform';
 export * from './parse-briisk-name/parse-briisk-name.helper';

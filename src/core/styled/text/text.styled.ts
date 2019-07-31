@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
-import { TEXT_SIZES } from './text.model';
+import { TEXT_SIZES } from '@core/constants';
 
 interface Props {
   size?: TEXT_SIZES;

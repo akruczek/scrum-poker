@@ -1,9 +1,9 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { HeaderRightIcon } from './header-right-icon';
-import { NOOP } from '../../helpers';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { HeaderRightIcon } from './header-right-icon';
+import { NOOP } from '../../helpers';
 
 describe('HeaderRightIcon', () => {
   describe('when HeaderRightIcon was mounted with all needed props', () => {

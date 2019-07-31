@@ -1,7 +1,7 @@
-import standardPokerIcon from '../../../assets/custom-icons/standard-poker.png';
-import fibonacciPokerIcon from '../../../assets/custom-icons/fibonacci-poker.png';
-import tShirtPokerIcon from '../../../assets/custom-icons/t-shirt-poker.png';
-import riskPokerIcon from '../../../assets/custom-icons/risk-poker.png';
+import standardPokerIcon from '@assets/custom-icons/standard-poker.png';
+import fibonacciPokerIcon from '@assets/custom-icons/fibonacci-poker.png';
+import tShirtPokerIcon from '@assets/custom-icons/t-shirt-poker.png';
+import riskPokerIcon from '@assets/custom-icons/risk-poker.png';
 import { CARDS } from './cards';
 import { PokerModel } from '../models/poker.models';
 

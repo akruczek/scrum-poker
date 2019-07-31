@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Button, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { AppContainer } from '../core/styled/app-container/app-container';
-import { Container } from '../core/styled/container/container.styled';
+import { AppContainer, Container } from '@core/styled';
+import { NavigationProps } from '@core/navigation/navigation.model';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
 import { signOut } from '../auth/store/auth.actions';
-import { NavigationProps } from '../core/navigation/navigation.model';
-import { translate } from '../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../core/models/translations.models';
 
 interface DispatchProps {
   signOut: () => void;

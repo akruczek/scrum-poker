@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { CardButton } from '@core/components';
 import { FullScreenCard } from './full-screen-card';
-import { CardButton } from '../../core/components/card-button/card-button';
 
 describe('FullScreenCard', () => {
   const handleBackPress = jest.fn();

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
-import * as pl from '../../../../assets/translations/pl.json';
-import * as en from '../../../../assets/translations/en.json';
+import * as pl from '@assets/translations/pl.json';
+import * as en from '@assets/translations/en.json';
 import { LANGUAGE_CODES, Translation, TRANSLATIONS } from '../../models/translations.models';
 import { Storage } from '../device-storage/device-storage.service';
 import { TRANSLATIONS_ACTIONS } from './store/translations.actions';

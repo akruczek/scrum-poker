@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { Text } from '../text/text.styled';
 import { TextProps } from 'react-native';
 import { colors, COLORS } from '../../constants/colors';
-import { TEXT_SIZES } from '../text/text.model';
+import { TEXT_SIZES } from '@core/constants';
 
 interface Props {
   children?: any;

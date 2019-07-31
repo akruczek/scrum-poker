@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
-import { translate } from '../../../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../../../core/models/translations.models';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
 
 interface Props {
   toggleCreateRoom: (value?: boolean) => void;

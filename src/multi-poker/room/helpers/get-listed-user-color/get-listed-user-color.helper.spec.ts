@@ -1,5 +1,5 @@
 import { getListedUserColor } from './get-listed-user-color.helper';
-import { COLORS } from '../../../../core/constants/colors';
+import { COLORS } from '@core/constants';
 
 describe('when getListedUserColor was called', () => {
   describe('and room is not discovered', () => {

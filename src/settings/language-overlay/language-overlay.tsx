@@ -3,12 +3,11 @@ import * as Expo from 'expo';
 import { Overlay, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { LANGUAGE_CODES, TRANSLATIONS } from '../../core/models/translations.models';
-import { setLanguage } from '../../core/services/translations/store/translations.actions';
-import { Text } from '../../core/styled/text/text.styled';
-import { Container } from '../../core/styled/container/container.styled';
-import { TEXT_SIZES } from '../../core/styled/text/text.model';
-import { translate } from '../../core/services/translations/translations.service';
+import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
+import { translate } from '@core/services/translations/translations.service';
+import { setLanguage } from '@core/services/translations/store/translations.actions';
+import { Text, Container } from '@core/styled';
+import { TEXT_SIZES } from '@core/constants';
 
 interface Props {
   isVisible: boolean;

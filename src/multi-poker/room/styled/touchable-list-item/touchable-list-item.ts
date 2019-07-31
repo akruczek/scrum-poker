@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import * as R from 'ramda';
-import { COLORS, colors } from '../../../../core/constants/colors';
 import { TouchableOpacityProps } from 'react-native';
+import { COLORS, colors } from '@core/constants';
 
 interface Props {
   color: COLORS;

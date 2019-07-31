@@ -1,6 +1,6 @@
 import { Action } from 'redux';
+import { PokerCard } from '@core/models';
 import { RoomModel } from '../../models/room.models';
-import { PokerCard } from '../../../core/models/poker-card.models';
 import { UserModel } from '../../../auth/models/auth.models';
 
 export enum DASHBOARD_ACTIONS {

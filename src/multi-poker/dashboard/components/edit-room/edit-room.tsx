@@ -2,14 +2,11 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Input, Button, colors } from 'react-native-elements';
-import { Container } from '../../../../core/styled/container/container.styled';
+import { Container, Text, AppContainer, Separator } from '@core/styled';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
+import { TEXT_SIZES } from '@core/constants';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
-import { Text } from '../../../../core/styled/text/text.styled';
-import { TEXT_SIZES } from '../../../../core/styled/text/text.model';
-import { AppContainer } from '../../../../core/styled/app-container/app-container';
-import { Separator } from '../../../../core/styled/separator/separator';
-import { translate } from '../../../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../../../core/models/translations.models';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;

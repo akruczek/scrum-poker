@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
-import { loadAssets } from './assets/load-assets';
-import { AppNavigator } from './App.navigation';
 import { Provider } from 'react-redux';
+import { Container } from '@core/styled';
+import { ifElse, isPlatform, isBlank } from '@core/helpers';
+import { Translations } from '@core/services/translations/translations.service';
+import { Firebase } from '@core/services/firebase/firebase.service';
+import { AuthService } from '@core/services/auth/auth.service';
+import { LANGUAGE_CODES } from '@core/models';
+import { loadAssets } from '@assets/load-assets';
+import { AppNavigator } from './App.navigation';
 import { appStore } from './src/store/configure-store';
-import { Container } from './src/core/styled/container/container.styled';
-import { ifElse, isPlatform, isBlank } from './src/core/helpers';
-import { Firebase } from './src/core/services/firebase/firebase.service';
-import { LANGUAGE_CODES } from './src/core/models/translations.models';
-import { Translations } from './src/core/services/translations/translations.service';
-import { AuthService } from './src/core/services/auth/auth.service';
 
 interface Props {
   skipLoadingScreen?: boolean;

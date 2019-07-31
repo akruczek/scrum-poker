@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal } from 'react-native';
-import { CardButton } from '../../core/components/card-button/card-button';
-import { PokerCard } from '../../core/models/poker-card.models';
+import { CardButton } from '@core/components';
+import { PokerCard } from '@core/models';
 
 interface Props {
   card: PokerCard;

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { COLORS } from '../../../../core/constants/colors';
+import { COLORS } from '@core/constants';
 
 const isEstimationUndefined = R.complement(R.is(Number));
 

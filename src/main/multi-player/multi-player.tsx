@@ -1,13 +1,13 @@
 import React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
-import { NavigationProps } from '../../core/navigation/navigation.model';
+import { NavigationProps } from '@core/navigation/navigation.model';
+import { ifElse } from '@core/helpers';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
-import { ifElse } from '../../core/helpers';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';
-import { translate } from '../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../core/models/translations.models';
 
 interface StateProps {
   email: string;

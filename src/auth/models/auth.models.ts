@@ -1,4 +1,4 @@
-import { PokerCard } from '../../core/models/poker-card.models';
+import { PokerCard } from '@core/models';
 
 export interface AuthStateModel {
   isPending: boolean;

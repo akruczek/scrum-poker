@@ -1,11 +1,16 @@
 import { ActionsObservable, ofType } from 'redux-observable';
 import { switchMap, pluck } from 'rxjs/operators';
+import { Firebase } from '@core/services/firebase/firebase.service';
 import { RoomModel } from '../../models/room.models';
-import { Firebase } from '../../../core/services/firebase/firebase.service';
 import {
   DASHBOARD_ACTIONS,
   addRoomError, addRoomSuccess, AddRoomAction,
-  RemoveRoomAction, removeRoomSuccess, removeRoomError, AddUserAction, AddUserPayload, addUserSuccess, addUserError, RoomAction, RoomPayload, showDownSuccess, showDownError, resetSuccess, resetError, SetValueAction, SetValuePayload, setValueSuccess, setValueError,
+  RemoveRoomAction, removeRoomSuccess, removeRoomError,
+  AddUserAction, AddUserPayload, addUserSuccess, addUserError,
+  RoomAction, RoomPayload,
+  showDownSuccess, showDownError,
+  resetSuccess, resetError,
+  SetValueAction, SetValuePayload, setValueSuccess, setValueError,
 } from './dashboard.actions';
 
 const addRoom = (payload: { room: RoomModel, index: number }) => Firebase

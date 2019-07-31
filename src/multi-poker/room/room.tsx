@@ -2,25 +2,23 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { AppContainer } from '../../core/styled/app-container/app-container';
-import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
-import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent } from '../../core/helpers';
+import { AppContainer, ScrollContainer } from '@core/styled';
+import { translate } from '@core/services/translations/translations.service';
+import { Firebase } from '@core/services/firebase/firebase.service';
+import { isPresent } from '@core/helpers';
+import { NavigationProps } from '@core/navigation/navigation.model';
+import { SCREENS } from '@core/navigation/screens';
+import { HeaderBackButton } from '@core/components';
+import { PokerCard, TRANSLATIONS } from '@core/models';
 import { RoomModel } from '../models/room.models';
-import { NavigationProps } from '../../core/navigation/navigation.model';
-import { SCREENS } from '../../core/navigation/screens';
 import { SelectCard } from '../dashboard/components/select-card/select-card';
 import { UserModel } from '../../auth/models/auth.models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
-import { HeaderBackButton } from '../../core/components/header-back-button/header-back-button';
-import { PokerCard } from '../../core/models/poker-card.models';
 import { getEstimation } from './helpers/get-estimation/get-estimation.helper';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
-import { translate } from '../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../core/models/translations.models';
 
 interface State {
   users: UserModel[];

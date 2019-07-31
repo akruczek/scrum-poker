@@ -2,9 +2,8 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { TouchableOpacity } from 'react-native';
 import { Divider, ListItem as ListItemElement } from 'react-native-elements';
-import { CustomIcon } from '../../core/styled/custom-icon/custom-icon';
-import { PokerModel } from '../../core/models/poker.models';
-import { ICON_SIZES } from '../../core/models/custom-icons.models';
+import { CustomIcon } from '@core/styled';
+import { PokerModel, ICON_SIZES } from '@core/models';
 
 interface Props {
   poker: PokerModel;

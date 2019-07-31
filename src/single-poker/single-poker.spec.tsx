@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import renderer from 'react-test-renderer';
+import { CARDS_STACK, CARDS } from '@core/constants';
+import { CardButton } from '@core/components';
 import { SinglePoker } from './single-poker';
-import { CARDS_STACK, CARDS } from '../core/constants/cards';
-import { CardButton } from '../core/components/card-button/card-button';
-import { FullScreenCard } from './full-screen-card/full-screen-card';
 
 describe('SinglePoker', () => {
   describe('when SinglePoker was mounted with all needed props', () => {

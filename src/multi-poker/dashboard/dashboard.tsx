@@ -2,19 +2,17 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { AppContainer } from '../../core/styled/app-container/app-container';
-import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
+import { AppContainer, ScrollContainer } from '@core/styled';
+import { Firebase } from '@core/services/firebase/firebase.service';
+import { isPresent, findIndexBy, rejectNil, toggleValue } from '@core/helpers';
+import { Preloader } from '@core/components';
+import { NavigationProps } from '@core/navigation/navigation.model';
+import { SCREENS } from '@core/navigation/screens';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
-import { Firebase } from '../../core/services/firebase/firebase.service';
-import { isPresent, findIndexBy, rejectNil } from '../../core/helpers/ramda';
-import { Preloader } from '../../core/components/preloader/preloader';
 import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.actions';
-import { NavigationProps } from '../../core/navigation/navigation.model';
-import { SCREENS } from '../../core/navigation/screens';
 import { EditRoom } from './components/edit-room/edit-room';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
-import { toggleValue } from '../../core/helpers/toggle-value/toggle-value.helper';
 import { prepareNewRoom } from './helpers/prepare-new-room/prepare-new-room.helper';
 
 interface DispatchProps {

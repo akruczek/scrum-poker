@@ -3,17 +3,14 @@ import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { Button, Input } from 'react-native-elements';
 import { Dispatch, bindActionCreators } from 'redux';
-import { AppContainer } from '../core/styled/app-container/app-container';
-import { Container } from '../core/styled/container/container.styled';
-import { Text } from '../core/styled/text/text.styled';
+import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/styled';
+import { Preloader } from '@core/components';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
+import { getDefault } from '@core/helpers';
 import { signIn } from './store/auth.actions';
-import { Preloader } from '../core/components/preloader/preloader';
 import { AUTH_TYPES } from './models/auth.models';
-import { KeyboardAvoidingContainer } from '../core/styled/keyboard-avoiding-container/keyboard-avoiding-container';
 import { validateEmail } from './helpers/validate-email.helper';
-import { translate } from '../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../core/models/translations.models';
-import { getDefault } from '../core/helpers';
 
 interface Props {
   type: AUTH_TYPES;

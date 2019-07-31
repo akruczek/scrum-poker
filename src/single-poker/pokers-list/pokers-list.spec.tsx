@@ -1,9 +1,9 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { pokers } from '@core/constants';
+import { ScrollContainer } from '@core/styled';
 import { PokersList } from './pokers-list';
 import { ListItem } from '../list-item/list-item';
-import { pokers } from '../../core/constants/pokers';
-import { ScrollContainer } from '../../core/styled/scroll-container/scroll-container.styled';
 
 describe('PokersList', () => {
   describe('when PokersList was mounted with all needed props', () => {
