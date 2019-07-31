@@ -1,4 +1,6 @@
-# Scrum poker
+# Scrum poker - mobile App
+
+#### Make your Refinements a little bit more interesting with this simple mobile app for android and iOS! 
 
 ### Requirements:
 - node `10+`

@@ -1,6 +1,6 @@
 {
   "name": "scrum-poker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Scrum Poker",
   "main": "node_modules/expo/AppEntry.js",
   "author": {
