@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import { ListItem as ListItemElement } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { CARDS } from '@core/constants';
@@ -49,6 +49,15 @@ describe('ListItem', () => {
 
       expect(listItem.props.leftElement.props.source)
         .toEqual(riskPokerIcon);
+    });
+
+    it('should call handlePress with given poker from props after press on TouchableOpacity component', () => {
+      act(() => {
+        wrapper.root.findByType(TouchableOpacity).props.onPress()
+      });
+
+      expect(handlePress)
+        .toHaveBeenCalledWith(mockedPoker);
     });
   });
 

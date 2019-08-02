@@ -1,7 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import { CardButton } from '@core/components';
 import { FullScreenCard } from './full-screen-card';
+import { Modal } from 'react-native';
 
 describe('FullScreenCard', () => {
   const handleBackPress = jest.fn();
@@ -15,6 +16,11 @@ describe('FullScreenCard', () => {
       expect(wrapper.toJSON().children.length)
         .toEqual(1);
     });
+
+    it('should render Modal with animation type "slide"', () => {
+      expect(wrapper.root.findByType(Modal).props.animationType)
+        .toEqual('slide');
+    });
   
     it('should render CardButton component with fullScreen prop card prop and handleBackPress as handleSelect prop', () => {
       const expectedProps = {
@@ -25,6 +31,15 @@ describe('FullScreenCard', () => {
   
       expect(wrapper.root.findByType(CardButton).props)
         .toEqual(expectedProps);
+    });
+
+    it('should call handleBackPress after press on CardButton', () => {
+      act(() => {
+        wrapper.root.findByType(CardButton).props.handleSelect();
+      });
+
+      expect(handleBackPress)
+        .toHaveBeenCalled();
     });
   });
 });

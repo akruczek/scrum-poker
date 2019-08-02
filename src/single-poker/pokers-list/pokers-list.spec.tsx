@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import { pokers } from '@core/constants';
 import { ScrollContainer } from '@core/styled';
 import { PokersList } from './pokers-list';
@@ -25,6 +25,15 @@ describe('PokersList', () => {
 
       expect(wrapper.root.findAllByType(ListItem)[0].props)
         .toEqual(expectedProps);
+    });
+
+    it('should call handleNavigate from props after press on ListItem with passed poker prop', () => {
+      act(() => {
+        wrapper.root.findAllByType(ListItem)[0].props.handlePress();
+      });
+
+      expect(handleNavigate)
+        .toHaveBeenCalled();
     });
   });
 });
