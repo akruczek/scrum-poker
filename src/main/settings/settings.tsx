@@ -12,7 +12,7 @@ import { AUTH_TYPES } from '../../auth/models/auth.models';
 import { LanguageOverlay } from '../../settings/language-overlay/language-overlay';
 
 interface StateProps {
-  email: string;
+  email?: string;
   language: LANGUAGE_CODES;
 }
 

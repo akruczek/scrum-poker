@@ -1,6 +1,8 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { _SinglePlayer } from './single-player';
+import { TRANSLATIONS } from '@core/models';
+import { translate } from '@core/services/translations/translations.service';
+import { _SinglePlayer, SinglePlayer } from './single-player';
 import { PokersList } from '../../single-poker/pokers-list/pokers-list';
 
 describe('SinglePlayer', () => {
@@ -16,6 +18,11 @@ describe('SinglePlayer', () => {
     it('should render PokersList component', () => {
       expect(wrapper.root.findByType(PokersList))
         .toBeTruthy();
+    });
+
+    it('should render View with TRANSLATIONS.SINGLE_PLAYER title', () => {
+      expect(SinglePlayer.navigationOptions().title)
+        .toEqual(translate(TRANSLATIONS.SINGLE_PLAYER));
     });
   });
 });

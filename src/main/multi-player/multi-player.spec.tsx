@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { _MultiPlayer } from './multi-player';
 import ShallowRenderer from 'react-test-renderer/shallow';
+import { TRANSLATIONS } from '@core/models';
+import { translate } from '@core/services/translations/translations.service';
+import { _MultiPlayer, MultiPlayer } from './multi-player';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { Auth } from '../../auth/auth';
 
@@ -21,6 +23,11 @@ describe('MultiPlayer', () => {
     it('should render Dashboard component', () => {
       expect(renderer.getRenderOutput())
         .toEqual(<Dashboard navigation={mockedNavigation} />);
+    });
+
+    it('should render Dashboard with TRANSLATIONS.MULTI_PLAYER title', () => {
+      expect(MultiPlayer.navigationOptions().title)
+        .toEqual(translate(TRANSLATIONS.MULTI_PLAYER));
     });
   });
 
