@@ -5,12 +5,12 @@ import { translate } from '@core/services/translations/translations.service';
 import { TRANSLATIONS } from '@core/models';
 
 interface Props {
-  toggleCreateRoom: (value?: boolean) => void;
+  setCreateRoom: (value: boolean) => void;
 }
 
 export const ListedNewRoom = (props: Props) => (
   <>
-    <TouchableOpacity onPress={() => props.toggleCreateRoom(true)}>
+    <TouchableOpacity onPress={() => props.setCreateRoom(true)}>
       <ListItem
           title={translate(TRANSLATIONS.ADD_ROOM)}
           subtitle={translate(TRANSLATIONS.ADD_NEW_ROOM)}

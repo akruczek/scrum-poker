@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { isPresent, findIndexBy, rejectNil, toggleValue } from '@core/helpers';
+import { isPresent, findIndexBy, rejectNil } from '@core/helpers';
 import { Preloader } from '@core/components';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
@@ -26,101 +26,66 @@ interface StateProps {
   rooms: RoomModel[];
 }
 
-interface State {
-  isPending: boolean;
-  isCreatingRoom: boolean;
-  isSwiping: boolean;
-}
+export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) => {
+  const [ isPending, setPending ] = React.useState(false);
+  const [ isCreatingRoom, setCreateRoom ] = React.useState(false);
+  const [ isSwiping, setSwiping ] = React.useState(false);
 
-export class _Dashboard extends React.Component<StateProps & DispatchProps & NavigationProps, State> {
-  constructor(props: StateProps & DispatchProps & NavigationProps) {
-    super(props);
-    this.state = {
-      isPending: false,
-      isCreatingRoom: false,
-      isSwiping: false,
-    };
+  React.useEffect(() => {
+    setPending(true);
+    Firebase.listen('/rooms', updateRooms);
+  }, []);
 
-    this.updateRooms = this.updateRooms.bind(this);
-    this.handleNavigate = this.handleNavigate.bind(this);
-    this.handleAddRoom = this.handleAddRoom.bind(this);
-    this.handleRemoveRoom = this.handleRemoveRoom.bind(this);
-    this.toggleSwiping = this.toggleSwiping.bind(this);
-    this.toggleCreateRoom = this.toggleCreateRoom.bind(this);
+  const updateRooms = (rooms: RoomModel[]) => {
+    props.setRooms(rooms);
+    setPending(false);
+  };
+
+  const handleNavigate = (room: RoomModel) => {
+    props.setRoom(room);
+    props.navigation.navigate(SCREENS.ROOM);
   }
 
-  componentDidMount() {
-    this.setState({ isPending: true }, () => {
-      Firebase.listen('/rooms', this.updateRooms);
-    });
+  const handleAddRoom = (room: RoomModel) => {
+    const newRoom = prepareNewRoom(room, props.rooms);
+    setCreateRoom(false);
+    props.addRoom(newRoom);
+  };
+
+  const handleRemoveRoom = (room: RoomModel) => {
+    const index = findIndexBy('id', room.id)(props.rooms);
+    props.removeRoom(index);
   }
 
-  updateRooms(rooms: RoomModel[]) {
-    this.props.setRooms(rooms);
-    this.setState({
-      isPending: false,
-    });
-  }
-
-  handleNavigate(room: RoomModel) {
-    this.props.setRoom(room);
-    this.props.navigation.navigate(SCREENS.ROOM);
-  }
-
-  toggleCreateRoom(value?: boolean) {
-    this.setState(toggleValue('isCreatingRoom', value))
-  }
-
-  toggleSwiping(value?: boolean) {
-    this.setState(toggleValue('isSwiping', value));
-  }
-
-  handleAddRoom(room: RoomModel) {
-    this.toggleCreateRoom(false);
-    this.props.addRoom(
-      prepareNewRoom(room, this.props.rooms)
-    );
-  }
-
-  handleRemoveRoom(room: RoomModel) {
-    const index = findIndexBy('id', room.id)(this.props.rooms);
-    this.props.removeRoom(index);
-  }
-
-  render() {
-    const { rooms } = this.props;
-    const { isPending, isCreatingRoom, isSwiping } = this.state;
-
-    return (
-      <AppContainer>
-        <ScrollContainer>
-          {isPresent(rooms) && rejectNil(rooms).map((room: RoomModel) => room && (
-            <ListedRoom
-                key={room.id}
-                room={room}
-                isSwiping={isSwiping}
-                handleRemoveRoom={this.handleRemoveRoom}
-                handleNavigate={this.handleNavigate}
-                toggleSwiping={this.toggleSwiping}
-            />
-          ))}
-
-          <ListedNewRoom toggleCreateRoom={this.toggleCreateRoom} />
-        </ScrollContainer>
-
-        {isCreatingRoom && (
-          <EditRoom
-              type={EDIT_ROOMS_TYPES.CREATE}
-              room={rooms[0]}
-              handleSubmit={this.handleAddRoom}
-              handleDismiss={() => this.toggleCreateRoom(false)}
+  return (
+    <AppContainer>
+      <ScrollContainer>
+        {isPresent(props.rooms) && rejectNil(props.rooms).map((room: RoomModel) => room && (
+          <ListedRoom
+              key={room.id}
+              room={room}
+              isSwiping={isSwiping}
+              handleRemoveRoom={handleRemoveRoom}
+              handleNavigate={handleNavigate}
+              setSwiping={setSwiping}
           />
-        )}
+        ))}
 
-        {isPending && <Preloader />}
-      </AppContainer>
-    );
-  }
+        <ListedNewRoom setCreateRoom={setCreateRoom} />
+      </ScrollContainer>
+
+      {isCreatingRoom && (
+        <EditRoom
+            type={EDIT_ROOMS_TYPES.CREATE}
+            room={props.rooms[0]}
+            handleSubmit={handleAddRoom}
+            handleDismiss={() => setCreateRoom(false)}
+        />
+      )}
+
+      {isPending && <Preloader />}
+    </AppContainer>
+  );
 }
 
 const mapStateToProps = R.applySpec<StateProps>({

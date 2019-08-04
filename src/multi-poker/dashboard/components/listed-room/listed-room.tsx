@@ -11,7 +11,7 @@ interface Props {
   isSwiping: boolean;
   handleRemoveRoom: (room: RoomModel) => void;
   handleNavigate: (room: RoomModel) => void;
-  toggleSwiping: (value?: boolean) => void;
+  setSwiping: (value: boolean) => void;
 }
 
 export const ListedRoom = (props: Props) => {
@@ -21,7 +21,7 @@ export const ListedRoom = (props: Props) => {
   return (
     <React.Fragment key={room.id}>
       <Swipeable
-          onSwipeStart={() => props.toggleSwiping(true)}
+          onSwipeStart={() => props.setSwiping(true)}
           leftContent={<SwipeDeleteBar height={swipeHeight} />}
           leftActionActivationDistance={200}
           onLeftActionRelease={() => props.handleRemoveRoom(room)}
