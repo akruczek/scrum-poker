@@ -25,6 +25,7 @@
   "room": "Room",
   "show_down": "SHOW DOWN",
   "reset": "RESET",
+  "push_to_jira": "PUSH TO JIRA",
   "navigation_single": "Single",
   "navigation_multi": "Multi",
   "navigation_settings": "Settings",

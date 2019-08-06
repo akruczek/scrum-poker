@@ -7,12 +7,24 @@ import { TRANSLATIONS } from '@core/models';
 interface Props {
   handleShowDown: () => void;
   handleReset: () => void;
+  handlePushToJira: () => void;
+  isDiscovered?: boolean;
 }
 
-export const RoomButtonsSet = (props: Props) => (
+export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, handlePushToJira }: Props) => (
   <Container margins="0 10px" justifyContent="flex-end">
-    <Button title={translate(TRANSLATIONS.SHOW_DOWN)} onPress={props.handleShowDown} />
+    <Button
+        title={translate(TRANSLATIONS[isDiscovered ? 'PUSH_TO_JIRA' : 'SHOW_DOWN'])}
+        onPress={handleShowDown}
+    />
+
     <Separator margin={10} />
-    <Button title={translate(TRANSLATIONS.RESET)} buttonStyle={{ backgroundColor: colors.secondary }} onPress={props.handleReset} />
+
+    <Button
+        disabled={!isDiscovered}
+        title={translate(TRANSLATIONS.RESET)}
+        buttonStyle={{ backgroundColor: colors.secondary }}
+        onPress={handleReset}
+    />
   </Container>
 );

@@ -34,6 +34,10 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
   React.useEffect(() => {
     setPending(true);
     Firebase.listen('/rooms', updateRooms);
+
+    return () => {
+      Firebase.unsubscribe('/rooms');
+    };
   }, []);
 
   const updateRooms = (rooms: RoomModel[]) => {

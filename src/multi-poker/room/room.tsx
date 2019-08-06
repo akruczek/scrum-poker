@@ -47,6 +47,10 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
     if (!isUserIn) {
       props.addUser(getNewUser(props.user, props.room, props.rooms));
     }
+
+    return () => {
+      Firebase.unsubscribe(`/rooms/${props.room.id}`);
+    };
   }, []);
 
   const getUsers = (room: RoomModel) => {
@@ -76,6 +80,11 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
     props.setValue(getNewEstimation(card, props.room, props.rooms, props.user));
   }
 
+  const handlePushToJira = () => {
+    // TODO: open popup to push estimation to Jira
+    return 0;
+  };
+
   const estimation = (): (number|string)[] | null => {
     const { discovered, users } = props.room;
     return discovered ? getEstimation(users) : null;
@@ -97,7 +106,12 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
       </ScrollContainer>
 
       {isAdmin(props.user.email)(props.room.users) && (
-        <RoomButtonsSet handleReset={handleReset} handleShowDown={handleShowDown} />
+        <RoomButtonsSet
+            handleReset={handleReset}
+            handleShowDown={handleShowDown}
+            handlePushToJira={handlePushToJira}
+            isDiscovered={props.room.discovered}
+        />
       )}
 
       {isSelecting && <SelectCard handleSelect={handleSelectCard} />}

@@ -29,6 +29,7 @@ export enum TRANSLATIONS {
   ROOM = 'room',
   SHOW_DOWN = 'show_down',
   RESET = 'reset',
+  PUSH_TO_JIRA = 'push_to_jira',
   NAVIGATION_SINGLE = 'navigation_single',
   NAVIGATION_MULTI = 'navigation_multi',
   NAVIGATION_SETTINGS = 'navigation_settings',
