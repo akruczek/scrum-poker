@@ -3,22 +3,23 @@ import { Modal } from 'react-native';
 import { Input, Button, colors } from 'react-native-elements';
 import { Container, Text, AppContainer, Separator } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
+import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
 import { TRANSLATIONS } from '@core/models';
 import { TEXT_SIZES } from '@core/constants';
-import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
+import { EDIT_ROOMS_TYPES } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
-  room: RoomModel;
-  handleSubmit: (room: any) => void;
+  handleSubmit: (payload: any) => void;
   handleDismiss: () => void;
 }
 
 export const EditRoom = (props: Props) => {
   const [ name, setName ] = React.useState('');
   const [ description, setDescription ] = React.useState('');
+  const [ allAdmins, setAllAdmins ] = React.useState(false);
 
   const content = {
     title: {
@@ -32,7 +33,8 @@ export const EditRoom = (props: Props) => {
   }
 
   const handleSubmit = () => {
-    props.handleSubmit(prepareRoomPayload(name, description));
+    const room = prepareRoomPayload(name, description, allAdmins);
+    props.handleSubmit(room);
   };
 
   return (
@@ -56,6 +58,9 @@ export const EditRoom = (props: Props) => {
               onChangeText={(value: string) => handleChange('description', value)}
           />
           <Separator margin={20} />
+          {props.type === EDIT_ROOMS_TYPES.CREATE && (
+            <Checkbox title={TRANSLATIONS.ALL_ADMINS} onChange={setAllAdmins} />
+          )}
         </Container>
 
         <Button

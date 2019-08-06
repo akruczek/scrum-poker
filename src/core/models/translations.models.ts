@@ -32,6 +32,7 @@ export enum TRANSLATIONS {
   NAVIGATION_SINGLE = 'navigation_single',
   NAVIGATION_MULTI = 'navigation_multi',
   NAVIGATION_SETTINGS = 'navigation_settings',
+  ALL_ADMINS = 'all_admins',
 }
 
 export type Translation = {[key: string]: string};

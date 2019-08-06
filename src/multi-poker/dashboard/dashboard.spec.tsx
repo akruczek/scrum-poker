@@ -8,10 +8,9 @@ import { _Dashboard } from './dashboard';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
 import { EditRoom } from './components/edit-room/edit-room';
-import { ScrollView } from 'react-native';
 
 describe('Dashboard', () => {
-  const mockedRooms = [
+  const mockedRooms: any = [
     {
       id: 1,
       name: 'room-1',

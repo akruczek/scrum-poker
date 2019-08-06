@@ -7,13 +7,13 @@ import { Firebase } from '@core/services/firebase/firebase.service';
 import { isPresent, findIndexBy, rejectNil } from '@core/helpers';
 import { Preloader } from '@core/components';
 import { NavigationProps } from '@core/navigation/navigation.model';
-import { SCREENS } from '@core/navigation/screens';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
 import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.actions';
 import { EditRoom } from './components/edit-room/edit-room';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
 import { prepareNewRoom } from './helpers/prepare-new-room/prepare-new-room.helper';
+import { joinRoom } from './helpers/join-room/join-room.helper';
 
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
@@ -42,25 +42,25 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
   };
 
   const handleNavigate = (room: RoomModel) => {
-    props.setRoom(room);
-    props.navigation.navigate(SCREENS.ROOM);
+    joinRoom(props.setRoom, props.navigation.navigate, room);
   }
 
   const handleAddRoom = (room: RoomModel) => {
     const newRoom = prepareNewRoom(room, props.rooms);
     setCreateRoom(false);
     props.addRoom(newRoom);
+    handleNavigate(newRoom.room);
   };
 
   const handleRemoveRoom = (room: RoomModel) => {
     const index = findIndexBy('id', room.id)(props.rooms);
     props.removeRoom(index);
-  }
+  };
 
   return (
     <AppContainer>
       <ScrollContainer>
-        {isPresent(props.rooms) && rejectNil(props.rooms).map((room: RoomModel) => room && (
+        {isPresent(props.rooms) && R.values(rejectNil(props.rooms)).map((room: RoomModel) => room && (
           <ListedRoom
               key={room.id}
               room={room}
@@ -77,7 +77,6 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
       {isCreatingRoom && (
         <EditRoom
             type={EDIT_ROOMS_TYPES.CREATE}
-            room={props.rooms[0]}
             handleSubmit={handleAddRoom}
             handleDismiss={() => setCreateRoom(false)}
         />

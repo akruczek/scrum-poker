@@ -11,7 +11,7 @@ const initialState: RoomsStateModel = {
 };
 
 const setRoomsReducer = (action: SetRoomsAction) => R.pipe(
-  R.assoc('models', action.payload),
+  R.assoc('models', R.values(action.payload)),
 );
 
 const setRoomReducer = (action: SetRoomAction) => R.pipe(

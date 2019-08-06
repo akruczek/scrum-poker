@@ -16,4 +16,5 @@ export interface RoomModel {
   description: string;
   users: UserModel[];
   discovered?: boolean;
+  allAdmins: boolean;
 }

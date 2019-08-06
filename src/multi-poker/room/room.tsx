@@ -15,15 +15,12 @@ import { SelectCard } from '../dashboard/components/select-card/select-card';
 import { UserModel } from '../../auth/models/auth.models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
-import { getEstimation } from './helpers/get-estimation/get-estimation.helper';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
-
-interface State {
-  users: UserModel[];
-  isSelecting: boolean;
-}
+import {
+  getEstimation, isAdmin, getRoomIndex, getResetPayload, getNewEstimation, getNewUser,
+} from './helpers';
 
 interface StateProps {
   room: RoomModel;
@@ -39,113 +36,79 @@ interface DispatchProps {
   setValue: (payload: SetValuePayload) => void;
 }
 
-export class _Room extends React.Component<StateProps & NavigationProps & DispatchProps, State> {
-  constructor(props: StateProps & NavigationProps & DispatchProps) {
-    super(props);
-    this.state = {
-      users: [],
-      isSelecting: false,
-    };
+export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
+  const [ users, setUsers ] = React.useState<UserModel[]>([]);
+  const [ isSelecting, setSelecting ] = React.useState(false);
 
-    this.getUsers = this.getUsers.bind(this);
-    this.handleSelectCard = this.handleSelectCard.bind(this);
-    this.handleOnListItemPress = this.handleOnListItemPress.bind(this);
-    this.handleShowDown = this.handleShowDown.bind(this);
-    this.handleReset = this.handleReset.bind(this);
+  React.useEffect(() => {
+    Firebase.listen(`/rooms/${props.room.id}`, getUsers);
+    const isUserIn = R.any(R.propEq('email', props.user.email))(props.room.users)
+
+    if (!isUserIn) {
+      props.addUser(getNewUser(props.user, props.room, props.rooms));
+    }
+  }, []);
+
+  const getUsers = (room: RoomModel) => {
+    setUsers(room.users);
+    props.setRoom(room);
   }
 
-  static navigationOptions = (props: NavigationProps & StateProps) => ({
-    title: translate(TRANSLATIONS.ROOM),
-    headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.MULTI_PLAYER} />
-  });
+  const handleShowDown = () => {
+    props.showDown({
+      room: props.room,
+      index: getRoomIndex(props.room.id)(props.rooms),
+    });
+  }
 
-  componentDidMount() {
-    Firebase.listen(`/rooms/${this.props.room.id}`, this.getUsers);
+  const handleReset = () => {
+    props.reset(getResetPayload(props.room, props.rooms));
+  }
 
-    if (!(this.props.room.users || []).map(u => u.email).includes(this.props.user.email)) {
-      this.props.addUser({
-        user: this.props.user,
-        index: (this.props.room.users || []).length,
-        roomIndex: this.getRoomIndex(),
-      });
+  const handleOnListItemPress = (user: UserModel) => {
+    if (user.email === props.user.email) {
+      setSelecting(true);
     }
   }
 
-  getRoomIndex() {
-    return R.findIndex(
-      r => R.propOr('', 'id', r) === this.props.room.id,
-    )(this.props.rooms);
+  const handleSelectCard = (card: PokerCard) => {
+    setSelecting(false);
+    props.setValue(getNewEstimation(card, props.room, props.rooms, props.user));
   }
 
-  getUsers(room: RoomModel) {
-    this.setState({ users: room.users });
-    this.props.setRoom(room);
-  }
-
-  handleShowDown() {
-    this.props.showDown({
-      room: this.props.room,
-      index: this.getRoomIndex(),
-    });
-  }
-
-  handleReset() {
-    this.props.reset({
-      room: {
-        ...this.props.room,
-        discovered: false,
-        users: this.props.room.users.map(u => ({ ...u, selectedValue: null })),
-      },
-      index: this.getRoomIndex(),
-    });
-  }
-
-  handleOnListItemPress(user: UserModel) {
-    if (user.email === this.props.user.email) {
-      this.setState({ isSelecting: true });
-    }
-  }
-
-  handleSelectCard(card: PokerCard) {
-    this.setState({ isSelecting: false });
-    this.props.setValue({
-      value: card,
-      roomIndex: this.getRoomIndex(),
-      userIndex: R.findIndex(R.propEq('email', this.props.user.email))(this.props.room.users),
-    });
-  }
-
-  getEstimation(): (number|string)[] | null {
-    const { discovered, users } = this.props.room;
+  const estimation = (): (number|string)[] | null => {
+    const { discovered, users } = props.room;
     return discovered ? getEstimation(users) : null;
   }
 
-  render() {
-    const { users, isSelecting } = this.state;
-    const { room } = this.props;
+  return (
+    <AppContainer fullHorizontal>
+      <ScrollContainer>
+        {isPresent(users) && (users || []).map((user: UserModel) => (
+          <ListedUser
+              key={user.email}
+              onListItemPress={handleOnListItemPress}
+              room={props.room}
+              user={user}
+              email={props.user.email}
+              estimations={estimation()}
+          />
+        ))}
+      </ScrollContainer>
 
-    return (
-      <AppContainer fullHorizontal>
-        <ScrollContainer>
-          {isPresent(users) && (users || []).map((user: UserModel) => (
-            <ListedUser
-                key={user.email}
-                onListItemPress={this.handleOnListItemPress}
-                room={room}
-                user={user}
-                email={this.props.user.email}
-                estimations={this.getEstimation()}
-            />
-          ))}
-        </ScrollContainer>
+      {isAdmin(props.user.email)(props.room.users) && (
+        <RoomButtonsSet handleReset={handleReset} handleShowDown={handleShowDown} />
+      )}
 
-        <RoomButtonsSet handleReset={this.handleReset} handleShowDown={this.handleShowDown} />
+      {isSelecting && <SelectCard handleSelect={handleSelectCard} />}
+    </AppContainer>
+  );
+};
 
-        {isSelecting && <SelectCard handleSelect={this.handleSelectCard} />}
-      </AppContainer>
-    );
-  }
-}
+_Room.navigationOptions = (props: NavigationProps & StateProps) => ({
+  title: translate(TRANSLATIONS.ROOM),
+  headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.MULTI_PLAYER} />
+});
 
 const mapStateToProps = R.applySpec<StateProps>({
   room: R.path([ 'rooms', 'model' ]),

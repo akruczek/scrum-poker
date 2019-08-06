@@ -27,5 +27,6 @@
   "reset": "ZRESETUJ",
   "navigation_single": "Jednoosobowy",
   "navigation_multi": "Wieloosobowy",
-  "navigation_settings": "Ustawienia"
+  "navigation_settings": "Ustawienia",
+  "all_admins": "Bez Administratora"
 }

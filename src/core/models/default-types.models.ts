@@ -1,4 +1,4 @@
-import { NOOP } from '../helpers';
+import { NOOP } from '../helpers/noop/noop';
 
 export const DEFAULT_TYPES = {
   String: '',
