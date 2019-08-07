@@ -15,7 +15,7 @@ export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, hand
   <Container margins="0 10px" justifyContent="flex-end">
     <Button
         title={translate(TRANSLATIONS[isDiscovered ? 'PUSH_TO_JIRA' : 'SHOW_DOWN'])}
-        onPress={handleShowDown}
+        onPress={isDiscovered ? handlePushToJira : handleShowDown}
     />
 
     <Separator margin={10} />

@@ -29,5 +29,10 @@
   "navigation_single": "Single",
   "navigation_multi": "Multi",
   "navigation_settings": "Settings",
-  "all_admins": "No Admin"
+  "all_admins": "No Admin",
+  "final_estimation": "Final estimation",
+  "jira_issue_key": "Jira Issue key",
+  "push": "PUSH",
+  "jira_push_success": "Saved!",
+  "jira_push_error": "Error!\nCheck your issue key"
 }

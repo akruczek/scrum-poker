@@ -34,6 +34,11 @@ export enum TRANSLATIONS {
   NAVIGATION_MULTI = 'navigation_multi',
   NAVIGATION_SETTINGS = 'navigation_settings',
   ALL_ADMINS = 'all_admins',
+  FINAL_ESTIMATION = 'final_estimation',
+  JIRA_ISSUE_KEY = 'jira_issue_key',
+  PUSH = 'push',
+  JIRA_PUSH_SUCCESS = 'jira_push_success',
+  JIRA_PUSH_ERROR = 'jira_push_error',
 }
 
 export type Translation = {[key: string]: string};

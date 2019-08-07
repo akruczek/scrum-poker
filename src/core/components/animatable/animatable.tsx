@@ -7,6 +7,7 @@ interface Props {
   animation: ANIMATIONS;
   iterationCount: number | 'infinite';
   direction?: ANIMATION_DIRECTION;
+  duration?: number;
 }
 
 export const Animatable = (props: Props) => {

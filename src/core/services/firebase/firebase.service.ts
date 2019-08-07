@@ -1,16 +1,15 @@
-import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
-import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL, FIREBASE_STORAGE_BUCKET } from 'react-native-dotenv';
 import { hideWarnings } from '../../helpers/hide-warnings/hide-warnings.helper';
+import env from '../../constants/env';
 
 export class Firebase {
   static initialize() {
     hideWarnings();
     firebase.initializeApp({
-      apiKey: FIREBASE_API_KEY,
-      authDomain: FIREBASE_AUTH_DOMAIN,
-      databaseURL: FIREBASE_DATABASE_URL,
-      storageBucket: FIREBASE_STORAGE_BUCKET,
+      apiKey: env.FIREBASE_API_KEY,
+      authDomain: env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: env.FIREBASE_DATABASE_URL,
+      storageBucket: env.FIREBASE_STORAGE_BUCKET,
     });
   }
 

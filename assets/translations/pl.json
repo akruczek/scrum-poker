@@ -29,5 +29,10 @@
   "navigation_single": "Jednoosobowy",
   "navigation_multi": "Wieloosobowy",
   "navigation_settings": "Ustawienia",
-  "all_admins": "Bez Administratora"
+  "all_admins": "Bez Administratora",
+  "final_estimation": "Ostateczna estymacja",
+  "jira_issue_key": "Kod taska w Jirze",
+  "push": "Wyślij",
+  "jira_push_success": "Zapisano!",
+  "jira_push_error": "Błąd!\nSprawdź kod taska"
 }

@@ -10,6 +10,7 @@ interface Props {
 
 export const CardIcon = (props: Props) => {
   const value = R.propOr('?', 'value', props);
+  const isLongValue = Number(value) > 99;
 
   const buttonStyle = {
     width: 45,
@@ -19,7 +20,7 @@ export const CardIcon = (props: Props) => {
   };
 
   const buttonTitleStyle = {
-    fontSize: 20,
+    fontSize: isLongValue ? 16 : 20,
     display: isRiskCard(value) ? 'none' as 'none' : 'flex' as 'flex',
     fontFamily: 'space-mono',
   };

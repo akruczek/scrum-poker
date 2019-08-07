@@ -9,12 +9,13 @@ import { isPresent } from '@core/helpers';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton } from '@core/components';
-import { PokerCard, TRANSLATIONS } from '@core/models';
+import { PokerCard, TRANSLATIONS, SetIssueStoryPointsPayload } from '@core/models';
 import { RoomModel } from '../models/room.models';
 import { SelectCard } from '../dashboard/components/select-card/select-card';
 import { UserModel } from '../../auth/models/auth.models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
+import { JiraPusher } from './components/jira-pusher/jira-pusher';
 import {
   addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
 } from '../dashboard/store/dashboard.actions';
@@ -39,6 +40,7 @@ interface DispatchProps {
 export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
   const [ users, setUsers ] = React.useState<UserModel[]>([]);
   const [ isSelecting, setSelecting ] = React.useState(false);
+  const [ isJiraPusherVisible, setJiraPusherVisibility ] = React.useState(false);
 
   React.useEffect(() => {
     Firebase.listen(`/rooms/${props.room.id}`, getUsers);
@@ -80,11 +82,6 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
     props.setValue(getNewEstimation(card, props.room, props.rooms, props.user));
   }
 
-  const handlePushToJira = () => {
-    // TODO: open popup to push estimation to Jira
-    return 0;
-  };
-
   const estimation = (): (number|string)[] | null => {
     const { discovered, users } = props.room;
     return discovered ? getEstimation(users) : null;
@@ -109,12 +106,15 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
         <RoomButtonsSet
             handleReset={handleReset}
             handleShowDown={handleShowDown}
-            handlePushToJira={handlePushToJira}
+            handlePushToJira={() => setJiraPusherVisibility(true)}
             isDiscovered={props.room.discovered}
         />
       )}
 
       {isSelecting && <SelectCard handleSelect={handleSelectCard} />}
+      {isJiraPusherVisible && (
+        <JiraPusher handleClose={() => setJiraPusherVisibility(false)} handleReset={handleReset} />
+      )}
     </AppContainer>
   );
 };

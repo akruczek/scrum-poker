@@ -32,6 +32,15 @@ describe('CardIcon', () => {
       expect(wrapper.root.findByType(Button).props)
         .toEqual(expectedProps);
     });
+
+    it('should render Button component with different fontSize based on given value', () => {
+      const wrapper = renderer.create(
+        <CardIcon value={100} handlePress={handlePress} />
+      );
+
+      expect(wrapper.root.findByType(Button).props.titleStyle.fontSize)
+        .toEqual(16);
+    });
   });
 
   describe('when CardIcon was mounted without onPress prop', () => {
