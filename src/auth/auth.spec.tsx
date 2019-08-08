@@ -1,9 +1,9 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { ActivityIndicator } from 'react-native';
+import { Input } from 'react-native-elements';
 import { _Auth } from './auth';
 import { AUTH_TYPES } from './models/auth.models';
-import { Input } from 'react-native-elements';
-import { ActivityIndicator } from 'react-native';
 
 describe('Auth', () => {
   const signIn = jest.fn();

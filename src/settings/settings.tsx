@@ -3,7 +3,6 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, Container } from '@core/styled';
-import { NavigationProps } from '@core/navigation/navigation.model';
 import { translate } from '@core/services/translations/translations.service';
 import { TRANSLATIONS } from '@core/models';
 import { signOut } from '../auth/store/auth.actions';
@@ -12,7 +11,7 @@ interface DispatchProps {
   signOut: () => void;
 }
 
-export const _SettingsOverview = (props: DispatchProps & NavigationProps) => (
+export const _SettingsOverview = (props: DispatchProps) => (
   <AppContainer>
     <Container justifyContent="flex-end" margins="20px 0 0">
       <Button

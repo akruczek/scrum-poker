@@ -1,8 +1,8 @@
 import React from 'react';
+import { Modal } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
 import { CardButton } from '@core/components';
 import { FullScreenCard } from './full-screen-card';
-import { Modal } from 'react-native';
 
 describe('FullScreenCard', () => {
   const handleBackPress = jest.fn();

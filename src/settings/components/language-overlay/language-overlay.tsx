@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Expo from 'expo';
+import * as R from 'ramda';
 import { Overlay, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
@@ -8,6 +9,7 @@ import { translate } from '@core/services/translations/translations.service';
 import { setLanguage } from '@core/services/translations/store/translations.actions';
 import { Text, Container } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
+import { getLanguageItemContent } from '../../helpers/get-language-item-content/get-language-item-content.helper';
 
 interface Props {
   isVisible: boolean;
@@ -35,8 +37,6 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
     Expo.Updates.reload();
   };
 
-  // TODO: map on LANGUAGE_CODES
-
   return (
     <>
       <Overlay isVisible={reloadInformation} onBackdropPress={handleClose} height={160}>
@@ -51,16 +51,14 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
 
       <Overlay isVisible={isVisible && !reloadInformation} onBackdropPress={handleClose} height={180}>
         <>
-          <ListItem
-              title={translate(TRANSLATIONS.LANGUAGE_EN)}
-              subtitle={translate(TRANSLATIONS.LANGUAGE_EN_NATIVE)}
-              onPress={() => handleChangeLanguage(LANGUAGE_CODES.EN)}
-          />
-          <ListItem
-              title={translate(TRANSLATIONS.LANGUAGE_PL)}
-              subtitle={translate(TRANSLATIONS.LANGUAGE_PL_NATIVE)}
-              onPress={() => handleChangeLanguage(LANGUAGE_CODES.PL)}
-          />
+          {R.values(LANGUAGE_CODES).map(code => (
+            <ListItem
+                key={code}
+                title={translate(getLanguageItemContent(code)('title'))}
+                subtitle={translate(getLanguageItemContent(code)('subtitle'))}
+                onPress={() => handleChangeLanguage(code)}
+            />
+          ))}
         </>
       </Overlay>
     </>

@@ -8,7 +8,7 @@ import { _Settings, Settings } from './settings';
 import { SettingsOverview } from '../../settings/settings';
 import { appStore } from '../../store/configure-store';
 import { Auth } from '../../auth/auth';
-import { LanguageOverlay } from '../../settings/language-overlay/language-overlay';
+import { LanguageOverlay } from '../../settings/components/language-overlay/language-overlay';
 
 describe('Settings', () => {
   const mockedNavigation: any = {

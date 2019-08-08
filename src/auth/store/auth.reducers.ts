@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import { AuthStateModel } from '../models/auth.models';
+import { USER_ROLE } from '../../core/models/user.models';
 import {
   AUTH_ACTIONS, AuthActions,
   SignInAction, SignInSuccessAction, SignInErrorAction, SignOutAction, signOut,
@@ -9,6 +10,8 @@ const initialState: AuthStateModel = {
   isPending: false,
   model: {
     email: '',
+    id: '',
+    role: USER_ROLE.USER,
   },
   error: {},
 };

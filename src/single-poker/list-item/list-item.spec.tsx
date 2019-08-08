@@ -2,10 +2,10 @@ import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { ListItem as ListItemElement } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
+import riskPokerIcon from '@assets/custom-icons/risk-poker.png';
 import { CARDS } from '@core/constants';
 import { ICON_SIZES } from '@core/models';
 import { ListItem } from './list-item';
-import riskPokerIcon from '../../../assets/custom-icons/risk-poker.png';
 
 describe('ListItem', () => {
   const handlePress = jest.fn();

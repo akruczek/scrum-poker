@@ -9,7 +9,7 @@ import { translate } from '@core/services/translations/translations.service';
 import { SettingsOverview } from '../../settings/settings';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';
-import { LanguageOverlay } from '../../settings/language-overlay/language-overlay';
+import { LanguageOverlay } from '../../settings/components/language-overlay/language-overlay';
 
 interface StateProps {
   email?: string;
