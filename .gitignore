@@ -8,3 +8,4 @@ npm-debug.*
 coverage/
 .DS_Store
 .env
+.vscode/

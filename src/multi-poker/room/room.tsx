@@ -9,7 +9,7 @@ import { isPresent } from '@core/helpers';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton } from '@core/components';
-import { PokerCard, TRANSLATIONS, SetIssueStoryPointsPayload } from '@core/models';
+import { PokerCard, TRANSLATIONS } from '@core/models';
 import { RoomModel } from '../models/room.models';
 import { SelectCard } from '../dashboard/components/select-card/select-card';
 import { UserModel } from '../../auth/models/auth.models';
@@ -17,10 +17,10 @@ import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { JiraPusher } from './components/jira-pusher/jira-pusher';
 import {
-  addUser, AddUserPayload, showDown, reset, RoomPayload, setRoom, setValue, SetValuePayload,
+  addUser, showDown, reset, setRoom, setValue, SetValuePayload, AddUserPayload,
 } from '../dashboard/store/dashboard.actions';
 import {
-  getEstimation, isAdmin, getRoomIndex, getResetPayload, getNewEstimation, getNewUser,
+  getEstimation, isAdmin, getResetPayload, getNewEstimation, getNewUser,
 } from './helpers';
 
 interface StateProps {
@@ -31,8 +31,8 @@ interface StateProps {
 
 interface DispatchProps {
   addUser: (user: AddUserPayload) => void;
-  showDown: (payload: RoomPayload) => void;
-  reset: (payload: RoomPayload) => void;
+  showDown: (room: RoomModel) => void;
+  reset: (room: RoomModel) => void;
   setRoom: (room: RoomModel) => void;
   setValue: (payload: SetValuePayload) => void;
 }
@@ -44,10 +44,12 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
 
   React.useEffect(() => {
     Firebase.listen(`/rooms/${props.room.id}`, getUsers);
-    const isUserIn = R.any(R.propEq('email', props.user.email))(props.room.users)
+    const isUserIn = R.any(
+      R.propEq('email', props.user.email)
+    )(R.values(R.pathOr([], [ 'room', 'users' ], props)));
 
     if (!isUserIn) {
-      props.addUser(getNewUser(props.user, props.room, props.rooms));
+      props.addUser(getNewUser(props.user, props.room));
     }
 
     return () => {
@@ -56,36 +58,29 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
   }, []);
 
   const getUsers = (room: RoomModel) => {
-    setUsers(room.users);
+    setUsers(R.values<RoomModel, any>(R.propOr([], 'users', room)));
     props.setRoom(room);
   }
 
-  const handleShowDown = () => {
-    props.showDown({
-      room: props.room,
-      index: getRoomIndex(props.room.id)(props.rooms),
-    });
-  }
-
   const handleReset = () => {
-    props.reset(getResetPayload(props.room, props.rooms));
-  }
+    props.reset(getResetPayload(props.room));
+  };
 
   const handleOnListItemPress = (user: UserModel) => {
     if (user.email === props.user.email) {
       setSelecting(true);
     }
-  }
+  };
 
   const handleSelectCard = (card: PokerCard) => {
     setSelecting(false);
-    props.setValue(getNewEstimation(card, props.room, props.rooms, props.user));
-  }
+    props.setValue(getNewEstimation(card, props.room.id, props.user.email));
+  };
 
   const estimation = (): (number|string)[] | null => {
     const { discovered, users } = props.room;
     return discovered ? getEstimation(users) : null;
-  }
+  };
 
   return (
     <AppContainer fullHorizontal>
@@ -102,10 +97,10 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
         ))}
       </ScrollContainer>
 
-      {isAdmin(props.user.email)(props.room.users) && (
+      {isAdmin(props.user.email)(R.values(R.pathOr([], [ 'room', 'users' ], props))) && (
         <RoomButtonsSet
             handleReset={handleReset}
-            handleShowDown={handleShowDown}
+            handleShowDown={() => props.showDown(props.room)}
             handlePushToJira={() => setJiraPusherVisibility(true)}
             isDiscovered={props.room.discovered}
         />

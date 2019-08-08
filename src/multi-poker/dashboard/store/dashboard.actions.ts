@@ -35,10 +35,7 @@ export interface SetRoomAction extends Action {
 }
 
 export interface AddRoomAction extends Action {
-  payload: {
-    index: number;
-    room: RoomModel;
-  };
+  payload: RoomModel;
 }
 
 export interface AddRoomSuccessAction extends Action {
@@ -46,17 +43,16 @@ export interface AddRoomSuccessAction extends Action {
 }
 
 export interface RemoveRoomAction extends Action {
-  payload: number;
+  payload: string;
 }
 
 export interface RemoveRoomSuccessAction extends Action {
-  payload: RoomModel[];
+  payload: {[key: string]: RoomModel};
 }
 
 export interface AddUserPayload {
   user: UserModel;
-  index: number;
-  roomIndex: number;
+  roomId: string;
 }
 
 export interface AddUserAction extends Action {
@@ -67,18 +63,13 @@ export interface AddUserSuccessAction extends Action {
   payload: RoomModel;
 }
 
-export interface RoomPayload {
-  room: RoomModel;
-  index: number;
-}
-
 export interface RoomAction extends Action {
-  payload: RoomPayload;
+  payload: RoomModel;
 }
 
 export interface SetValuePayload {
-  roomIndex: number;
-  userIndex: number;
+  roomId: string;
+  userId: string;
   value: PokerCard;
 }
 
@@ -104,11 +95,11 @@ const newAction = <P>(type: DASHBOARD_ACTIONS) =>
 export const setRooms = newAction<RoomModel[]>(DASHBOARD_ACTIONS.SET_ROOMS);
 export const setRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.SET_ROOM);
 
-export const addRoom = newAction<{ room: RoomModel, index: number }>(DASHBOARD_ACTIONS.ADD_ROOM);
+export const addRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_ROOM);
 export const addRoomSuccess = newAction<RoomModel[]>(DASHBOARD_ACTIONS.ADD_ROOM_SUCCESS);
 export const addRoomError = newAction<any>(DASHBOARD_ACTIONS.ADD_ROOM_ERROR);
 
-export const removeRoom = newAction<number>(DASHBOARD_ACTIONS.REMOVE_ROOM);
+export const removeRoom = newAction<string>(DASHBOARD_ACTIONS.REMOVE_ROOM);
 export const removeRoomSuccess = newAction<RoomModel[]>(DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS);
 export const removeRoomError = newAction<any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERROR);
 
@@ -116,11 +107,11 @@ export const addUser = newAction<AddUserPayload>(DASHBOARD_ACTIONS.ADD_USER);
 export const addUserSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_USER_SUCCESS);
 export const addUserError = newAction<UserModel>(DASHBOARD_ACTIONS.ADD_USER_ERROR);
 
-export const showDown = newAction<RoomPayload>(DASHBOARD_ACTIONS.SHOW_DOWN);
+export const showDown = newAction<RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN);
 export const showDownSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN_SUCCESS);
 export const showDownError = newAction<any>(DASHBOARD_ACTIONS.SHOW_DOWN_ERROR);
 
-export const reset = newAction<RoomPayload>(DASHBOARD_ACTIONS.RESET);
+export const reset = newAction<RoomModel>(DASHBOARD_ACTIONS.RESET);
 export const resetSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.RESET_SUCCESS);
 export const resetError = newAction<any>(DASHBOARD_ACTIONS.RESET_ERROR);
 

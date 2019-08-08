@@ -7,14 +7,13 @@ import {
   addRoomError, addRoomSuccess, AddRoomAction,
   RemoveRoomAction, removeRoomSuccess, removeRoomError,
   AddUserAction, AddUserPayload, addUserSuccess, addUserError,
-  RoomAction, RoomPayload,
-  showDownSuccess, showDownError,
+  RoomAction, showDownSuccess, showDownError,
   resetSuccess, resetError,
   SetValueAction, SetValuePayload, setValueSuccess, setValueError,
 } from './dashboard.actions';
 
-const addRoom = (payload: { room: RoomModel, index: number }) => Firebase
-  .post(`/rooms/${payload.index}`, payload.room)
+const addRoom = (room: RoomModel) => Firebase
+  .post(`/rooms/${room.id}`, room)
   .then(rooms => addRoomSuccess(rooms))
   .catch(addRoomError)
 
@@ -25,7 +24,7 @@ export const addRoomEpic = (action: ActionsObservable<AddRoomAction>) => action
     switchMap(addRoom),
   );
 
-const removeRoom = (id: number) => Firebase
+const removeRoom = (id: string) => Firebase
   .delete(`/rooms/${id}`)
   .then(rooms => removeRoomSuccess(rooms))
   .catch(removeRoomError);
@@ -38,7 +37,7 @@ export const removeRoomEpic = (action: ActionsObservable<RemoveRoomAction>) => a
   );
 
 const addUser = (payload: AddUserPayload) => Firebase
-  .post(`/rooms/${payload.roomIndex}/users/${payload.index}`, payload.user)
+  .post(`/rooms/${payload.roomId}/users/${payload.user.id}`, payload.user)
   .then(response => addUserSuccess(response))
   .catch(addUserError);
 
@@ -49,8 +48,8 @@ export const addUserEpic = (action: ActionsObservable<AddUserAction>) => action
     switchMap(addUser)
   );
 
-const showDown = (payload: RoomPayload) => Firebase
-  .post(`/rooms/${payload.index}`, { ...payload.room, discovered: true })
+const showDown = (room: RoomModel) => Firebase
+  .post(`/rooms/${room.id}`, { ...room, discovered: true })
   .then(response => showDownSuccess(response))
   .catch(showDownError);
 
@@ -61,8 +60,8 @@ export const showDownEpic = (action: ActionsObservable<RoomAction>) => action
     switchMap(showDown),
   );
 
-const reset = (payload: RoomPayload) => Firebase
-  .post(`/rooms/${payload.index}`, payload.room)
+const reset = (room: RoomModel) => Firebase
+  .post(`/rooms/${room.id}`, room)
   .then(response => resetSuccess(response))
   .catch(resetError);
 
@@ -74,7 +73,7 @@ export const resetEpic = (action: ActionsObservable<RoomAction>) => action
   );
 
 const setValue = (payload: SetValuePayload) => Firebase
-  .post(`/rooms/${payload.roomIndex}/users/${payload.userIndex}/selectedValue`, payload.value)
+  .post(`/rooms/${payload.roomId}/users/${payload.userId}/selectedValue`, payload.value)
   .then(response => setValueSuccess(response))
   .catch(setValueError);
 

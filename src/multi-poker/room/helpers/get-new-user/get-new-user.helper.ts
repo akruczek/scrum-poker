@@ -1,22 +1,19 @@
-import * as R from 'ramda';
+import { USER_ROLE } from '@core/models/user.models';
+import { parseEmailToId } from '@core/helpers/parse-email-to-id/parse-email-to-id.helper';
+import { isBlank } from '@core/helpers';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
-import { getRoomIndex } from '../get-room-index/get-room-index.helper';
-import { USER_ROLE } from '../../../../core/models/user.models';
+import { AddUserPayload } from '../../../dashboard/store/dashboard.actions';
 
-export const getNewUser = (
-  user: UserModel,
-  room: RoomModel,
-  rooms: RoomModel[],
-) => {
-  const shouldBeAdmin = room.allAdmins || R.isEmpty(room.users);
+export const getNewUser = (user: UserModel, room: RoomModel): AddUserPayload => {
+  const shouldBeAdmin = room.allAdmins || isBlank(room.users);
 
   return {
     user: {
       ...user,
+      id: parseEmailToId(user.email),
       role: shouldBeAdmin ? USER_ROLE.ADMIN : USER_ROLE.USER,
     },
-    index: (room.users || []).length,
-    roomIndex: getRoomIndex(room.id)(rooms),
-  }
+    roomId: room.id,
+  };
 };

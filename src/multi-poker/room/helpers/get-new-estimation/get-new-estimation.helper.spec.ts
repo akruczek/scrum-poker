@@ -25,11 +25,11 @@ describe('when getNewEstimation was called', () => {
   it('should return given poker card, room and user indexes based on given arguments', () => {
     const expectedResult = {
       value: card,
-      roomIndex: 0,
-      userIndex: 1,
+      roomId: 0,
+      userId: 'test1@example_com',
     };
 
-    expect(getNewEstimation(card, rooms[0], rooms, { email: 'test1@example.com' } as UserModel))
+    expect(getNewEstimation(card, rooms[0].id, 'test1@example.com'))
       .toEqual(expectedResult);
   });
 });

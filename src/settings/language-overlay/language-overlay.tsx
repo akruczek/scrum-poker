@@ -33,7 +33,7 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
 
   const handleReload = () => {
     Expo.Updates.reload();
-  }
+  };
 
   // TODO: map on LANGUAGE_CODES
 
@@ -45,7 +45,7 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
             {translate(TRANSLATIONS.RELOAD_REQUEST)}
           </Text>
 
-          <Button title="Reload" onPress={handleReload} />
+          <Button title={translate(TRANSLATIONS.RELOAD)} onPress={handleReload} />
         </Container>
       </Overlay>
 

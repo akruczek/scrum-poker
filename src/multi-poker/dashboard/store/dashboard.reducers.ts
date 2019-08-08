@@ -6,7 +6,7 @@ import {
 } from './dashboard.actions';
 
 const initialState: RoomsStateModel = {
-  models: [],
+  models: {},
   model: {},
 };
 
@@ -19,7 +19,7 @@ const setRoomReducer = (action: SetRoomAction) => R.pipe(
 );
 
 const addRoomReducer = (action: AddRoomAction) => R.pipe(
-  R.assocPath([ 'models', action.payload.index ], action.payload.room),
+  R.assocPath([ 'models', action.payload.id ], action.payload),
 )
 
 const removeRoomReducer = (action: RemoveRoomAction) => R.evolve({
@@ -31,11 +31,11 @@ const addUserReducer = (action: AddUserAction) => R.evolve({
 });
 
 const resetReducer = (action: RoomAction) => R.pipe(
-  R.assoc('model', action.payload.room),
+  R.assoc('model', action.payload),
 );
 
 const setValueReducer = (action: SetValueAction) => R.pipe(
-  R.assocPath([ 'model', action.payload.roomIndex, 'users', action.payload.userIndex ], action.payload.value),
+  R.assocPath([ 'model', action.payload.roomId, 'users', action.payload.userId ], action.payload.value),
 );
 
 const roomsReducers = {

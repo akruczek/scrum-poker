@@ -9,6 +9,7 @@ export enum TRANSLATIONS {
   SETTINGS = 'settings',
   LOGOUT = 'logout',
   RELOAD_REQUEST = 'reload_request',
+  RELOAD = 'reload',
   LANGUAGE_EN = 'language_en',
   LANGUAGE_EN_NATIVE = 'language_en_native',
   LANGUAGE_PL = 'language_pl',

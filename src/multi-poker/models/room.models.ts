@@ -6,12 +6,12 @@ export enum EDIT_ROOMS_TYPES {
 }
 
 export interface RoomsStateModel {
-  models: RoomModel[];
+  models: { [key: string]: RoomModel };
   model: RoomModel | {};
 }
 
 export interface RoomModel {
-  id: number;
+  id: string;
   name: string;
   description: string;
   users: UserModel[];

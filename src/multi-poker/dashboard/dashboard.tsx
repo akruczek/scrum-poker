@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { isPresent, findIndexBy, rejectNil } from '@core/helpers';
+import { isPresent } from '@core/helpers';
 import { Preloader } from '@core/components';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
@@ -18,12 +18,12 @@ import { joinRoom } from './helpers/join-room/join-room.helper';
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
   setRoom: (room: RoomModel) => void;
-  addRoom: (payload: { room: RoomModel, index: number }) => void;
-  removeRoom: (room: number) => void;
+  addRoom: (payload: RoomModel) => void;
+  removeRoom: (id: string) => void;
 }
 
 interface StateProps {
-  rooms: RoomModel[];
+  rooms: {[key: string]: RoomModel};
 }
 
 export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) => {
@@ -50,21 +50,20 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
   }
 
   const handleAddRoom = (room: RoomModel) => {
-    const newRoom = prepareNewRoom(room, props.rooms);
+    const newRoom = prepareNewRoom(room);
     setCreateRoom(false);
     props.addRoom(newRoom);
-    handleNavigate(newRoom.room);
+    handleNavigate(newRoom);
   };
 
   const handleRemoveRoom = (room: RoomModel) => {
-    const index = findIndexBy('id', room.id)(props.rooms);
-    props.removeRoom(index);
+    props.removeRoom(room.id);
   };
 
   return (
     <AppContainer>
       <ScrollContainer>
-        {isPresent(props.rooms) && R.values(rejectNil(props.rooms)).map((room: RoomModel) => room && (
+        {isPresent(props.rooms) && R.values(props.rooms).map((room: RoomModel) => room && (
           <ListedRoom
               key={room.id}
               room={room}

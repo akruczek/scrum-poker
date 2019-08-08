@@ -9,7 +9,7 @@ describe('Dashboard Reducers', () => {
 
   beforeEach(() => {
     store = {
-      models: [],
+      models: {},
       model: {},
     };
   });
@@ -37,19 +37,16 @@ describe('Dashboard Reducers', () => {
   });
 
   describe('when addRoomReducer was called', () => {
-    it('should replace exact room in models by index with room from action payload', () => {
+    it('should replace exact room in models by id with room from action payload', () => {
       payload = {
-        index: 0,
-        room: {
-          name: 'Hello',
-          id: 8,
-        },
+        name: 'Hello',
+        id: 8,
       };
       action = addRoom(payload);
       const newState = roomsReducer(store, action);
 
-      expect(newState.models[0])
-        .toEqual(payload.room);
+      expect(newState.models[8])
+        .toEqual(payload);
     });
   });
 
@@ -107,9 +104,7 @@ describe('Dashboard Reducers', () => {
   describe('when resetReducer was called', () => {
     it('should replace model with action payload', () => {
       payload = {
-        room: {
-          id: null,
-        },
+        id: null,
       };
       action = reset(payload);
       const newState = roomsReducer(store, action);

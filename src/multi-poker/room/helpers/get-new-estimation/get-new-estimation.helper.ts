@@ -1,16 +1,9 @@
-import * as R from 'ramda';
-import { PokerCard } from '../../../../core/models';
-import { getRoomIndex } from '../get-room-index/get-room-index.helper';
-import { RoomModel } from '../../../models/room.models';
-import { UserModel } from '../../../../auth/models/auth.models';
+import { PokerCard } from '@core/models';
+import { parseEmailToId } from '@core/helpers/parse-email-to-id/parse-email-to-id.helper';
+import { SetValuePayload } from '../../../dashboard/store/dashboard.actions';
 
-export const getNewEstimation = (
-  card: PokerCard,
-  room: RoomModel,
-  rooms: RoomModel[],
-  user: UserModel,
-) => ({
+export const getNewEstimation = (card: PokerCard, roomId: string, email: string): SetValuePayload => ({
+  roomId,
   value: card,
-  roomIndex: getRoomIndex(room.id)(rooms),
-  userIndex: R.findIndex(R.propEq('email', user.email))(room.users),
+  userId: parseEmailToId(email),
 });

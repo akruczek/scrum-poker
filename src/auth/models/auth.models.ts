@@ -9,6 +9,7 @@ export interface AuthStateModel {
 
 export interface UserModel {
   email: string;
+  id: string;
   selectedValue?: PokerCard | null;
   role: USER_ROLE;
 }

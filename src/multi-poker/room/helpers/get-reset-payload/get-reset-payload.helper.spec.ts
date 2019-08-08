@@ -20,19 +20,16 @@ describe('when getResetPayload was called', () => {
 
   it('should return given room extended with discovered and users and room index', () => {
     const expectedResult = {
-      room: {
-        id: 1,
-        name: 'Super Room',
-        discovered: false,
-        users: [
-          { selectedValue: null },
-          { selectedValue: null },
-        ],
+      discovered: false,
+      id: 1,
+      name: 'Super Room',
+      users: {
+        0: { selectedValue: null },
+        1: { selectedValue: null },
       },
-      index: 0,
     };
 
-    expect(getResetPayload(room, rooms))
+    expect(getResetPayload(room))
       .toEqual(expectedResult);
   });
 });

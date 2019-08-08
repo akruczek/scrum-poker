@@ -1,14 +1,11 @@
+import * as R from 'ramda';
 import { RoomModel } from '../../../models/room.models';
-import { getRoomIndex } from '../get-room-index/get-room-index.helper';
 
-export const getResetPayload = (
-  room: RoomModel,
-  rooms: RoomModel[],
-) => ({
-  room: {
-    ...room,
-    discovered: false,
-    users: room.users.map(u => ({ ...u, selectedValue: null })),
-  },
-  index: getRoomIndex(room.id)(rooms),
+export const getResetPayload = (room: RoomModel): RoomModel => ({
+  ...room,
+  discovered: false,
+  users: R.zipObj(
+    R.keys(room.users) as any,
+    R.map(user => ({ ...user, selectedValue: null }))(R.values(room.users)),
+  ) as any,
 });

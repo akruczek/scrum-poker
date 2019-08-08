@@ -44,15 +44,15 @@ describe('when getNewUser was called', () => {
     };
 
     const expectedResult = {
+      roomId: 0,
       user: {
         email: 'test@example.com',
-        role: 'user',
+        role: 'admin',
+        id: 'test@example_com',
       },
-      index: 0,
-      roomIndex: 0,
     };
 
-    expect(getNewUser(user, room, rooms))
+    expect(getNewUser(user, room))
       .toEqual(expectedResult);
   });
 
@@ -65,7 +65,7 @@ describe('when getNewUser was called', () => {
       id: 1,
       name: 'My Awesome Room',
     };
-    expect(getNewUser(user, room, rooms).user.role)
+    expect(getNewUser(user, room).user.role)
       .toEqual(USER_ROLE.ADMIN);
   });
 });
