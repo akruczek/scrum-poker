@@ -38,6 +38,7 @@ describe('when getNewUser was called', () => {
     const user: any = {
       email: 'test@example.com',
     };
+
     const room: any = {
       id: 0,
       name: 'Super Room 1',
@@ -60,12 +61,25 @@ describe('when getNewUser was called', () => {
     const user: any = {
       email: 'test@example.com',
     };
+
     const room: any = {
       allAdmins: true,
       id: 1,
       name: 'My Awesome Room',
     };
+
+    const oneAdminRoom: any = {
+      allAdmins: false,
+      id: 1,
+      name: 'One Admin room',
+      users: [
+        { id: 'some-id', email: 'some@email.test' },
+      ],
+    };
+
     expect(getNewUser(user, room).user.role)
       .toEqual(USER_ROLE.ADMIN);
+    expect(getNewUser(user, oneAdminRoom).user.role)
+      .toEqual(USER_ROLE.USER);
   });
 });

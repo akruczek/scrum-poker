@@ -1,7 +1,6 @@
 export * from './animatable/animatable';
 export * from './card-button/card-button';
 export * from './card-icon/card-icon';
-export * from './guard/guard';
 export * from './header-back-button/header-back-button';
 export * from './header-right-icon/header-right-icon';
 export * from './preloader/preloader';

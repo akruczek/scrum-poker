@@ -55,6 +55,13 @@ describe('SinglePoker', () => {
         .toEqual(card);
       expect(fullScreenCard.parent.type)
         .not.toEqual('ScrollView');
+      
+      act(() => {
+        fullScreenCard.props.handleBackPress();
+      });
+
+      expect(wrapper.root.findAllByType(FullScreenCard))
+        .toEqual([]);
     });
 
     it('should render with "Scrum Poker" title', () => {

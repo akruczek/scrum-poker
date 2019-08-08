@@ -28,7 +28,8 @@
       "!src/**/*.{model,models}.ts",
       "!src/**/*.spec.{ts,tsx}",
       "!src/**/index.ts",
-      "!src/**/constants/*"
+      "!src/**/constants/*",
+      "!src/**/*.styled.{ts,tsx}"
     ]
   },
   "dependencies": {

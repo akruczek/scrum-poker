@@ -17,4 +17,26 @@ describe('TabBarIcon', () => {
         .toEqual(colors[COLORS.TAB_ICON_SELECTED]);
     });
   });
+
+  describe('when focused prop is true', () => {
+    const wrapper = renderer.create(
+      <TabBarIcon icon="ios-add" focused />
+    );
+
+    it('should render Ionicons with TAB_ICON_SELECTED color prop', () => {
+      expect(wrapper.root.findByType(Ionicons).props.color)
+        .toEqual(colors[COLORS.TAB_ICON_SELECTED]);
+    });
+  });
+
+  describe('when focused prop is false', () => {
+    const wrapper = renderer.create(
+      <TabBarIcon icon="ios-add" focused={false} />
+    );
+
+    it('should render Ionicons with TAB_ICON_DEFAULT color prop', () => {
+      expect(wrapper.root.findByType(Ionicons).props.color)
+        .toEqual(colors[COLORS.TAB_ICON_DEFAULT]);
+    });
+  });
 });

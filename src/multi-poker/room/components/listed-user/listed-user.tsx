@@ -6,7 +6,7 @@ import { parseBriiskName, isPresent } from '@core/helpers';
 import { CardIcon } from '@core/components';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
-import { TouchableListItem } from '../../styled/touchable-list-item/touchable-list-item';
+import { TouchableListItem } from '../../styled/touchable-list-item/touchable-list-item.styled';
 import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
 import { getListedUserColor } from '../../helpers/get-listed-user-color/get-listed-user-color.helper';
 import { isDivergence } from '../../helpers/is-divergence/is-divergence.helper';

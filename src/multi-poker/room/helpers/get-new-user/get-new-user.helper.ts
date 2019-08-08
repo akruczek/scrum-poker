@@ -1,5 +1,5 @@
 import { USER_ROLE } from '@core/models/user.models';
-import { parseEmailToId } from '@core/helpers/parse-email-to-id/parse-email-to-id.helper';
+import { parseEmailToId } from '@core/helpers';
 import { isBlank } from '@core/helpers';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
