@@ -19,6 +19,7 @@ export enum COLORS {
   RED_OPACITY = 'redOpacity',
   YELLOW_OPACITY = 'yellowOpacity',
   WHITE = 'white',
+  GREY = 'grey',
 }
 
 export const colors = {

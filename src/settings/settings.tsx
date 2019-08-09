@@ -6,6 +6,7 @@ import { AppContainer, Container } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { TRANSLATIONS } from '@core/models';
 import { signOut } from '../auth/store/auth.actions';
+import { AppInfo } from './components/app-info/app.info';
 
 interface DispatchProps {
   signOut: () => void;
@@ -13,6 +14,7 @@ interface DispatchProps {
 
 export const _SettingsOverview = (props: DispatchProps) => (
   <AppContainer>
+    <AppInfo />
     <Container justifyContent="flex-end" margins="20px 0 0">
       <Button
           title={translate(TRANSLATIONS.LOGOUT)}
