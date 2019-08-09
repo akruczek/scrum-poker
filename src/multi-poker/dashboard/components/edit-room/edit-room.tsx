@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
-import { Input, Button, colors, ButtonGroup } from 'react-native-elements';
+import { Input, ButtonGroup } from 'react-native-elements';
 import { Container, Text, AppContainer, Separator } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
@@ -10,6 +10,7 @@ import { TEXT_SIZES, pokers } from '@core/constants';
 import { EDIT_ROOMS_TYPES } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
+import { EditRoomButtonsSet } from '../edit-room-buttons-set/edit-room-buttons-set';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -77,16 +78,7 @@ export const EditRoom = (props: Props) => {
           )}
         </Container>
 
-        <Button
-            title={translate(TRANSLATIONS.CREATE)}
-            onPress={() => handleSubmit()}
-        />
-        <Separator margin={10} />
-        <Button
-            title={translate(TRANSLATIONS.DISMISS)}
-            onPress={props.handleDismiss}
-            buttonStyle={{ backgroundColor: colors.secondary }}
-        />
+        <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={props.handleDismiss} />
       </AppContainer>
     </Modal>
   );
