@@ -17,6 +17,7 @@
   "create_room": "Create Room",
   "update_room": "Update Room",
   "create": "CREATE",
+  "update": "UPDATE",
   "dismiss": "DISMISS",
   "placeholder_name": "Name",
   "placeholder_description": "Description",

@@ -3,7 +3,10 @@ import renderer, { act } from 'react-test-renderer';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Separator } from '@core/styled';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
 import { EditRoomButtonsSet } from './edit-room-buttons-set';
+import { EDIT_ROOMS_TYPES } from '../../../models/room.models';
 
 describe('EditRoomButtonsSet', () => {
   const handleSubmit = jest.fn();
@@ -11,7 +14,7 @@ describe('EditRoomButtonsSet', () => {
 
   describe('when EditRoomButtonsSet was mounted with all needed props', () => {
     const wrapper = renderer.create(
-      <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={handleDismiss} />
+      <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={handleDismiss} type={EDIT_ROOMS_TYPES.CREATE} />
     );
 
     it('should render 2 Button components and Separator between', () => {
@@ -41,6 +44,28 @@ describe('EditRoomButtonsSet', () => {
 
       expect(handleDismiss)
         .toHaveBeenCalled();
+    });
+  });
+
+  describe('when EditRoomButtonsSet was mounted with type prop "create"', () => {
+    const wrapper = renderer.create(
+      <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={handleDismiss} type={EDIT_ROOMS_TYPES.CREATE} />
+    );
+
+    it('should render first Button with CREATE translation', () => {
+      expect(wrapper.root.findAllByType(Button)[0].props.title)
+        .toEqual(translate(TRANSLATIONS.CREATE));
+    });
+  });
+
+  describe('when EditRoomButtonsSet was mounted with type prop "update"', () => {
+    const wrapper = renderer.create(
+      <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={handleDismiss} type={EDIT_ROOMS_TYPES.UPDATE} />
+    );
+
+    it('should render first Button with UPDATE translation', () => {
+      expect(wrapper.root.findAllByType(Button)[0].props.title)
+        .toEqual(translate(TRANSLATIONS.UPDATE));
     });
   });
 });

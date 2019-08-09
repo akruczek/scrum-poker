@@ -24,6 +24,9 @@ export enum DASHBOARD_ACTIONS {
   SET_VALUE = '[Room]: Set value',
   SET_VALUE_SUCCESS = '[Room]: Set value success',
   SET_VALUE_ERROR = '[Room]: Set value error',
+  UPDATE_ROOM = '[Room]: Update room',
+  UPDATE_ROOM_SUCCESS = '[Room]: Update room success',
+  UPDATE_ROOM_ERROR = '[Room]: Update room error',
 }
 
 export interface SetRoomsAction extends Action {
@@ -118,3 +121,7 @@ export const resetError = newAction<any>(DASHBOARD_ACTIONS.RESET_ERROR);
 export const setValue = newAction<SetValuePayload>(DASHBOARD_ACTIONS.SET_VALUE);
 export const setValueSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SET_VALUE_SUCCESS);
 export const setValueError = newAction<any>(DASHBOARD_ACTIONS.SET_VALUE_ERROR);
+
+export const updateRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM);
+export const updateRoomSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM_SUCCESS);
+export const updateRoomError = newAction<any>(DASHBOARD_ACTIONS.UPDATE_ROOM_ERROR);

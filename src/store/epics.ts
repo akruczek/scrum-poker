@@ -5,7 +5,7 @@ import {
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
 } from '@core/services/translations/store/translations.epics';
 import {
-  addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic,
+  addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic, updateRoomEpic,
 } from '../multi-poker/dashboard/store/dashboard.epics';
 
 export const epics = combineEpics(
@@ -23,4 +23,5 @@ export const epics = combineEpics(
   setLanguageSuccessEpic,
   setIssueStoryPointsEpic,
   getIssueEpic,
+  updateRoomEpic,
 );

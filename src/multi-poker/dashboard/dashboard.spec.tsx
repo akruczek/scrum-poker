@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { ScrollContainer, AppContainer } from '@core/styled';
 import { SCREENS } from '@core/navigation/screens';
 import { Firebase } from '@core/services/firebase/firebase.service';
+import { pokers } from '@core/constants';
 import { _Dashboard } from './dashboard';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
@@ -15,6 +16,7 @@ describe('Dashboard', () => {
       id: 1,
       name: 'room-1',
       description: 'this is room number 1',
+      poker: pokers[0],
       users: [
         {
           email: 'test@example1.com',
@@ -29,6 +31,7 @@ describe('Dashboard', () => {
       id: 2,
       name: 'room-2',
       description: 'this is room number 2',
+      poker: pokers[2],
       users: [
         {
           email: 'test@example1.com',

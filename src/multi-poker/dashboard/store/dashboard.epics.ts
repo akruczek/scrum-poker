@@ -10,6 +10,7 @@ import {
   RoomAction, showDownSuccess, showDownError,
   resetSuccess, resetError,
   SetValueAction, SetValuePayload, setValueSuccess, setValueError,
+  SetRoomAction, updateRoomSuccess,
 } from './dashboard.actions';
 
 const addRoom = (room: RoomModel) => Firebase
@@ -82,4 +83,16 @@ export const setValueEpic = (action: ActionsObservable<SetValueAction>) => actio
     ofType(DASHBOARD_ACTIONS.SET_VALUE),
     pluck('payload'),
     switchMap(setValue),
+  );
+
+const updateRoom = (room: RoomModel) => Firebase
+  .post(`/rooms/${room.id}`, room)
+  .then(rooms => updateRoomSuccess(rooms))
+  .catch(addRoomError);
+
+export const updateRoomEpic = (action: ActionsObservable<SetRoomAction>) => action
+  .pipe(
+    ofType(DASHBOARD_ACTIONS.UPDATE_ROOM),
+    pluck('payload'),
+    switchMap(updateRoom),
   );

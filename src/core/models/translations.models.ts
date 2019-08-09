@@ -22,6 +22,7 @@ export enum TRANSLATIONS {
   CREATE_ROOM = 'create_room',
   UPDATE_ROOM = 'update_room',
   CREATE = 'create',
+  UPDATE = 'update',
   DISMISS = 'dismiss',
   PLACEHOLDER_NAME = 'placeholder_name',
   PLACEHOLDER_DESCRIPTION = 'placeholder_description',
