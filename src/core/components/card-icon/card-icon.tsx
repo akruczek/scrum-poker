@@ -4,13 +4,13 @@ import { Button } from 'react-native-elements';
 import { getRiskCardColor, isRiskCard, NOOP } from '../../helpers';
 
 interface Props {
+  label: string;
   value: string | number;
   handlePress?: (value: string | number) => void;
 }
 
-export const CardIcon = (props: Props) => {
-  const value = R.propOr('?', 'value', props);
-  const isLongValue = Number(value) > 99;
+export const CardIcon = ({ label, value, handlePress }: Props) => {
+  const isLongValue = String(value).length > 2;
 
   const buttonStyle = {
     width: 45,
@@ -24,11 +24,11 @@ export const CardIcon = (props: Props) => {
     display: isRiskCard(value) ? 'none' as 'none' : 'flex' as 'flex',
     fontFamily: 'space-mono',
   };
- 
+
   return (
     <Button
-        title={String(value)}
-        onPress={R.propOr(NOOP, 'handlePress', props)}
+        title={String(label || '?')}
+        onPress={() => handlePress ? handlePress(value) : NOOP()}
         buttonStyle={buttonStyle}
         titleStyle={buttonTitleStyle}
     />  

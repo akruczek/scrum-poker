@@ -1,3 +1,4 @@
+import { pokers } from '@core/constants';
 import { prepareRoomPayload } from './prepare-room-payload.helper';
 
 describe('when prepareRoomPayload was called', () => {
@@ -8,9 +9,10 @@ describe('when prepareRoomPayload was called', () => {
       allAdmins: false,
       users: [],
       discovered: false,
+      poker: pokers[0],
     };
 
-    expect(prepareRoomPayload('Room1', 'My Super Room', false))
+    expect(prepareRoomPayload('Room1', 'My Super Room', false, pokers[0]))
       .toEqual(expectedPayload);
   });
 });

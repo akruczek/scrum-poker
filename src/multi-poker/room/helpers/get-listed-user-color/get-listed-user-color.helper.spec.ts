@@ -39,9 +39,9 @@ describe('when getListedUserColor was called', () => {
       const isEqualDivergence = false;
       const isValuePreset = false;
 
-      it('should return YELLOW_CARD color', () => {
+      it('should return YELLOW_OPACITY color', () => {
         expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
-          .toEqual(COLORS.YELLOW_CARD);
+          .toEqual(COLORS.YELLOW_OPACITY);
       });
     });
 

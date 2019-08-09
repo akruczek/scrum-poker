@@ -1,3 +1,4 @@
+import { PokerModel } from '@core/models';
 import { UserModel } from '../../auth/models/auth.models';
 
 export enum EDIT_ROOMS_TYPES {
@@ -17,4 +18,5 @@ export interface RoomModel {
   users: UserModel[];
   discovered?: boolean;
   allAdmins: boolean;
+  poker: PokerModel;
 }

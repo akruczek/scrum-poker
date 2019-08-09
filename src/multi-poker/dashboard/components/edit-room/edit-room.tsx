@@ -1,11 +1,12 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import { Modal } from 'react-native';
-import { Input, Button, colors } from 'react-native-elements';
+import { Input, Button, colors, ButtonGroup } from 'react-native-elements';
 import { Container, Text, AppContainer, Separator } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
-import { TRANSLATIONS } from '@core/models';
-import { TEXT_SIZES } from '@core/constants';
+import { TRANSLATIONS, PokerModel } from '@core/models';
+import { TEXT_SIZES, pokers } from '@core/constants';
 import { EDIT_ROOMS_TYPES } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
@@ -20,6 +21,7 @@ export const EditRoom = (props: Props) => {
   const [ name, setName ] = React.useState('');
   const [ description, setDescription ] = React.useState('');
   const [ allAdmins, setAllAdmins ] = React.useState(false);
+  const [ poker, setPoker ] = React.useState(pokers[0]);
 
   const content = {
     title: {
@@ -30,10 +32,10 @@ export const EditRoom = (props: Props) => {
 
   const handleChange = (field: 'name' | 'description', value: string) => {
     getSettingMethod(setName, setDescription)(field)(value);
-  }
+  };
 
   const handleSubmit = () => {
-    const room = prepareRoomPayload(name, description, allAdmins);
+    const room = prepareRoomPayload(name, description, allAdmins, poker);
     props.handleSubmit(room);
   };
 
@@ -44,6 +46,18 @@ export const EditRoom = (props: Props) => {
           <Text size={TEXT_SIZES.BIG}>
             {content.title[props.type]}
           </Text>
+
+          <Separator margin={10} />
+
+          {R.splitEvery(2, pokers).map((buttonsGroup: PokerModel[], index: number) => (
+            <ButtonGroup
+                key={buttonsGroup[0].name}
+                buttons={R.map(R.prop('title'), buttonsGroup)}
+                selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
+                onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
+                containerStyle={{ marginRight: 10 }}
+            />
+          ))}
 
           <Separator margin={10} />
           <Input

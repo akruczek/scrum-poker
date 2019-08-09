@@ -106,7 +106,8 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
         />
       )}
 
-      {isSelecting && <SelectCard handleSelect={handleSelectCard} />}
+      {isSelecting && <SelectCard handleSelect={handleSelectCard} cards={props.room.poker.cards} />}
+
       {isJiraPusherVisible && (
         <JiraPusher handleClose={() => setJiraPusherVisibility(false)} handleReset={handleReset} />
       )}

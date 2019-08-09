@@ -1,7 +1,8 @@
 import * as R from 'ramda';
 import { COLORS } from '@core/constants';
 
-const isEstimationUndefined = R.complement(R.is(Number));
+const isEstimationUndefined = (value: string | number): boolean =>
+  [ '?', '∞' ].includes(String(value));
 
 export const getListedUserColor = (
   isRoomDiscovered: boolean,
@@ -13,6 +14,6 @@ export const getListedUserColor = (
   [ () => (isRoomDiscovered && isDivergence && isEqualDivergence), R.prop('RED_OPACITY') ],
   [ () => (isValuePresent && !isRoomDiscovered), R.prop('GREEN_OPACITY') ],
   [ () => (!isValuePresent && !isRoomDiscovered), R.prop('WHITE') ],
-  [ () => (isRoomDiscovered && isEstimationUndefined(selectedValue)), R.prop('YELLOW_CARD') ],
+  [ () => (isRoomDiscovered && isEstimationUndefined(selectedValue)), R.prop('YELLOW_OPACITY') ],
   [ R.T, R.prop('WHITE') ],
 ])(COLORS);

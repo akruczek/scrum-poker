@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { ListItem, Divider } from 'react-native-elements';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { parseBriiskName, isPresent } from '@core/helpers';
 import { CardIcon } from '@core/components';
+import { colors } from '@core/constants';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
-import { TouchableListItem } from '../../styled/touchable-list-item/touchable-list-item.styled';
 import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
 import { getListedUserColor } from '../../helpers/get-listed-user-color/get-listed-user-color.helper';
 import { isDivergence } from '../../helpers/is-divergence/is-divergence.helper';
@@ -42,14 +42,19 @@ export const ListedUser = (props: Props) => {
   );
 
   const rightElement = (isValuePresent && isRoomDiscovered) || (isValuePresent && isCurrentUser)
-    ? <CardIcon value={selectedLabel} handlePress={handlePress} />
+    ? <CardIcon label={selectedLabel} value={selectedValue} handlePress={handlePress} />
     : <ListedUserIcon isCurrentUser={isCurrentUser} icon={icon} />;
 
   return (
     <View>
-      <TouchableListItem onPress={handlePress} color={color}>
-        <ListItem title={parseBriiskName(user.email)} subtitle={user.email} rightElement={rightElement} />
-      </TouchableListItem>
+      <TouchableOpacity onPress={handlePress}>
+        <ListItem
+            title={parseBriiskName(user.email)}
+            subtitle={user.email}
+            rightElement={rightElement}
+            containerStyle={{ backgroundColor: colors[color] }}
+        />
+      </TouchableOpacity>
       <Divider />
     </View>
   );
