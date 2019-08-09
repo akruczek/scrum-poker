@@ -1,3 +1,14 @@
+## 0.3.0
+### Added:
+- Basic Jira Integration - Possibility to push final estimation to Jira!
+- Now you can choose one of 4 basic Poker types also in Multi Poker!
+- Possibility to Edit Room properties
+### Improved:
+- App optimization
+- Expo 34 upgrade
+### Fixed:
+- iOS: Lack of background color on users list (Room View)
+
 ## 0.2.0
 ### Added:
 - Admin Role and possibility to choose whether all users in room should have admin permissions or only room creator
