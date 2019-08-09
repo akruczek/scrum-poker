@@ -34,12 +34,19 @@ describe('CardIcon', () => {
     });
 
     it('should render Button component with different fontSize based on given value', () => {
-      const wrapper = renderer.create(
+      let wrapper = renderer.create(
         <CardIcon value={100} handlePress={handlePress} />
       );
 
       expect(wrapper.root.findByType(Button).props.titleStyle.fontSize)
         .toEqual(16);
+
+      wrapper = renderer.create(
+        <CardIcon value={99} handlePress={handlePress} />
+      );
+
+      expect(wrapper.root.findByType(Button).props.titleStyle.fontSize)
+        .toEqual(20);
     });
   });
 
@@ -51,6 +58,17 @@ describe('CardIcon', () => {
     it('should render Button component with NOOP function as onPress prop', () => {
       expect(wrapper.root.findByType(Button).props.onPress)
         .toEqual(NOOP);
+    });
+  });
+
+  describe('when CardIcon was mounted with risk card as value', () => {
+    const wrapper = renderer.create(
+      <CardIcon value="risk_red" />
+    );
+
+    it('should render with buttonStyle with display "none"', () => {
+      expect(wrapper.root.findByType(Button).props.titleStyle.display)
+        .toEqual('none');
     });
   });
 });

@@ -6,7 +6,7 @@ export const AuthService = {
   initialize: () => {
     const action = (payload: string) => ({ type: AUTH_ACTIONS.SIGN_IN, payload });
 
-    Storage
+    return Storage
       .get('userEmail')
       .then(payload => payload ? appStore.dispatch(action(payload)) : {});
   },

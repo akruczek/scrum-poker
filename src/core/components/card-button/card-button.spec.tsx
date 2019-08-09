@@ -35,6 +35,15 @@ describe('CardButton', () => {
             .toEqual(expectedProps[key]);
         });
       });
+
+      it('should call handleSelect prop with given card from props after onPress prop was called', () => {
+        renderer.act(() => {
+          wrapper.root.findByType(Button).props.onPress();
+        });
+        
+        expect(handleSelect)
+          .toHaveBeenCalledWith({ value: 1, label: '1' });
+      });
     });
 
     describe('and fullScreen prop is false', () => {

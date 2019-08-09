@@ -19,7 +19,7 @@ export const ActionModal = ({ type, duration, message, textSize }: Props) => {
   const icon: { [key: string]: ImageSourcePropType } = {
     success: successIcon,
     error: errorIcon,
-  }
+  };
 
   return (
     <Modal animationType="fade" transparent={true}>
