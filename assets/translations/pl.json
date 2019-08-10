@@ -35,5 +35,11 @@
   "jira_issue_key": "Kod taska w Jirze",
   "push": "Wyślij",
   "jira_push_success": "Zapisano!",
-  "jira_push_error": "Błąd!\nSprawdź kod taska"
+  "jira_push_error": "Błąd!\nSprawdź kod taska",
+  "sign_in_to_jira": "Zaloguj Się do Jiry",
+  "generate_jira_token_help": "Wygeneruj API token",
+  "connect_with_jira": "Połącz z Jirą",
+  "jira_auth_success": "Połączono!",
+  "jira_auth_error": "Błąd! Sprawdź swoje dane",
+  "space_name": "Nazwa przestrzeni"
 }

@@ -50,8 +50,8 @@ const clearJiraStatusReducer = (_: JiraActions) => R.pipe(
 );
 
 const authJiraReducer = (action: AuthJiraAction) => R.pipe(
-  R.assoc('isPending'),
-  R.assoc('auth', action.payload)
+  R.assoc('isPending', true),
+  R.assoc('auth', action.payload),
 );
 
 const authJiraSuccessReducer = (action: AuthJiraAction) => R.pipe(

@@ -41,9 +41,7 @@ export const getIssueEpic = (action: ActionsObservable<GetIssueAction>, state: {
 
 const authJira = (payload: JiraAuthModel) => Jira
   .auth(payload)
-  .then((response: Response) => response
-    .json()
-    .then(response => authJiraSuccess(getJiraAuthResponse(response))))
+  .then(response => authJiraSuccess(response))
   .catch(error => authJiraError(error));
 
 export const authJiraEpic = (action: ActionsObservable<AuthJiraAction>) => action

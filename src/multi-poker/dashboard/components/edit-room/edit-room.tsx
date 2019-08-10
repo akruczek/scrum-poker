@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Input, ButtonGroup } from 'react-native-elements';
-import { Container, Text, AppContainer, Separator } from '@core/styled';
+import { Container, Text, AppContainer, Separator, ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
 import { TRANSLATIONS, PokerModel } from '@core/models';
@@ -53,41 +53,42 @@ export const EditRoom = (props: Props) => {
   return (
     <Modal animationType="slide">
       <AppContainer>
-        <Container margins="10px 0">
-          <Text size={TEXT_SIZES.BIG}>
-            {content.title[props.type]}
-          </Text>
+        <ScrollContainer>
+          <Container margins="10px 0">
+            <Text size={TEXT_SIZES.BIG}>
+              {content.title[props.type]}
+            </Text>
 
-          <Separator margin={10} />
+            <Separator margin={10} />
 
-          {R.splitEvery(2, pokers).map((buttonsGroup: PokerModel[], index: number) => (
-            <ButtonGroup
-                key={buttonsGroup[0].name}
-                buttons={R.map(R.prop('title'), buttonsGroup)}
-                selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
-                onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
-                containerStyle={{ marginRight: 10 }}
+            {R.splitEvery(2, pokers).map((buttonsGroup: PokerModel[], index: number) => (
+              <ButtonGroup
+                  key={buttonsGroup[0].name}
+                  buttons={R.map(R.prop('title'), buttonsGroup)}
+                  selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
+                  onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
+                  containerStyle={{ marginRight: 10 }}
+              />
+            ))}
+
+            <Separator margin={10} />
+            <Input
+                value={name}
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
+                onChangeText={(value: string) => handleChange('name', value)}
             />
-          ))}
-
-          <Separator margin={10} />
-          <Input
-              value={name}
-              placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
-              onChangeText={(value: string) => handleChange('name', value)}
-          />
-          <Separator margin={20} />
-          <Input
-              value={description}
-              placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
-              onChangeText={(value: string) => handleChange('description', value)}
-          />
-          <Separator margin={20} />
-          {props.type === EDIT_ROOMS_TYPES.CREATE && (
-            <Checkbox title={TRANSLATIONS.ALL_ADMINS} onChange={setAllAdmins} />
-          )}
-        </Container>
-
+            <Separator margin={20} />
+            <Input
+                value={description}
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
+                onChangeText={(value: string) => handleChange('description', value)}
+            />
+            <Separator margin={20} />
+            {props.type === EDIT_ROOMS_TYPES.CREATE && (
+              <Checkbox title={TRANSLATIONS.ALL_ADMINS} onChange={setAllAdmins} />
+            )}
+          </Container>
+        </ScrollContainer>
         <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={props.handleDismiss} type={props.type} />
       </AppContainer>
     </Modal>

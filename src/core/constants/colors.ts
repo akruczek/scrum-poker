@@ -20,6 +20,8 @@ export enum COLORS {
   YELLOW_OPACITY = 'yellowOpacity',
   WHITE = 'white',
   GREY = 'grey',
+  JIRA = 'jira',
+  LIGHT_GREY = 'lightgrey',
 }
 
 export const colors = {
@@ -43,4 +45,6 @@ export const colors = {
   redOpacity: 'rgba(217, 30, 24, 0.3)',
   yellowOpacity: 'rgba(245, 229, 27, 0.3)',
   white: 'white',
+  lightgrey: 'lightgrey',
+  jira: '#0747A6',
 };

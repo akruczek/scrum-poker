@@ -27,9 +27,9 @@ describe('Translations Service', () => {
         .toEqual('Scrum');
     });
 
-    it('should return empty string if translation for given key does not exist', () => {
+    it('should return given key if translation for given key does not exist', () => {
       expect(translate('hello' as any))
-        .toBe('');
+        .toBe('hello');
     });
   });
 

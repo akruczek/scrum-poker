@@ -28,6 +28,7 @@ interface StateProps {
   room: RoomModel;
   rooms: RoomModel[];
   user: UserModel;
+  jiraAccountId: string;
 }
 
 interface DispatchProps {
@@ -58,7 +59,7 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
 
     props.navigation.setParams({
       handleEditRoom: () => setEditingRoom(true),
-      isAdmin: R.isEmpty(users) || hasAdmin,
+      isAdmin: props.jiraAccountId && (R.isEmpty(users) || hasAdmin),
     });
 
     return () => {
@@ -66,7 +67,7 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
     };
   }, []);
 
-  const hasAdmin = isAdmin(props.user.email)(R.values(R.pathOr([], [ 'room', 'users' ], props)));
+  const hasAdmin = isAdmin(props.user.email)(R.values(R.pathOr([], [ 'room', 'users' ], props))) && props.jiraAccountId;
 
   const getUsers = (room: RoomModel) => {
     setUsers(R.values<RoomModel, any>(R.propOr([], 'users', room)));
@@ -161,6 +162,7 @@ const mapStateToProps = R.applySpec<StateProps>({
   room: R.path([ 'rooms', 'model' ]),
   rooms: R.path([ 'rooms', 'models' ]),
   user: R.path([ 'auth', 'model' ]),
+  jiraAccountId: R.path([ 'jira', 'user', 'accountId' ]),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(

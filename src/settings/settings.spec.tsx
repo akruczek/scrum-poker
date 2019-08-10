@@ -4,22 +4,26 @@ import { Button } from 'react-native-elements';
 import { _SettingsOverview } from './settings';
 
 describe('SettingsOverview', () => {
-  describe('when SettingsOverview was mounted with all needed props', () => {
-    const signOut = jest.fn();
+  const signOut = jest.fn();
+  const authJira = jest.fn();
+  const clearJiraStatus = jest.fn();
+  const isJiraPending = false;
+  const jiraUser: any = {};
 
+  describe('when SettingsOverview was mounted with all needed props', () => {
     const wrapper: any = renderer.create(
-      <_SettingsOverview signOut={signOut} />,
+      <_SettingsOverview {...{signOut, authJira, clearJiraStatus, isJiraPending, jiraUser}} />,
     );
 
     it('should render Button component with singOut action on press', () => {
-      expect(wrapper.root.findByType(Button).props.onPress)
+      expect(wrapper.root.findAllByType(Button)[2].props.onPress)
         .toEqual(signOut);
     });
 
     describe('and onPress prop was called', () => {
       beforeEach(() => {
         act(() => {
-          wrapper.root.findByType(Button).props.onPress();
+          wrapper.root.findAllByType(Button)[2].props.onPress();
         });
       });
 

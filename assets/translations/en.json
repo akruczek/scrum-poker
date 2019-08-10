@@ -35,5 +35,11 @@
   "jira_issue_key": "Jira Issue key",
   "push": "PUSH",
   "jira_push_success": "Saved!",
-  "jira_push_error": "Error!\nCheck your issue key"
+  "jira_push_error": "Error!\nCheck your issue key",
+  "sign_in_to_jira": "Sign in to Jira",
+  "generate_jira_token_help": "Generate API token",
+  "connect_with_jira": "Connect with Jira",
+  "jira_auth_success": "Successfully sign in!",
+  "jira_auth_error": "Error! check your credentials",
+  "space_name": "Space name"
 }

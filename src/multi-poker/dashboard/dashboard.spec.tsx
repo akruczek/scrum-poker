@@ -67,6 +67,7 @@ describe('Dashboard', () => {
           addRoom={addRoom}
           removeRoom={removeRoom}
           navigation={mockedNavigation}
+          jiraAccountId="some-uuid"
       />
     );
 

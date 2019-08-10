@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Constants from 'expo-constants';
-import { Text, Container } from '@core/styled';
-import { TEXT_SIZES, COLORS } from '@core/constants';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
+import { TEXT_SIZES, COLORS, colors } from '@core/constants';
 import * as pack from '../../../../package.json';
 
 export const AppInfo = () => {
   const version = [
     `App Version: ${pack.version}`,
-    `(build-${Constants.nativeBuildVersion})`,
+    `(build ${Constants.nativeBuildVersion})`,
   ].join(' ');
 
   const expoClient = `Expo Client: ${Constants.expoVersion}`;
@@ -15,16 +16,13 @@ export const AppInfo = () => {
   const device = `Device: ${Constants.deviceName} (${Constants.deviceYearClass})`;
 
   return (
-    <Container margins="5px 5px 10px">
-      <Text size={TEXT_SIZES.TINY} color={COLORS.GREY}>
-        {version}
-      </Text>
-      <Text size={TEXT_SIZES.TINY} color={COLORS.GREY}>
-        {expoClient}
-      </Text>
-      <Text size={TEXT_SIZES.TINY} color={COLORS.GREY}>
-        {device}
-      </Text>
-    </Container>
+    <View style={{ marginTop: 10, marginBottom: 10 }}>
+      <Button
+          title={`${version}\n${expoClient}\n${device}`}
+          titleStyle={{ fontSize: TEXT_SIZES.TINY, color: COLORS.GREY }}
+          buttonStyle={{ backgroundColor: colors[COLORS.LIGHT_GREY] }}
+          type="solid"
+      />
+    </View>
   );
 };

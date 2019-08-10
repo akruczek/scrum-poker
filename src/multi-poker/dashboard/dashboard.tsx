@@ -24,6 +24,7 @@ interface DispatchProps {
 
 interface StateProps {
   rooms: {[key: string]: RoomModel};
+  jiraAccountId: string;
 }
 
 export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) => {
@@ -60,6 +61,8 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
     props.removeRoom(room.id);
   };
 
+  const isConnectedWithJira = props.jiraAccountId;
+
   return (
     <AppContainer>
       <ScrollContainer>
@@ -74,7 +77,7 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
           />
         ))}
 
-        <ListedNewRoom setCreateRoom={setCreateRoom} />
+        {isConnectedWithJira && <ListedNewRoom setCreateRoom={setCreateRoom} />}
       </ScrollContainer>
 
       {isCreatingRoom && (
@@ -92,6 +95,7 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
 
 const mapStateToProps = R.applySpec<StateProps>({
   rooms: R.path([ 'rooms', 'models' ]),
+  jiraAccountId: R.path([ 'jira', 'user', 'accountId' ]),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
