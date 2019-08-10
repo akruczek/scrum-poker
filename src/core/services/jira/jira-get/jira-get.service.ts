@@ -1,16 +1,13 @@
 import { encodeBasicAuthorization } from '../../../helpers/encode-basic-authorization/encode-basic-authorization.helper';
-import env from '../../../constants/env';
+import { JiraAuthModel } from '../../../models';
 
-export class JiraGet {
-  private authorization = encodeBasicAuthorization(env.JIRA_EMAIL, env.JIRA_TOKEN);
-
-  public issue(key: string) {
-    return fetch(`${env.JIRA_URL}/rest/api/3/issue/${key}`, {
+export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
+  issue: (key: string) =>
+    fetch(`https://${spaceName}.atlassian.net/rest/api/3/issue/${key}`, {
       method: 'GET',
       headers: new Headers({
-        Authorization: this.authorization,
+        Authorization: encodeBasicAuthorization(email, token),
         'Content-Type': 'application/json',
       }),
-    });
-  }
-}
+    }),
+});

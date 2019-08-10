@@ -1,11 +1,13 @@
 import * as R from 'ramda';
 import { JiraStateModel } from '../../../models';
-import { JiraActions, JIRA_ACTIONS } from './jira.actions';
+import { JiraActions, JIRA_ACTIONS, AuthJiraAction } from './jira.actions';
 
 const initialState: JiraStateModel = {
   isPending: false,
   error: false,
   success: false,
+  auth: null,
+  user: null,
 };
 
 const setIssueReducer = (_: JiraActions) => R.pipe(
@@ -47,6 +49,22 @@ const clearJiraStatusReducer = (_: JiraActions) => R.pipe(
   R.assoc('error', false),
 );
 
+const authJiraReducer = (action: AuthJiraAction) => R.pipe(
+  R.assoc('isPending'),
+  R.assoc('auth', action.payload)
+);
+
+const authJiraSuccessReducer = (action: AuthJiraAction) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('user', action.payload),
+);
+
+const authJiraErrorReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('auth', null),
+  R.assoc('user', null),
+);
+
 const reducers = {
   [JIRA_ACTIONS.SET_ISSUE_STORY_POINTS]: setIssueReducer,
   [JIRA_ACTIONS.SET_ISSUE_STORY_POINTS_SUCCESS]: setIssueSuccessReducer,
@@ -55,6 +73,9 @@ const reducers = {
   [JIRA_ACTIONS.GET_ISSUE_SUCCESS]: getIssueSuccessReducer,
   [JIRA_ACTIONS.GET_ISSUE_ERROR]: getIssueErrorReducer,
   [JIRA_ACTIONS.CLEAR_JIRA_STATUS]: clearJiraStatusReducer,
+  [JIRA_ACTIONS.AUTH_JIRA]: authJiraReducer,
+  [JIRA_ACTIONS.AUTH_JIRA_SUCCESS]: authJiraSuccessReducer,
+  [JIRA_ACTIONS.AUTH_JIRA_ERROR]: authJiraErrorReducer,
 };
 
 const selectReducer = (type: JIRA_ACTIONS): any =>
