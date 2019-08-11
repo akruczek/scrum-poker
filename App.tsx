@@ -17,57 +17,35 @@ interface Props {
   skipLoadingScreen?: boolean;
 }
 
-interface State {
-  isLoadingComplete: boolean;
-}
+const App = ({ skipLoadingScreen }: Props) => {
+  const [ isLoadingComplete, setLoadingComplete ] = React.useState(false);
 
-interface DispatchProps {
-  getTranslations: (code: LANGUAGE_CODES) => void;
-}
+  const initializeApp = async (): Promise<any> =>
+    Promise.all([
+      loadAssets(),
+      Firebase.initialize(),
+      appStore.dispatch({ type: TRANSLATIONS_ACTIONS.INITIALIZE }),
+      appStore.dispatch({ type: AUTH_ACTIONS.INITIALIZE }),
+      appStore.dispatch({ type: JIRA_ACTIONS.INITIALIZE }),
+    ]);
 
-export default class App extends React.Component<Props & DispatchProps, State> {
-  constructor(props: Props & DispatchProps) {
-    super(props);
-    this.state = {
-      isLoadingComplete: false,
-    };
+  const isLoading = () =>
+    (!isLoadingComplete && !skipLoadingScreen) || isBlank(appStore.getState().translations.models);
 
-    this.loadingComplete = this.loadingComplete.bind(this);
-  }
+  return ifElse(
+    isLoading(),
+    <AppLoading
+        startAsync={initializeApp}
+        onError={error => console.error(error)}
+        onFinish={() => setLoadingComplete(true)}
+    />,
+    <Provider store={appStore}>
+      <Container>
+        {isPlatform('ios') && <StatusBar barStyle="default" />}
+        <AppNavigator />
+      </Container>
+    </Provider>,
+  );
+};
 
-  componentDidMount() {
-    Firebase.initialize();
-    appStore.dispatch({ type: TRANSLATIONS_ACTIONS.INITIALIZE });
-    appStore.dispatch({ type: AUTH_ACTIONS.INITIALIZE });
-    appStore.dispatch({ type: JIRA_ACTIONS.INITIALIZE });
-  }
-
-  isLoading() {
-    return (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) || isBlank(appStore.getState().translations.models);
-  }
-
-  loadingError(error: any) {
-    console.error(error);
-  };
-
-  loadingComplete() {
-    this.setState({ isLoadingComplete: true });
-  };
-
-  render() {
-    return ifElse(
-      this.isLoading(),
-      <AppLoading
-          startAsync={loadAssets}
-          onError={this.loadingError}
-          onFinish={this.loadingComplete.bind(this)}
-      />,
-      <Provider store={appStore}>
-        <Container>
-          {isPlatform('ios') && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </Container>
-      </Provider>,
-    );
-  }
-}
+export default App;

@@ -48,7 +48,7 @@ export const signOutEpic = (action: ActionsObservable<SignOutAction>) => action
 
 const initializeAuth = () => Storage
   .get('userEmail')
-  .then(payload => (isPresent(payload) && payload) ? signIn(payload) : EMPTY_ACTION);
+  .then(payload => (isPresent(payload) && payload) ? signIn(payload) : signInError());
 
 export const initializeAuthEpic = (action: ActionsObservable<SignOutAction>) => action
   .pipe(

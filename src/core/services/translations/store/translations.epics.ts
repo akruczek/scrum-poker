@@ -44,7 +44,7 @@ export const setLanguageSuccessEpic = (action: ActionsObservable<SetLanguageSucc
 
 const initializeTranslations = () => Storage
   .get('userLanguage')
-  .then((payload: LANGUAGE_CODES | any) => isPresent(payload) ? getTranslationsAction(payload) : EMPTY_ACTION);
+  .then((payload: LANGUAGE_CODES | any) => isPresent(payload) ? getTranslationsAction(payload) : getTranslationsAction(LANGUAGE_CODES.EN));
 
 export const initializeTranslationsEpic = (action: ActionsObservable<SetLanguageSuccessAction>) => action
   .pipe(

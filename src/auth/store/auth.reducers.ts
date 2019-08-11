@@ -51,7 +51,7 @@ const reducers = {
   [AUTH_ACTIONS.SIGN_OUT]: signOutReducer,
   [AUTH_ACTIONS.SIGN_OUT_SUCCESS]: signOutSuccessReducer,
   [AUTH_ACTIONS.SIGN_OUT_ERROR]: signOutErrorReducer,
-  [AUTH_ACTIONS.INITIALIZE]: () => R.identity,
+  [AUTH_ACTIONS.INITIALIZE]: signInReducer,
 };
 
 const selectReducer = (type: AUTH_ACTIONS): any =>

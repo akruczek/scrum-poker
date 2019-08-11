@@ -67,7 +67,7 @@ export const authJiraSuccessEpic = (action: ActionsObservable<JiraActions>, stat
 
 const initializeJira = () => Storage
   .multiGet([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ])
-  .then(response => isPresent(response) ? authJiraAction(parseJiraAuthData(response)) : EMPTY_ACTION)
+  .then(response => isPresent(response) ? authJiraAction(parseJiraAuthData(response)) : authJiraError())
   .catch(error => error);
 
 export const initializeJiraEpic = (action: ActionsObservable<JiraActions>) => action
