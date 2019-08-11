@@ -36,28 +36,33 @@ export const _JiraPusher = ({
   const [ issueKey, setIssueKey ] = React.useState('');
   const [ displaySuccess, setSuccess ] = React.useState(false);
   const [ displayError, setError ] = React.useState(false);
+  const [ waiting, setWaiting ] = React.useState(false);
 
   const handlePush = () => {
+    setWaiting(true);
     setIssueStoryPoints({ issueKey, value: Number(finalEstimation) || 0 });
   };
 
   React.useEffect(() => {
-    if (!isPending && isSuccess) {
-      setSuccess(true);
-      clearJiraStatus();
-      setTimeout(() => {
-        setSuccess(false);
-        handleClose();
-        handleReset();
-      }, 2000);
-    }
-
-    if (!isPending && isError) {
-      setError(true);
-      clearJiraStatus();
-      setTimeout(() => {
-        setError(false);
-      }, 3000);
+    if (!isPending && waiting) {
+      if (isSuccess) {
+        setSuccess(true);
+        clearJiraStatus();
+        setTimeout(() => {
+          setSuccess(false);
+          handleClose();
+          handleReset();
+        }, 2000);
+      }
+  
+      if (isError) {
+        setError(true);
+        clearJiraStatus();
+        setWaiting(false);
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+      }
     }
   });
 
@@ -90,11 +95,11 @@ export const _JiraPusher = ({
             />
           </KeyboardAvoidingContainer>
         </AppContainer>
-      </Modal>
 
-      {isPending && <Preloader />}
-      {displaySuccess && <ActionModal type="success" message={TRANSLATIONS.JIRA_PUSH_SUCCESS} />}
-      {displayError && <ActionModal type="error" message={TRANSLATIONS.JIRA_PUSH_ERROR} textSize={TEXT_SIZES.BIG} />}
+        <Preloader isVisible={isPending} />
+        <ActionModal isVisible={displaySuccess} type="success" message={TRANSLATIONS.JIRA_PUSH_SUCCESS} />
+        <ActionModal isVisible={displayError} type="error" message={TRANSLATIONS.JIRA_PUSH_ERROR} textSize={TEXT_SIZES.BIG} />
+      </Modal>
     </>
   );
 };

@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { Modal, ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Modal } from 'react-native';
 import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
-import { Container, AppContainer, Text, CustomIcon, ScrollContainer, KeyboardAvoidingContainer } from '@core/styled';
+import { Container, AppContainer, Text, CustomIcon, KeyboardAvoidingContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
-import { TEXT_SIZES, COLORS } from '@core/constants';
+import { TEXT_SIZES } from '@core/constants';
 import { Preloader, ActionModal } from '@core/components';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
-import layout from '../../../core/constants/layout';
 
 interface Props {
   authJira: (payload: JiraAuthModel) => void;
@@ -30,29 +29,31 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
 
   const allFieldsFilled = spaceName && email && token;
 
-  const handleAuth = () => {
+  const handleAuth = async () => {
     if (allFieldsFilled) {
-      authJira({ spaceName, email, token });
+      await authJira({ spaceName, email, token });
       setWaiting(true);
     }
   };
 
   React.useEffect(() => {
-    if (allFieldsFilled && waiting) {
-      if (!isPending && isUser) {
+    if (allFieldsFilled && waiting && !isPending && !displaySuccess && !displayError) {
+      if (isUser) {
         setSuccess(true);
         clearJiraStatus();
+        setWaiting(false);
         setTimeout(() => {
+          setSuccess(false);
           handleClose();
         }, 2000);
       }
-  
-      if (!isPending && !isUser) {
+
+      if (!isUser) {
         setError(true);
         clearJiraStatus();
+        setWaiting(false);
         setTimeout(() => {
           setError(false);
-          setWaiting(false);
         }, 3000);
       }
     }
@@ -82,11 +83,11 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
             />
           </KeyboardAvoidingContainer>
         </AppContainer>
-      </Modal>
 
-      {isPending && <Preloader />}
-      {displaySuccess && <ActionModal type="success" message={TRANSLATIONS.JIRA_AUTH_SUCCESS} textSize={TEXT_SIZES.BIG} />}
-      {displayError && <ActionModal type="error" message={TRANSLATIONS.JIRA_AUTH_ERROR} textSize={TEXT_SIZES.BIG} />}
+        {isPending && <Preloader />}
+        {displaySuccess && <ActionModal type="success" message={TRANSLATIONS.JIRA_AUTH_SUCCESS} textSize={TEXT_SIZES.BIG} />}
+        {displayError && <ActionModal type="error" message={TRANSLATIONS.JIRA_AUTH_ERROR} textSize={TEXT_SIZES.BIG} />}
+      </Modal>
     </>
   );
 };
