@@ -7,10 +7,10 @@ import { translate } from '@core/services/translations/translations.service';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
 import { TRANSLATIONS, PokerModel } from '@core/models';
 import { TEXT_SIZES, pokers } from '@core/constants';
+import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
-import { EditRoomButtonsSet } from '../edit-room-buttons-set/edit-room-buttons-set';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -49,6 +49,8 @@ export const EditRoom = (props: Props) => {
     const room = prepareRoomPayload(name, description, allAdmins, poker);
     props.handleSubmit(room);
   };
+
+  const submitButtonTranslation = props.type === EDIT_ROOMS_TYPES.CREATE ? 'CREATE' : 'UPDATE';
 
   return (
     <Modal animationType="slide">
@@ -89,7 +91,10 @@ export const EditRoom = (props: Props) => {
             )}
           </Container>
         </ScrollContainer>
-        <EditRoomButtonsSet handleSubmit={handleSubmit} handleDismiss={props.handleDismiss} type={props.type} />
+        <ButtonsSet
+            titles={[ TRANSLATIONS[submitButtonTranslation], TRANSLATIONS.DISMISS ]}
+            onPress={[ handleSubmit, props.handleDismiss ]}
+        />
       </AppContainer>
     </Modal>
   );

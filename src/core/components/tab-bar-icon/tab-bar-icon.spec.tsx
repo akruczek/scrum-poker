@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import { Ionicons } from '@expo/vector-icons';
 import { TabBarIcon } from './tab-bar-icon';
-import { COLORS, colors } from '../../constants/colors';
+import { COLORS } from '../../constants/colors';
 
 describe('TabBarIcon', () => {
   describe('when TabBarIcon was mounted with all needed props', () => {
@@ -14,7 +14,7 @@ describe('TabBarIcon', () => {
       expect(wrapper.root.findByType(Ionicons).props.name)
         .toEqual('ios-add');
       expect(wrapper.root.findByType(Ionicons).props.color)
-        .toEqual(colors[COLORS.TAB_ICON_SELECTED]);
+        .toEqual(COLORS.TAB_ICON_SELECTED);
     });
   });
 
@@ -25,7 +25,7 @@ describe('TabBarIcon', () => {
 
     it('should render Ionicons with TAB_ICON_SELECTED color prop', () => {
       expect(wrapper.root.findByType(Ionicons).props.color)
-        .toEqual(colors[COLORS.TAB_ICON_SELECTED]);
+        .toEqual(COLORS.TAB_ICON_SELECTED);
     });
   });
 
@@ -36,7 +36,7 @@ describe('TabBarIcon', () => {
 
     it('should render Ionicons with TAB_ICON_DEFAULT color prop', () => {
       expect(wrapper.root.findByType(Ionicons).props.color)
-        .toEqual(colors[COLORS.TAB_ICON_DEFAULT]);
+        .toEqual(COLORS.TAB_ICON_DEFAULT);
     });
   });
 });

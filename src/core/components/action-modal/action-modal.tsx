@@ -6,7 +6,7 @@ import { Container, CustomIcon, Text } from '../../styled';
 import { Animatable } from '../animatable/animatable';
 import { BOUNCING_ENTRANCES, TRANSLATIONS } from '../../models';
 import { translate } from '../../services/translations/translations.service';
-import { TEXT_SIZES, colors } from '../../constants';
+import { TEXT_SIZES, COLORS } from '../../constants';
 
 interface Props {
   type: 'success' | 'error';
@@ -30,7 +30,7 @@ export const ActionModal = ({ type, duration, message, textSize }: Props) => {
           </View>
 
           {message && (
-            <Text align="center" size={textSize || TEXT_SIZES.LARGE} style={{ color: colors.white }}>
+            <Text align="center" size={textSize || TEXT_SIZES.LARGE} style={{ color: COLORS.WHITE }}>
               {translate(message)}
             </Text>
           )}

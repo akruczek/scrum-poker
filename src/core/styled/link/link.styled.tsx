@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import styled from 'styled-components/native';
-import { Text } from '../text/text.styled';
 import { TextProps } from 'react-native';
-import { colors, COLORS } from '../../constants/colors';
+import styled from 'styled-components/native';
 import { TEXT_SIZES } from '@core/constants';
+import { Text } from '../text/text.styled';
+import { COLORS } from '../../constants/colors';
 
 interface Props {
   children?: any;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const StyledLink = styled(Text)`
-  color: ${colors[COLORS.LINK]};
+  color: ${COLORS.LINK};
 `;
 
 export const Link = (props: TouchableOpacityProps & Props & TextProps) => (

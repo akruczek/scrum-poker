@@ -1,16 +1,17 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
-import { Input, Button, colors } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { AppContainer, Container, Text, Separator } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { TRANSLATIONS, SetIssueStoryPointsPayload } from '@core/models';
 import { translate } from '@core/services/translations/translations.service';
-import { setIssueStoryPoints, getIssue, clearJiraStatus } from '@core/services/jira/store/jira.actions'
+import { setIssueStoryPoints, clearJiraStatus } from '@core/services/jira/store/jira.actions'
 import { Preloader } from '@core/components';
 import { ActionModal } from '@core/components/action-modal/action-modal';
+import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 
 interface Props {
   handleClose: () => void;
@@ -19,7 +20,6 @@ interface Props {
 
 interface DispatchProps {
   setIssueStoryPoints: (payload: SetIssueStoryPointsPayload) => void;
-  getIssue: (key: string) => void;
   clearJiraStatus: () => void;
 }
 
@@ -30,7 +30,7 @@ interface StateProps {
 }
 
 export const _JiraPusher = ({
-  handleClose, setIssueStoryPoints, isPending, isError, isSuccess, getIssue, clearJiraStatus, handleReset,
+  handleClose, setIssueStoryPoints, isPending, isError, isSuccess, clearJiraStatus, handleReset,
 }: Props & DispatchProps & StateProps) => {
   const [ finalEstimation, setFinalEstimation ] = React.useState('');
   const [ issueKey, setIssueKey ] = React.useState('');
@@ -83,12 +83,9 @@ export const _JiraPusher = ({
             />
           </Container>
 
-          <Button title={translate(TRANSLATIONS.PUSH)} onPress={handlePush} />
-          <Separator margin={10} />
-          <Button
-              title={translate(TRANSLATIONS.DISMISS)}
-              onPress={handleClose}
-              buttonStyle={{ backgroundColor: colors.secondary }}
+          <ButtonsSet
+              titles={[ TRANSLATIONS.PUSH, TRANSLATIONS.DISMISS ]}
+              onPress={[ handlePush, handleClose ]}
           />
         </AppContainer>
       </Modal>
@@ -107,7 +104,7 @@ const mapStateToProps = R.applySpec<StateProps>({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { setIssueStoryPoints, getIssue, clearJiraStatus },
+  { setIssueStoryPoints, clearJiraStatus },
   dispatch,
 );
 

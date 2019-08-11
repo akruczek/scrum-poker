@@ -4,7 +4,6 @@ import { ListItem, Divider } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
 import { parseBriiskName, isPresent } from '@core/helpers';
 import { CardIcon } from '@core/components';
-import { colors } from '@core/constants';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
 import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
@@ -52,7 +51,7 @@ export const ListedUser = (props: Props) => {
             title={parseBriiskName(user.email)}
             subtitle={user.email}
             rightElement={rightElement}
-            containerStyle={{ backgroundColor: colors[color] }}
+            containerStyle={{ backgroundColor: color }}
         />
       </TouchableOpacity>
       <Divider />

@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Button, Avatar, Icon } from 'react-native-elements';
-import { View } from 'react-native';
-import jiraIcon from '@assets/custom-icons/jira.png';
-import { JiraAuthModel, ICON_SIZES, TRANSLATIONS, JiraUserModel } from '@core/models';
-import { COLORS, colors, TEXT_SIZES } from '@core/constants';
-import { CustomIcon, Container, Text } from '@core/styled';
+import { Button } from 'react-native-elements';
+import { JiraAuthModel, TRANSLATIONS, JiraUserModel } from '@core/models';
+import { COLORS, TEXT_SIZES } from '@core/constants';
 import { translate } from '@core/services/translations/translations.service';
 import { isNotNil, NOOP } from '@core/helpers';
 import { JiraLogin } from '../jira-login/jira-login';
+import { JiraBadgeContent } from './components/jira-badge-content/jira-badge-content';
+import { JiraBadgeIcon } from './components/jira-badge-icon/jira-badge-icon';
 
 interface Props {
   authJira: (payload: JiraAuthModel) => void;
@@ -19,34 +18,23 @@ interface Props {
 export const JiraBadge = ({ authJira, isPending, jiraUser, clearJiraStatus }: Props) => {
   const [ isSigningIn, setSigningIn ] = React.useState(false);
 
-  const jiraIconComponent = (
-    <View style={{ marginRight: 20 }}>
-      <CustomIcon size={ICON_SIZES.STANDARD} source={jiraIcon} />
-    </View>
-  );
+  const content = jiraUser ? <JiraBadgeContent jiraUser={jiraUser} /> : <JiraBadgeIcon />;
+  const title = jiraUser ? '' : translate(TRANSLATIONS.CONNECT_WITH_JIRA);
+  const handlePress = () => jiraUser ? NOOP() : setSigningIn(true);
 
-  const jiraContent = () => (
-    <>
-      <Container flexDirection="row" justifyContent="flex-start" margins="0 0 0 10px">
-        <Avatar source={{ uri: jiraUser.avatarUrl }} rounded containerStyle={{ marginRight: 10 }} />
-        <Text>{jiraUser.displayName}</Text>
-      </Container>
-      <Container flexDirection="row" justifyContent="flex-end" margins="0 10px 0 0">
-        <CustomIcon size={ICON_SIZES.STANDARD} source={jiraIcon} />
-      </Container>
-    </>
-  );
+  const buttonStyle = { height: 100, backgroundColor: COLORS.WHITE };
+  const titleStyle: {} = { color: COLORS.JIRA, fontSize: TEXT_SIZES.BIG, fontWeight: '600' };
 
   return (
     <>
       <Button
-          buttonStyle={{ height: 100, backgroundColor: colors[COLORS.WHITE] }}
-          titleStyle={{ color: colors[COLORS.JIRA], fontSize: TEXT_SIZES.BIG, fontWeight: '600' }}
-          raised
-          title={jiraUser ? '' : translate(TRANSLATIONS.CONNECT_WITH_JIRA)}
-          icon={jiraUser ? jiraContent() : jiraIconComponent}
+          buttonStyle={buttonStyle}
+          titleStyle={titleStyle}
+          title={title}
+          icon={content}
           type="outline"
-          onPress={() => jiraUser ? NOOP() : setSigningIn(true)}
+          onPress={handlePress}
+          raised
       />
       {isSigningIn && (
         <JiraLogin

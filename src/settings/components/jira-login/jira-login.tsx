@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Modal, ScrollView } from 'react-native';
-import { Input, colors, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
-import { Container, Separator, AppContainer, Text, CustomIcon } from '@core/styled';
+import { Container, AppContainer, Text, CustomIcon } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { TEXT_SIZES, COLORS } from '@core/constants';
+import { Preloader, ActionModal } from '@core/components';
+import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
-import { Preloader, ActionModal } from '@core/components';
 
 interface Props {
   authJira: (payload: JiraAuthModel) => void;
@@ -75,16 +76,10 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
           </ScrollView>
 
           <Container justifyContent="flex-end" style={{ backgroundColor: COLORS.WHITE, height: 100 }}>
-            <Button
-                title={translate(TRANSLATIONS.SIGN_IN)}
-                onPress={handleAuth}
-                disabled={!allFieldsFilled}
-            />
-            <Separator margin={10} />
-            <Button
-                buttonStyle={{ backgroundColor: colors.secondary }}
-                title={translate(TRANSLATIONS.DISMISS)}
-                onPress={handleClose}
+            <ButtonsSet
+                titles={[ TRANSLATIONS.SIGN_IN, TRANSLATIONS.DISMISS ]}
+                onPress={[ handleAuth, handleClose ]}
+                disabled={[ !allFieldsFilled, false ]}
             />
           </Container>
         </AppContainer>
