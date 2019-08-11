@@ -4,7 +4,7 @@ import { Modal } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AppContainer, Container, Text, Separator } from '@core/styled';
+import { AppContainer, Container, Text, Separator, KeyboardAvoidingContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { TRANSLATIONS, SetIssueStoryPointsPayload } from '@core/models';
 import { translate } from '@core/services/translations/translations.service';
@@ -65,28 +65,30 @@ export const _JiraPusher = ({
     <>
       <Modal animationType="slide">
         <AppContainer>
-          <Container margins="10px 0">
-            <Text size={TEXT_SIZES.BIG} align="center">
-              {translate(TRANSLATIONS.PUSH_TO_JIRA)}
-            </Text>
-            <Separator margin={10} />
-            <Input
-                value={finalEstimation}
-                placeholder={translate(TRANSLATIONS.FINAL_ESTIMATION)}
-                onChangeText={setFinalEstimation}
-            />
-            <Separator margin={10} />
-            <Input
-                value={issueKey}
-                placeholder={translate(TRANSLATIONS.JIRA_ISSUE_KEY)}
-                onChangeText={setIssueKey}
-            />
-          </Container>
+          <KeyboardAvoidingContainer>
+            <Container margins="10px 0">
+              <Text size={TEXT_SIZES.BIG} align="center">
+                {translate(TRANSLATIONS.PUSH_TO_JIRA)}
+              </Text>
+              <Separator margin={10} />
+              <Input
+                  value={finalEstimation}
+                  placeholder={translate(TRANSLATIONS.FINAL_ESTIMATION)}
+                  onChangeText={setFinalEstimation}
+              />
+              <Separator margin={10} />
+              <Input
+                  value={issueKey}
+                  placeholder={translate(TRANSLATIONS.JIRA_ISSUE_KEY)}
+                  onChangeText={setIssueKey}
+              />
+            </Container>
 
-          <ButtonsSet
-              titles={[ TRANSLATIONS.PUSH, TRANSLATIONS.DISMISS ]}
-              onPress={[ handlePush, handleClose ]}
-          />
+            <ButtonsSet
+                titles={[ TRANSLATIONS.PUSH, TRANSLATIONS.DISMISS ]}
+                onPress={[ handlePush, handleClose ]}
+            />
+          </KeyboardAvoidingContainer>
         </AppContainer>
       </Modal>
 

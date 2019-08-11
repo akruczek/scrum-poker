@@ -1,40 +1,28 @@
 import * as React from 'react';
-import { Linking } from 'expo';
 import { View } from 'react-native';
-import { Input, Tooltip, Icon } from 'react-native-elements';
-import { Separator, Text, Link } from '@core/styled';
-import { TEXT_SIZES, COLORS } from '@core/constants';
-import { translate } from '@core/services/translations/translations.service';
-import { TRANSLATIONS } from '@core/models';
+import { Tooltip, Icon } from 'react-native-elements';
+import { Separator } from '@core/styled';
+import { TokenTooltip } from '../token-tooltip/token-tooltip';
+import { JiraLoginInput } from '../jira-login-input/jira-login-input';
+import { JiraTooltipContainer } from '../../styled/jira-tooltip-container/jira-tooltip-container.styled';
 
 interface Props {
   token: string;
   setToken: (token: string) => void;
 }
 
-export const TokenInput = ({ token, setToken }: Props) => {
-  const tokenHelp = (
-    <Link onPress={() => Linking.openURL('https://confluence.atlassian.com/cloud/api-tokens-938839638.html')}>
-      <Text decorationLine="underline" color={COLORS.WHITE} size={TEXT_SIZES.SMALL}>
-        {translate(TRANSLATIONS.GENERATE_JIRA_TOKEN_HELP)}
-      </Text>
-    </Link>
-  );
+export const TokenInput = ({ token, setToken }: Props) => (
+  <>
+    <Separator />
+    <View style={{ flexDirection: 'row' }}>
+      <JiraLoginInput placeholder="API token" onChange={setToken} value={token} isSecure />
 
-  return (
-    <>
-      <Separator />
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ flexGrow: 9 }}>
-          <Input secureTextEntry placeholder="API token" onChangeText={setToken} value={token} />
-        </View>
-        <View style={{ flexGrow: 1, alignItems: 'center', marginTop: 10 }}>
-          <Tooltip popover={tokenHelp} width={260} height={60}>
-            <Icon name="help" />
-          </Tooltip>
-        </View>
-      </View>
-      <Separator />
-    </>
-  );
-};
+      <JiraTooltipContainer>
+        <Tooltip popover={<TokenTooltip />} width={260} height={60}>
+          <Icon name="help" />
+        </Tooltip>
+      </JiraTooltipContainer>
+    </View>
+    <Separator />
+  </>
+);

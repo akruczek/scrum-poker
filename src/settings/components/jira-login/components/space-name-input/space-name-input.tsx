@@ -1,41 +1,30 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import { View } from 'react-native';
-import { Input, Tooltip, Icon } from 'react-native-elements';
-import { Separator, Text } from '@core/styled';
-import { TEXT_SIZES, COLORS } from '@core/constants';
-import { translate } from '../../../../../core/services/translations/translations.service';
-import { TRANSLATIONS } from '../../../../../core/models';
+import { Tooltip, Icon } from 'react-native-elements';
+import { Separator } from '@core/styled';
+import { translate } from '@core/services/translations/translations.service';
+import { TRANSLATIONS } from '@core/models';
+import { SpaceNameTooltip } from '../space-name-tooltip/space-name-tooltip';
+import { JiraLoginInput } from '../jira-login-input/jira-login-input';
+import { JiraTooltipContainer } from '../../styled/jira-tooltip-container/jira-tooltip-container.styled';
 
 interface Props {
   spaceName: string;
   setSpaceName: (spaceName: string) => void;
 }
 
-export const SpaceNameInput = ({ spaceName, setSpaceName }: Props) => {
-  const spaceNameHelp = (
-    <Text>
-      <Text size={TEXT_SIZES.SMALL} color={COLORS.RED_CARD}>
-        {R.toLower(R.replace(/ /, '_', translate(TRANSLATIONS.SPACE_NAME)))}
-      </Text>
-      <Text size={TEXT_SIZES.SMALL}>.atlassian.net</Text>
-    </Text>
-  );
+export const SpaceNameInput = ({ spaceName, setSpaceName }: Props) => (
+  <>
+    <Separator />
+    <View style={{ flexDirection: 'row' }}>
+      <JiraLoginInput placeholder={translate(TRANSLATIONS.SPACE_NAME)} onChange={setSpaceName} value={spaceName} />
 
-  return (
-    <>
-      <Separator />
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ flexGrow: 9 }}>
-          <Input placeholder={translate(TRANSLATIONS.SPACE_NAME)} onChangeText={setSpaceName} value={spaceName} />
-        </View>
-        <View style={{ flexGrow: 1, alignItems: 'center', marginTop: 10 }}>
-          <Tooltip popover={spaceNameHelp} width={260} height={60}>
-            <Icon name="help" />
-          </Tooltip>
-        </View>
-      </View>
-      <Separator />
-    </>
-  );
-};
+      <JiraTooltipContainer>
+        <Tooltip popover={<SpaceNameTooltip />} width={260} height={60}>
+          <Icon name="help" />
+        </Tooltip>
+      </JiraTooltipContainer>
+    </View>
+    <Separator />
+  </>
+);

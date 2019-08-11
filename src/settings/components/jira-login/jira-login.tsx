@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { Modal, ScrollView } from 'react-native';
+import { Modal, ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
-import { Container, AppContainer, Text, CustomIcon } from '@core/styled';
+import { Container, AppContainer, Text, CustomIcon, ScrollContainer, KeyboardAvoidingContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translations.service';
 import { TEXT_SIZES, COLORS } from '@core/constants';
 import { Preloader, ActionModal } from '@core/components';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
+import layout from '../../../core/constants/layout';
 
 interface Props {
   authJira: (payload: JiraAuthModel) => void;
@@ -61,7 +62,7 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
     <>
       <Modal animationType="slide">
         <AppContainer>
-          <ScrollView contentContainerStyle={{ height: '80%' }}>
+          <KeyboardAvoidingContainer>
             <Container justifyContent="space-around" alignItems="center" margins="30px 0 0">
               <CustomIcon source={jiraIcon} size={ICON_SIZES.BIG} />
 
@@ -73,15 +74,13 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
               <Input placeholder="email" onChangeText={setEmail} value={email} />
               <TokenInput {...{ token, setToken }} />
             </Container>
-          </ScrollView>
 
-          <Container justifyContent="flex-end" style={{ backgroundColor: COLORS.WHITE, height: 100 }}>
             <ButtonsSet
                 titles={[ TRANSLATIONS.SIGN_IN, TRANSLATIONS.DISMISS ]}
                 onPress={[ handleAuth, handleClose ]}
                 disabled={[ !allFieldsFilled, false ]}
             />
-          </Container>
+          </KeyboardAvoidingContainer>
         </AppContainer>
       </Modal>
 
