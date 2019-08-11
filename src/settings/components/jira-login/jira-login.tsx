@@ -4,7 +4,7 @@ import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
 import { Container, AppContainer, Text, CustomIcon, KeyboardAvoidingContainer } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TEXT_SIZES } from '@core/constants';
 import { Preloader, ActionModal } from '@core/components';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';

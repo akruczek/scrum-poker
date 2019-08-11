@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from 'react-native-elements';
 import { JiraAuthModel, TRANSLATIONS, JiraUserModel } from '@core/models';
 import { COLORS, TEXT_SIZES } from '@core/constants';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { isNotNil, NOOP } from '@core/helpers';
 import { JiraLogin } from '../jira-login/jira-login';
 import { JiraBadgeContent } from './components/jira-badge-content/jira-badge-content';

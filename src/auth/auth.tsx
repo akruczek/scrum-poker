@@ -5,7 +5,7 @@ import { Button, Input } from 'react-native-elements';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/styled';
 import { Preloader } from '@core/components';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 import { getDefault } from '@core/helpers';
 import { signIn } from './store/auth.actions';

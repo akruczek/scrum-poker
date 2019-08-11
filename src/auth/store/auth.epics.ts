@@ -9,6 +9,7 @@ import {
   SignInAction, signInError, signInSuccess, SignInSuccessAction,
   SignOutAction, signOutSuccess, signOutError,
 } from './auth.actions';
+import { isPresent } from '../../core/helpers';
 
 const signIn = (email: string) => Firebase
   .signIn(email, 'password')
@@ -35,7 +36,7 @@ export const signInSuccessEpic = (action: ActionsObservable<SignInSuccessAction>
   );
 
 const signOut = () => Storage
-  .delete('userEmail')
+  .multiDelete([ 'userEmail', 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ])
   .then(() => signOutSuccess())
   .catch(signOutError)
 
@@ -43,4 +44,14 @@ export const signOutEpic = (action: ActionsObservable<SignOutAction>) => action
   .pipe(
     ofType(AUTH_ACTIONS.SIGN_OUT),
     switchMap(signOut),
+  );
+
+const initializeAuth = () => Storage
+  .get('userEmail')
+  .then(payload => (isPresent(payload) && payload) ? signIn(payload) : EMPTY_ACTION);
+
+export const initializeAuthEpic = (action: ActionsObservable<SignOutAction>) => action
+  .pipe(
+    ofType(AUTH_ACTIONS.INITIALIZE),
+    switchMap(initializeAuth),
   );

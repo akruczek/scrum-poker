@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
 import { TRANSLATIONS } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { _SinglePlayer, SinglePlayer } from './single-player';
 import { PokersList } from '../../single-poker/pokers-list/pokers-list';
 

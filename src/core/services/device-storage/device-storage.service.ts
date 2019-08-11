@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { AsyncStorage } from 'react-native';
 
 export class Storage {
@@ -25,6 +26,38 @@ export class Storage {
       await AsyncStorage.removeItem(`@scrum-poker:${key}`);
     } catch (error) {
       console.error('Error removing data from device storage');
+    }
+    return null;
+  }
+
+  static async multiSet(keys: string[], values: any[]) {
+    try {
+      const _keys = R.map(R.concat('@scrum-poker:'))(keys);
+      const payload = _keys.map((key: string, index: number) => [ key, values[index] ]);
+      await AsyncStorage.multiSet(payload);
+    } catch (error) {
+      console.error('Error saving multi data in device storage');
+    }
+    return null;
+  }
+
+  static async multiGet(keys: string[]) {
+    try {
+      const _keys = R.map(R.concat('@scrum-poker:'))(keys);
+      const values = await AsyncStorage.multiGet(_keys);
+      return values;
+    } catch (error) {
+      console.error('Error getting multi data from device storage');
+    }
+    return null;
+  }
+
+  static async multiDelete(keys: string[]) {
+    try {
+      const _keys = R.map(R.concat('@scrum-poker:'))(keys);
+      await AsyncStorage.multiRemove(_keys);
+    } catch(error) {
+      console.error('Error removing multi data from device storage');
     }
     return null;
   }

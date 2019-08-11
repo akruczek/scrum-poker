@@ -8,6 +8,7 @@ export enum AUTH_ACTIONS {
   SIGN_OUT = '[Auth]: Sign out',
   SIGN_OUT_SUCCESS = '[Auth]: Sign out success',
   SIGN_OUT_ERROR = '[Auth]: Sign out error',
+  INITIALIZE = '[Auth]: Initialize',
 }
 
 export interface SignInAction extends Action {
@@ -42,3 +43,5 @@ export const signInError = newAction<any>(AUTH_ACTIONS.SIGN_IN_ERROR);
 export const signOut = newAction<{}>(AUTH_ACTIONS.SIGN_OUT);
 export const signOutSuccess = newAction<{}>(AUTH_ACTIONS.SIGN_OUT_SUCCESS);
 export const signOutError = newAction<{}>(AUTH_ACTIONS.SIGN_OUT_ERROR);
+
+export const initializeAuth = newAction<{}>(AUTH_ACTIONS.INITIALIZE);

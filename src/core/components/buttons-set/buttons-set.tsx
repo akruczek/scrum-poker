@@ -5,7 +5,7 @@ import { Button, colors } from 'react-native-elements';
 import { Separator } from '../../styled';
 import { COLORS } from '../../constants';
 import { TRANSLATIONS } from '../../models';
-import { translate } from '../../services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 
 interface Props {
   titles: [ TRANSLATIONS, TRANSLATIONS ];

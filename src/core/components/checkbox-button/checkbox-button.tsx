@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CheckBox } from 'react-native-elements';
 import { TRANSLATIONS } from '../../models';
 import { TEXT_SIZES } from '../../constants';
-import { translate } from '../../services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 
 interface Props {
   title: TRANSLATIONS;

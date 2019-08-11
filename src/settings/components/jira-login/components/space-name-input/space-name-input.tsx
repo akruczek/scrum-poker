@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { Tooltip, Icon } from 'react-native-elements';
 import { Separator } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 import { SpaceNameTooltip } from '../space-name-tooltip/space-name-tooltip';
 import { JiraLoginInput } from '../jira-login-input/jira-login-input';

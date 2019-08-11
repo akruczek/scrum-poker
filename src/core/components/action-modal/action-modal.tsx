@@ -5,7 +5,7 @@ import errorIcon from '@assets/custom-icons/error.png';
 import { Container, CustomIcon, Text } from '../../styled';
 import { Animatable } from '../animatable/animatable';
 import { BOUNCING_ENTRANCES, TRANSLATIONS } from '../../models';
-import { translate } from '../../services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TEXT_SIZES, COLORS } from '../../constants';
 
 interface Props {

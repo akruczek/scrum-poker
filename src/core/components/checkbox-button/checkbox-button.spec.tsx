@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { CheckBox } from 'react-native-elements';
-import * as T from '../../services/translations/translations.service';
+import * as T from '../../services/translations/translate';
 import { Checkbox } from './checkbox-button';
 
 describe('Checkbox', () => {

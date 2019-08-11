@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { AppContainer, Container, Text, Separator, KeyboardAvoidingContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { TRANSLATIONS, SetIssueStoryPointsPayload } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { setIssueStoryPoints, clearJiraStatus } from '@core/services/jira/store/jira.actions'
 import { Preloader } from '@core/components';
 import { ActionModal } from '@core/components/action-modal/action-modal';

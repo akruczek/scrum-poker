@@ -48,6 +48,7 @@ const reducers = {
   [TRANSLATIONS_ACTIONS.SET_LANGUAGE]: setLanguageReducer,
   [TRANSLATIONS_ACTIONS.SET_LANGUAGE_SUCCESS]: setLanguageSuccessReducer,
   [TRANSLATIONS_ACTIONS.SET_LANGUAGE_ERROR]: setLanguageErrorReducer,
+  [TRANSLATIONS_ACTIONS.INITIALIZE]: () => R.identity,
 };
 
 const selectReducer = (type: TRANSLATIONS_ACTIONS): any =>

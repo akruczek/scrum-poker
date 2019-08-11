@@ -8,6 +8,7 @@ export enum TRANSLATIONS_ACTIONS {
   GET_TRANSLATIONS = '[Translations]: Get translations',
   GET_TRANSLATIONS_SUCCESS = '[Translations]: Get translations success',
   GET_TRANSLATIONS_ERROR = '[Translations]: Get translations error',
+  INITIALIZE = '[Translations]: Initialize',
 }
 
 export interface GetTranslationsAction extends Action {
@@ -47,18 +48,17 @@ const newAction = <P>(type: TRANSLATIONS_ACTIONS) =>
 
 export const getTranslations =
   newAction<LANGUAGE_CODES>(TRANSLATIONS_ACTIONS.GET_TRANSLATIONS);
-
 export const getTranslationsSuccess =
   newAction<Translation[]>(TRANSLATIONS_ACTIONS.GET_TRANSLATIONS_SUCCESS);
-
 export const getTranslationsError =
   newAction<any>(TRANSLATIONS_ACTIONS.GET_TRANSLATIONS_ERROR);
 
 export const setLanguage = 
   newAction<LANGUAGE_CODES>(TRANSLATIONS_ACTIONS.SET_LANGUAGE);
-
 export const setLanguageSuccess = 
   newAction<LANGUAGE_CODES>(TRANSLATIONS_ACTIONS.SET_LANGUAGE_SUCCESS);
-
 export const setLanguageError = 
   newAction<any>(TRANSLATIONS_ACTIONS.SET_LANGUAGE_ERROR);
+
+export const initializeTranslations =
+  newAction<{}>(TRANSLATIONS_ACTIONS.INITIALIZE);

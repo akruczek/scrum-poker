@@ -3,11 +3,13 @@ import { switchMap, pluck, map } from 'rxjs/operators';
 import { Translations } from '../translations.service';
 import { LANGUAGE_CODES, Translation } from '../../../models/translations.models';
 import { Storage } from '../../device-storage/device-storage.service';
+import { isPresent } from '../../../helpers';
 import {
   GetTranslationsAction, getTranslations as getTranslationsAction, TRANSLATIONS_ACTIONS,
   getTranslationsError, getTranslationsSuccess, SetLanguageAction,
   setLanguageSuccess, setLanguageError, SetLanguageSuccessAction,
 } from './translations.actions';
+import { EMPTY_ACTION } from '../../../constants';
 
 const getTranslations = (language: LANGUAGE_CODES) => Translations
   .get(language)
@@ -38,4 +40,14 @@ export const setLanguageSuccessEpic = (action: ActionsObservable<SetLanguageSucc
     ofType(TRANSLATIONS_ACTIONS.SET_LANGUAGE_SUCCESS),
     pluck('payload'),
     map(getTranslationsAction),
-  )
+  );
+
+const initializeTranslations = () => Storage
+  .get('userLanguage')
+  .then((payload: LANGUAGE_CODES | any) => isPresent(payload) ? getTranslationsAction(payload) : EMPTY_ACTION);
+
+export const initializeTranslationsEpic = (action: ActionsObservable<SetLanguageSuccessAction>) => action
+  .pipe(
+    ofType(TRANSLATIONS_ACTIONS.INITIALIZE),
+    switchMap(initializeTranslations),
+  );

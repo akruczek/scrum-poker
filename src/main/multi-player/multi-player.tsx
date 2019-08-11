@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { ifElse } from '@core/helpers';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { Auth } from '../../auth/auth';

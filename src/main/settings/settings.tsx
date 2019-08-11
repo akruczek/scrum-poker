@@ -5,7 +5,7 @@ import { NavigationProps } from '@core/navigation/navigation.model';
 import { ifElse } from '@core/helpers';
 import { HeaderRightIcon } from '@core/components';
 import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { SettingsOverview } from '../../settings/settings';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';

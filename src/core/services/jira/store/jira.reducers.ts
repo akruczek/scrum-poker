@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import { JiraStateModel } from '../../../models';
 import { JiraActions, JIRA_ACTIONS, AuthJiraAction } from './jira.actions';
+import { AUTH_ACTIONS, AuthActions } from '../../../../auth/store/auth.actions';
 
 const initialState: JiraStateModel = {
   isPending: false,
@@ -65,6 +66,8 @@ const authJiraErrorReducer = (_: JiraActions) => R.pipe(
   R.assoc('user', null),
 );
 
+const signOutReducer = (_: AuthActions) => R.always(initialState);
+
 const reducers = {
   [JIRA_ACTIONS.SET_ISSUE_STORY_POINTS]: setIssueReducer,
   [JIRA_ACTIONS.SET_ISSUE_STORY_POINTS_SUCCESS]: setIssueSuccessReducer,
@@ -76,6 +79,8 @@ const reducers = {
   [JIRA_ACTIONS.AUTH_JIRA]: authJiraReducer,
   [JIRA_ACTIONS.AUTH_JIRA_SUCCESS]: authJiraSuccessReducer,
   [JIRA_ACTIONS.AUTH_JIRA_ERROR]: authJiraErrorReducer,
+  [JIRA_ACTIONS.INITIALIZE]: () => R.identity,
+  [AUTH_ACTIONS.SIGN_OUT]: signOutReducer,
 };
 
 const selectReducer = (type: JIRA_ACTIONS): any =>

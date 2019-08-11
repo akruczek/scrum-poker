@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Linking } from 'expo';
 import { Link, Text } from '@core/styled';
 import { COLORS, TEXT_SIZES } from '@core/constants';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 
 export const TokenTooltip = () => (

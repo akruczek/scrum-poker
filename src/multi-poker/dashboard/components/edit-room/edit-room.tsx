@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Input, ButtonGroup } from 'react-native-elements';
 import { Container, Text, AppContainer, Separator, ScrollContainer } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
 import { TRANSLATIONS, PokerModel } from '@core/models';
 import { TEXT_SIZES, pokers } from '@core/constants';

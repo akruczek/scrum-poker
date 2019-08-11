@@ -2,7 +2,7 @@ import React from 'react';
 import * as R from 'ramda';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { PokerModel, TRANSLATIONS } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { SCREENS } from '@core/navigation/screens';
 import { PokersList } from '../../single-poker/pokers-list/pokers-list';
 

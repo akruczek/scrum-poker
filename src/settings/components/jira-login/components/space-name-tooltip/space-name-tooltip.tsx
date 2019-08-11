@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { Text } from '@core/styled';
 import { TEXT_SIZES, COLORS } from '@core/constants';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 
 export const SpaceNameTooltip = () => {

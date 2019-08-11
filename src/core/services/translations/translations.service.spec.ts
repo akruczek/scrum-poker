@@ -1,5 +1,6 @@
 import { appStore } from '../../../store/configure-store';
-import { translate, Translations } from './translations.service';
+import { Translations } from './translations.service';
+import { translate } from '@core/services/translations/translate';
 import { Storage } from '../device-storage/device-storage.service';
 import { TRANSLATIONS_ACTIONS } from './store/translations.actions';
 import { LANGUAGE_CODES } from '../../models/translations.models';
@@ -34,23 +35,6 @@ describe('Translations Service', () => {
   });
 
   describe('Translations', () => {
-    describe('when Translations.initialize was called', () => {
-      beforeEach(() => {
-        spyOn(appStore, 'dispatch');
-        spyOn(Storage, 'get').and.returnValue(new Promise(() => LANGUAGE_CODES.EN));
-      });
-
-      it('should dispatch getTranslations action with Storage.get payload', () => {
-        const expectedAction = {
-          type: TRANSLATIONS_ACTIONS.GET_TRANSLATIONS,
-          payload: LANGUAGE_CODES.PL,
-        };
-
-        expect(Translations.initialize())
-          .toEqual(appStore.dispatch(expectedAction));
-      });
-    });
-
     describe('when Translations.get was called', () => {
       it('should return translations for given language', () => {
         Translations.get('pl').then(response => {

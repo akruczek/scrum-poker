@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import { TRANSLATIONS } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { _MultiPlayer, MultiPlayer } from './multi-player';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { Auth } from '../../auth/auth';

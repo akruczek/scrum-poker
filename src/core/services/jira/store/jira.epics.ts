@@ -1,15 +1,18 @@
 import * as R from 'ramda';
 import { ActionsObservable, ofType } from 'redux-observable';
-import { switchMap, pluck } from 'rxjs/operators';
-import { SetIssueStoryPointsPayload, JIRA_BD_CUSTOM_FIELDS, JiraAuthModel } from '../../../models';
+import { switchMap, pluck, map } from 'rxjs/operators';
+import { SetIssueStoryPointsPayload, JIRA_BD_CUSTOM_FIELDS, JiraAuthModel, JiraUserModel } from '../../../models';
 import { Jira } from '../jira.service';
-import { getJiraAuthResponse } from '../helpers/get-jira-auth-response/get-jira-auth-response.helper';
 import { AppState } from '../../../../store/reducers';
 import {
   JIRA_ACTIONS,
-  setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError,
-  GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError,
+  setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError, authJira as authJiraAction,
+  GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError, JiraActions,
 } from './jira.actions';
+import { Storage } from '../../device-storage/device-storage.service';
+import { EMPTY_ACTION } from '../../../constants';
+import { parseJiraAuthData } from '../helpers/parse-jira-auth-data/parse-jira-auth-data.helper';
+import { isPresent } from '../../../helpers';
 
 const setIssueStoryPoints = ({ issueKey, value }: SetIssueStoryPointsPayload, state: AppState) => Jira
   .put(R.pathOr({}, [ 'jira', 'auth' ], state))
@@ -49,4 +52,26 @@ export const authJiraEpic = (action: ActionsObservable<AuthJiraAction>) => actio
     ofType(JIRA_ACTIONS.AUTH_JIRA),
     pluck('payload'),
     switchMap(authJira),
+  );
+
+const saveJiraUser = (payload: JiraAuthModel) => Storage
+  .multiSet([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ], R.values(payload))
+  .then(() => EMPTY_ACTION)
+  .catch(R.identity);
+
+export const authJiraSuccessEpic = (action: ActionsObservable<JiraActions>, state: { value: AppState }) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.AUTH_JIRA_SUCCESS),
+    switchMap(() => saveJiraUser(R.pathOr({}, [ 'value', 'jira', 'auth' ], state))),
+  );
+
+const initializeJira = () => Storage
+  .multiGet([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ])
+  .then(response => isPresent(response) ? authJiraAction(parseJiraAuthData(response)) : EMPTY_ACTION)
+  .catch(error => error);
+
+export const initializeJiraEpic = (action: ActionsObservable<JiraActions>) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.INITIALIZE),
+    switchMap(initializeJira),
   );

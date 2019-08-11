@@ -2,7 +2,7 @@ import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { HeaderRightIcon } from '@core/components';
 import { _Settings, Settings } from './settings';
 import { SettingsOverview } from '../../settings/settings';

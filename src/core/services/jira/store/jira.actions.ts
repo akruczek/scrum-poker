@@ -12,6 +12,7 @@ export enum JIRA_ACTIONS {
   AUTH_JIRA = '[Jira]: Auth Jira',
   AUTH_JIRA_SUCCESS = '[Jira]: Auth Jira success',
   AUTH_JIRA_ERROR = '[Jira]: Auth Jira error',
+  INITIALIZE = '[Jira]: initialize',
 }
 
 export interface SetIssueStoryPointsAction extends Action {
@@ -62,3 +63,6 @@ export const authJiraError =
 
 export const clearJiraStatus =
   newAction<{}>(JIRA_ACTIONS.CLEAR_JIRA_STATUS);
+
+export const initializeJira =
+  newAction<{}>(JIRA_ACTIONS.INITIALIZE);

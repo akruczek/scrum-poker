@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { Firebase } from '@core/services/firebase/firebase.service';
 import { isPresent } from '@core/helpers';
 import { NavigationProps } from '@core/navigation/navigation.model';

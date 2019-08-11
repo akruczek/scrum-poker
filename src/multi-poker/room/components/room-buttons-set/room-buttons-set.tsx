@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, colors } from 'react-native-elements';
 import { Separator, Container } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 
 interface Props {

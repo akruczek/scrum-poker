@@ -4,7 +4,7 @@ import { Button, colors } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, Container } from '@core/styled';
-import { translate } from '@core/services/translations/translations.service';
+import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, JiraAuthModel, JiraUserModel } from '@core/models';
 import { signOut } from '../auth/store/auth.actions';
 import { AppInfo } from './components/app-info/app.info';
