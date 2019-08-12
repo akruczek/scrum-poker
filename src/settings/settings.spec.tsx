@@ -2,6 +2,8 @@ import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { Button } from 'react-native-elements';
 import { _SettingsOverview } from './settings';
+import { AppInfo } from './components/app-info/app-info';
+import { JiraBadge } from './components/jira-badge/jira-badge';
 
 describe('SettingsOverview', () => {
   const signOut = jest.fn();
@@ -20,7 +22,7 @@ describe('SettingsOverview', () => {
         .toEqual(signOut);
     });
 
-    describe('and onPress prop was called', () => {
+    describe('and Button onPress prop was called', () => {
       beforeEach(() => {
         act(() => {
           wrapper.root.findAllByType(Button)[2].props.onPress();
@@ -31,6 +33,20 @@ describe('SettingsOverview', () => {
         expect(signOut)
           .toHaveBeenCalled();
       });
+    });
+
+    it('should render AppInfo component', () => {
+      expect(wrapper.root.findByType(AppInfo))
+        .toBeTruthy();
+    });
+
+    it('should render JiraBadge component with jira user', () => {
+      const jiraBadge = wrapper.root.findByType(JiraBadge)
+
+      expect(jiraBadge)
+        .toBeTruthy();
+      expect(jiraBadge.props.jiraUser)
+        .toEqual(jiraUser);
     });
   });
 });

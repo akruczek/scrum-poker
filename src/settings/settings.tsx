@@ -7,7 +7,7 @@ import { AppContainer, Container } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, JiraAuthModel, JiraUserModel } from '@core/models';
 import { signOut } from '../auth/store/auth.actions';
-import { AppInfo } from './components/app-info/app.info';
+import { AppInfo } from './components/app-info/app-info';
 import { authJira, clearJiraStatus } from '@core/services/jira/store/jira.actions';
 import { JiraBadge } from './components/jira-badge/jira-badge';
 
