@@ -1,5 +1,5 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import { Button } from 'react-native-elements';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
@@ -56,6 +56,24 @@ describe('JiraBadge', () => {
       it('should render Button with default handlePress function as onPress prop', () => {
         expect(props.onPress.name)
           .toEqual('handlePress');
+      });
+
+      it('should render JiraLogin after call Button onPress prop', () => {
+        act(() => {
+          props.onPress();
+        });
+
+        expect(wrapper.root.findByType(JiraLogin))
+          .toBeTruthy();
+      });
+
+      it('should hide JiraLogin after call JiraLogin handleClose prop', () => {
+        act(() => {
+          wrapper.root.findByType(JiraLogin).props.handleClose();
+        });
+
+        expect(wrapper.root.findAllByType(JiraLogin).length)
+          .toEqual(0);
       });
     });
   });
