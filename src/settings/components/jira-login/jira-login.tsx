@@ -10,6 +10,8 @@ import { Preloader, ActionModal } from '@core/components';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
+import { jiraLoginUpdate } from './helpers/jira-login-update/jira-login-update.helper';
+import { handleJiraAuth } from './helpers/handle-jira-auth/handle-jira-auth.helper';
 
 interface Props {
   authJira: (payload: JiraAuthModel) => void;
@@ -27,36 +29,16 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
   const [ displaySuccess, setSuccess ] = React.useState(false);
   const [ displayError, setError ] = React.useState(false);
 
-  const allFieldsFilled = spaceName && email && token;
+  const allFieldsFilled = !!(spaceName && email && token);
 
-  const handleAuth = async () => {
-    if (allFieldsFilled) {
-      await authJira({ spaceName, email, token });
-      setWaiting(true);
-    }
+  const handleAuth = () => {
+    handleJiraAuth(allFieldsFilled)(spaceName, email, token)(authJira, setWaiting);
   };
 
   React.useEffect(() => {
-    if (allFieldsFilled && waiting && !isPending && !displaySuccess && !displayError) {
-      if (isUser) {
-        setSuccess(true);
-        clearJiraStatus();
-        setWaiting(false);
-        setTimeout(() => {
-          setSuccess(false);
-          handleClose();
-        }, 2000);
-      }
-
-      if (!isUser) {
-        setError(true);
-        clearJiraStatus();
-        setWaiting(false);
-        setTimeout(() => {
-          setError(false);
-        }, 3000);
-      }
-    }
+    jiraLoginUpdate(allFieldsFilled, waiting, displaySuccess, displayError, isPending, isUser)(
+      setSuccess, setError, setWaiting, handleClose, clearJiraStatus,
+    );
   });
 
   return (

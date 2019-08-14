@@ -19,4 +19,4 @@ export const ListedNewRoom = (props: Props) => (
     </TouchableOpacity>
     <Divider />
   </>
-)
+);

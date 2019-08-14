@@ -1,23 +1,13 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { colors, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import { SwipeDeleteBarContainer } from '../../styled/swipe-delete-bar-container/swipe-delete-bar-container.styled';
 
 interface Props {
   height: number;
 }
 
-export const SwipeDeleteBar = (props: Props) => (
-  <View
-      style={{
-        backgroundColor: colors.secondary,
-        width: '100%',
-        paddingRight: 20,
-        height: props.height,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-      }}
-  >
+export const SwipeDeleteBar = ({ height }: Props) => (
+  <SwipeDeleteBarContainer height={height}>
     <Icon name="delete-forever" size={60} color="white" />
-  </View>
+  </SwipeDeleteBarContainer>
 );
