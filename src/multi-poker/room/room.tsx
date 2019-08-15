@@ -5,24 +5,17 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { isPresent } from '@core/helpers';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton, HeaderRightIcon } from '@core/components';
-import { PokerCard, TRANSLATIONS } from '@core/models';
-import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
-import { SelectCard } from '../dashboard/components/select-card/select-card';
+import { TRANSLATIONS } from '@core/models';
+import { RoomModel } from '../models/room.models';
 import { UserModel } from '../../auth/models/auth.models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
-import { JiraPusher } from './components/jira-pusher/jira-pusher';
-import { EditRoom } from '../dashboard/components/edit-room/edit-room';
-import {
-  getEstimation, getResetPayload, getNewEstimation, hasAdmin, addDefaultUser, updateRoomProperties,
-} from './helpers';
-import {
-  addUser, showDown, reset, setRoom, setValue, SetValuePayload, AddUserPayload, updateRoom,
-} from '../dashboard/store/dashboard.actions';
+import { getEstimation, getResetPayload, hasAdmin, addDefaultUser } from './helpers';
+import { addUser, showDown, reset, setRoom, AddUserPayload } from '../dashboard/store/dashboard.actions';
+import { RoomModals } from './components/room-modals/room-modals';
 
 interface StateProps {
   room: RoomModel;
@@ -35,13 +28,10 @@ interface DispatchProps {
   showDown: (room: RoomModel) => void;
   reset: (room: RoomModel) => void;
   setRoom: (room: RoomModel) => void;
-  setValue: (payload: SetValuePayload) => void;
-  updateRoom: (room: RoomModel) => void;
 }
 
 export const _Room = ({
-  room, user, jiraAccountId, navigation,
-  addUser, showDown, reset, setRoom, setValue, updateRoom,
+  room, user, jiraAccountId, navigation, addUser, showDown, reset, setRoom,
 }: StateProps & NavigationProps & DispatchProps) => {
   const [ users, setUsers ] = React.useState<UserModel[]>([]);
   const [ isSelecting, setSelecting ] = React.useState(false);
@@ -77,19 +67,15 @@ export const _Room = ({
     }
   };
 
-  const handleSelectCard = (card: PokerCard) => {
-    setSelecting(false);
-    setValue(getNewEstimation(card, room.id, user.email));
-  };
-
-  const handleUpdateRoom = (newRoom: RoomModel) => {
-    updateRoomProperties(newRoom, room)(updateRoom, setEditingRoom);
-  };
+  const getRoomModalsProps = () => ({
+    isSelecting, room, user, isJiraPusherVisible, isEditingRoom,
+    setSelecting, setJiraPusherVisibility, setEditingRoom, handleReset
+  });
 
   return (
     <AppContainer fullHorizontal>
       <ScrollContainer>
-        {isPresent(users) && (users || []).map((_user: UserModel) => (
+        {(users || []).map((_user: UserModel) => (
           <ListedUser
               key={_user.email}
               onListItemPress={handleOnListItemPress}
@@ -110,20 +96,7 @@ export const _Room = ({
         />
       )}
 
-      {isSelecting && <SelectCard handleSelect={handleSelectCard} cards={room.poker.cards} />}
-
-      {isJiraPusherVisible && (
-        <JiraPusher handleClose={() => setJiraPusherVisibility(false)} handleReset={handleReset} />
-      )}
-
-      {isEditingRoom && (
-        <EditRoom
-            type={EDIT_ROOMS_TYPES.UPDATE}
-            handleSubmit={handleUpdateRoom}
-            handleDismiss={() => setEditingRoom(false)}
-            room={room}
-        />
-      )}
+      <RoomModals {...getRoomModalsProps()} />
     </AppContainer>
   );
 };
@@ -143,7 +116,7 @@ const mapStateToProps = R.applySpec<StateProps>({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { addUser, showDown, reset, setRoom, setValue, updateRoom },
+  { addUser, showDown, reset, setRoom },
   dispatch,
 );
 
