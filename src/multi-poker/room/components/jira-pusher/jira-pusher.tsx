@@ -12,6 +12,7 @@ import { setIssueStoryPoints, clearJiraStatus } from '@core/services/jira/store/
 import { Preloader } from '@core/components';
 import { ActionModal } from '@core/components/action-modal/action-modal';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { jiraPusherUpdate } from '../../helpers/jira-pusher-update/jira-pusher-update.helper';
 
 interface Props {
   handleClose: () => void;
@@ -44,26 +45,13 @@ export const _JiraPusher = ({
   };
 
   React.useEffect(() => {
-    if (!isPending && waiting) {
-      if (isSuccess) {
-        setSuccess(true);
-        clearJiraStatus();
-        setTimeout(() => {
-          setSuccess(false);
-          handleClose();
-          handleReset();
-        }, 2000);
-      }
-  
-      if (isError) {
-        setError(true);
-        clearJiraStatus();
-        setWaiting(false);
-        setTimeout(() => {
-          setError(false);
-        }, 3000);
-      }
-    }
+    setFinalEstimation('1');
+  }, []);
+
+  React.useEffect(() => {
+    jiraPusherUpdate(isPending, waiting, isSuccess, isError)(
+      setSuccess, setError, setWaiting, clearJiraStatus, handleClose, handleReset,
+    );
   });
 
   return (

@@ -15,7 +15,7 @@ import { getListedUserIcon } from '../../helpers/get-listed-user-icon/get-listed
 interface Props {
   user: UserModel;
   room: RoomModel;
-  onListItemPress: (user: UserModel) => void;
+  onListItemPress: (email: string) => void;
   email: string;
   estimations: (number|string)[] | null;
 }
@@ -33,7 +33,7 @@ export const ListedUser = (props: Props) => {
   const icon = getListedUserIcon(isValuePresent, isRoomDiscovered, isCurrentUser);
 
   const handlePress = () => {
-    props.onListItemPress(user);
+    props.onListItemPress(user.email);
   };
 
   const color = getListedUserColor(

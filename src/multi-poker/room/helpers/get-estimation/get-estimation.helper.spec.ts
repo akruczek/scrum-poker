@@ -1,7 +1,7 @@
 import { getEstimation } from './get-estimation.helper';
 
 describe('when getEstimation was called', () => {
-  const arr: any = [
+  const room: any = { discovered: true, users: [
     {
       selectedValue: { value: 'A' },
     },
@@ -14,12 +14,23 @@ describe('when getEstimation was called', () => {
     {
       selectedValue: { value: () => null },
     },
-  ];
+  ] };
 
   it('should map on given array and return only Numbered selectedValue -> value from each', () => {
     const expectedArray = [ 19 ];
 
-    expect(getEstimation(arr))
+    expect(getEstimation(room))
       .toEqual(expectedArray);
   });
+
+  it('should return null when room discovered equals "false"', () => {
+    const room: any = { discovered: false, users: [
+      {
+        selectedValue: { value: 'A' },
+      },
+    ] };
+
+    expect(getEstimation(room))
+      .toEqual(null);
+  }); 
 });

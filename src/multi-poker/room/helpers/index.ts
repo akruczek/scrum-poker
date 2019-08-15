@@ -8,3 +8,7 @@ export * from './get-room-index/get-room-index.helper';
 export * from './is-admin/is-admin.helper';
 export * from './is-divergence/is-divergence.helper';
 export * from './is-equal-divergence/is-equal-divergence.helper';
+export * from './add-default-user/add-default-user.helper';
+export * from './has-admin/has-admin.helper';
+export * from './jira-pusher-update/jira-pusher-update.helper';
+export * from './update-room-properties/update-room-properties.helper';

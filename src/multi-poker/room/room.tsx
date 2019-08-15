@@ -18,15 +18,14 @@ import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { JiraPusher } from './components/jira-pusher/jira-pusher';
 import { EditRoom } from '../dashboard/components/edit-room/edit-room';
 import {
+  getEstimation, getResetPayload, getNewEstimation, hasAdmin, addDefaultUser, updateRoomProperties,
+} from './helpers';
+import {
   addUser, showDown, reset, setRoom, setValue, SetValuePayload, AddUserPayload, updateRoom,
 } from '../dashboard/store/dashboard.actions';
-import {
-  getEstimation, isAdmin, getResetPayload, getNewEstimation, getNewUser,
-} from './helpers';
 
 interface StateProps {
   room: RoomModel;
-  rooms: RoomModel[];
   user: UserModel;
   jiraAccountId: string;
 }
@@ -40,99 +39,78 @@ interface DispatchProps {
   updateRoom: (room: RoomModel) => void;
 }
 
-export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
+export const _Room = ({
+  room, user, jiraAccountId, navigation,
+  addUser, showDown, reset, setRoom, setValue, updateRoom,
+}: StateProps & NavigationProps & DispatchProps) => {
   const [ users, setUsers ] = React.useState<UserModel[]>([]);
   const [ isSelecting, setSelecting ] = React.useState(false);
   const [ isJiraPusherVisible, setJiraPusherVisibility ] = React.useState(false);
   const [ isEditingRoom, setEditingRoom ] = React.useState(false);
 
   React.useEffect(() => {
-    Firebase.listen(`/rooms/${props.room.id}`, getUsers);
+    Firebase.listen(`/rooms/${room.id}`, getUsers);
+    addDefaultUser(user, room)(addUser);
 
-    const isUserIn = R.any(
-      R.propEq('email', props.user.email)
-    )(R.values(R.pathOr([], [ 'room', 'users' ], props)));
-
-    if (!isUserIn) {
-      props.addUser(getNewUser(props.user, props.room));
-    }
-
-    props.navigation.setParams({
+    navigation.setParams({
       handleEditRoom: () => setEditingRoom(true),
-      isAdmin: props.jiraAccountId && (R.isEmpty(users) || hasAdmin),
+      isAdmin: jiraAccountId && (R.isEmpty(users) || hasAdmin(user.email, room.users, jiraAccountId)),
     });
 
     return () => {
-      Firebase.unsubscribe(`/rooms/${props.room.id}`);
+      Firebase.unsubscribe(`/rooms/${room.id}`);
     };
   }, []);
 
-  const hasAdmin = isAdmin(props.user.email)(R.values(R.pathOr([], [ 'room', 'users' ], props))) && props.jiraAccountId;
-
   const getUsers = (room: RoomModel) => {
     setUsers(R.values<RoomModel, any>(R.propOr([], 'users', room)));
-    props.setRoom(room);
+    setRoom(room);
   };
 
   const handleReset = () => {
-    props.reset(getResetPayload(props.room));
+    reset(getResetPayload(room));
   };
 
-  const handleOnListItemPress = (user: UserModel) => {
-    if (user.email === props.user.email) {
+  const handleOnListItemPress = (email: string) => {
+    if (R.propEq('email', email, user)) {
       setSelecting(true);
     }
   };
 
   const handleSelectCard = (card: PokerCard) => {
     setSelecting(false);
-    props.setValue(getNewEstimation(card, props.room.id, props.user.email));
+    setValue(getNewEstimation(card, room.id, user.email));
   };
 
-  const handleUpdateRoom = (room: RoomModel) => {
-    const newUsers: UserModel[] = R.when(
-      () => room.poker !== props.room.poker,
-      R.map(R.dissoc('selectedValue')),
-    )(props.room.users);
-
-    props.updateRoom({
-      ...props.room,
-      ...room,
-      users: newUsers,
-    });
-    setEditingRoom(false);
-  };
-
-  const estimation = (): (number|string)[] | null => {
-    const { discovered, users } = props.room;
-    return discovered ? getEstimation(users) : null;
+  const handleUpdateRoom = (newRoom: RoomModel) => {
+    updateRoomProperties(newRoom, room)(updateRoom, setEditingRoom);
   };
 
   return (
     <AppContainer fullHorizontal>
       <ScrollContainer>
-        {isPresent(users) && (users || []).map((user: UserModel) => (
+        {isPresent(users) && (users || []).map((_user: UserModel) => (
           <ListedUser
-              key={user.email}
+              key={_user.email}
               onListItemPress={handleOnListItemPress}
-              room={props.room}
-              user={user}
-              email={props.user.email}
-              estimations={estimation()}
+              room={room}
+              user={_user}
+              email={user.email}
+              estimations={getEstimation(room)}
           />
         ))}
       </ScrollContainer>
 
-      {hasAdmin && (
+      {hasAdmin(user.email, room.users, jiraAccountId) && (
         <RoomButtonsSet
             handleReset={handleReset}
-            handleShowDown={() => props.showDown(props.room)}
+            handleShowDown={() => showDown(room)}
             handlePushToJira={() => setJiraPusherVisibility(true)}
-            isDiscovered={props.room.discovered}
+            isDiscovered={room.discovered}
         />
       )}
 
-      {isSelecting && <SelectCard handleSelect={handleSelectCard} cards={props.room.poker.cards} />}
+      {isSelecting && <SelectCard handleSelect={handleSelectCard} cards={room.poker.cards} />}
 
       {isJiraPusherVisible && (
         <JiraPusher handleClose={() => setJiraPusherVisibility(false)} handleReset={handleReset} />
@@ -143,7 +121,7 @@ export const _Room = (props: StateProps & NavigationProps & DispatchProps) => {
             type={EDIT_ROOMS_TYPES.UPDATE}
             handleSubmit={handleUpdateRoom}
             handleDismiss={() => setEditingRoom(false)}
-            room={props.room}
+            room={room}
         />
       )}
     </AppContainer>
@@ -160,7 +138,6 @@ _Room.navigationOptions = (props: NavigationProps & StateProps) => ({
 
 const mapStateToProps = R.applySpec<StateProps>({
   room: R.path([ 'rooms', 'model' ]),
-  rooms: R.path([ 'rooms', 'models' ]),
   user: R.path([ 'auth', 'model' ]),
   jiraAccountId: R.path([ 'jira', 'user', 'accountId' ]),
 });

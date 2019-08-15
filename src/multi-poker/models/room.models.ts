@@ -15,7 +15,7 @@ export interface RoomModel {
   id: string;
   name: string;
   description: string;
-  users: UserModel[];
+  users: { [key: string]: UserModel };
   discovered?: boolean;
   allAdmins: boolean;
   poker: PokerModel;
