@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, colors } from 'react-native-elements';
-import { Separator, Container } from '@core/styled';
+import { View } from 'react-native';
+import { Separator } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, handlePushToJira }: Props) => (
-  <Container margins="0 10px" justifyContent="flex-end">
+  <View style={{ marginRight: 10, marginLeft: 10 }}>
     <Button
         title={translate(TRANSLATIONS[isDiscovered ? 'PUSH_TO_JIRA' : 'SHOW_DOWN'])}
         onPress={isDiscovered ? handlePushToJira : handleShowDown}
@@ -26,5 +27,5 @@ export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, hand
         buttonStyle={{ backgroundColor: colors.secondary }}
         onPress={handleReset}
     />
-  </Container>
+  </View>
 );

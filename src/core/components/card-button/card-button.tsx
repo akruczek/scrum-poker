@@ -28,7 +28,7 @@ export const CardButton = (props: Props) => {
 
   return (
     <Button
-        title={card.label}
+        title={String(card.label)}
         onPress={() => props.handleSelect(card)}
         buttonStyle={buttonStyle}
         titleStyle={buttonTitleStyle}

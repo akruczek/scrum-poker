@@ -1,19 +1,26 @@
 import * as R from 'ramda';
 import { COLORS } from '@core/constants';
+import { _cond } from '../../../../core/helpers';
+import { isDivergence } from '../is-divergence/is-divergence.helper';
+import { isEqualDivergence } from '../is-equal-divergence/is-equal-divergence.helper';
 
 const isEstimationUndefined = (value: string | number): boolean =>
   [ '?', '∞' ].includes(String(value));
 
 export const getListedUserColor = (
   isRoomDiscovered: boolean,
-  isDivergence: boolean,
-  isEqualDivergence: boolean,
-  isValuePresent: boolean,
+  estimations: number[],
   selectedValue: number,
-): COLORS => R.cond([
-  [ () => (isRoomDiscovered && isDivergence && isEqualDivergence), R.prop('RED_OPACITY') ],
-  [ () => (isValuePresent && !isRoomDiscovered), R.prop('GREEN_OPACITY') ],
-  [ () => (!isValuePresent && !isRoomDiscovered), R.prop('WHITE') ],
-  [ () => (isRoomDiscovered && isEstimationUndefined(selectedValue)), R.prop('YELLOW_OPACITY') ],
-  [ R.T, R.prop('WHITE') ],
-])(COLORS);
+  isValuePresent: boolean,
+): COLORS => _cond(
+  (isRoomDiscovered && isDivergence(estimations) && isEqualDivergence(selectedValue)(estimations)),
+    COLORS.RED_OPACITY,
+  isValuePresent && !isRoomDiscovered, 
+    COLORS.GREEN_OPACITY,
+  !isValuePresent && !isRoomDiscovered,
+    COLORS.WHITE,
+  isRoomDiscovered && isEstimationUndefined(selectedValue),
+    COLORS.YELLOW_OPACITY,
+  R.T,
+    COLORS.WHITE,
+);

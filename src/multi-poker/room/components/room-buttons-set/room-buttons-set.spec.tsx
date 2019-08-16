@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
 import { Button } from 'react-native-elements';
-import { Separator, Container } from '@core/styled';
+import { Separator } from '@core/styled';
 import { RoomButtonsSet } from './room-buttons-set';
 
 describe('RoomButtonsSet', () => {
@@ -17,7 +18,7 @@ describe('RoomButtonsSet', () => {
     );
 
     it('should render 2 Button component with Separator component between inside Container', () => {
-      const container = wrapper.root.findByType(Container);
+      const container = wrapper.root.findByType(View);
 
       expect(container.findAllByType(Button).length)
         .toEqual(2);

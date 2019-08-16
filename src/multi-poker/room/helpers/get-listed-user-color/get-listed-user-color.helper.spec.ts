@@ -7,24 +7,22 @@ describe('when getListedUserColor was called', () => {
 
     describe('and value is not preset', () => {
       const isValuePreset = false;
-      const isDivergence = false;
-      const isEqualDivergence = false;
       const selectedValue = 0;
+      const estimations = [ 1, 2 ];
 
       it('should return WHITE color', () => {
-        expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
+        expect(getListedUserColor(isRoomDiscovered, estimations, selectedValue, isValuePreset))
           .toEqual(COLORS.WHITE);
       });
     });
 
     describe('and value is present', () => {
       const isValuePreset = true;
-      const isDivergence = false;
-      const isEqualDivergence = false;
+      const estimations = [ 1, 2 ];
       const selectedValue = 0;
 
       it('should return GREEN color', () => {
-        expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
+        expect(getListedUserColor(isRoomDiscovered, estimations, selectedValue, isValuePreset))
         .toEqual(COLORS.GREEN_OPACITY);
       });
     });
@@ -35,26 +33,24 @@ describe('when getListedUserColor was called', () => {
 
     describe('and selectedValue is not a number', () => {
       const selectedValue: any = '?';
-      const isDivergence = false;
-      const isEqualDivergence = false;
+      const estimations = [ 1, 2 ];
       const isValuePreset = false;
 
       it('should return YELLOW_OPACITY color', () => {
-        expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
+        expect(getListedUserColor(isRoomDiscovered, estimations, selectedValue, isValuePreset))
           .toEqual(COLORS.YELLOW_OPACITY);
       });
     });
 
     describe('and there is divergence', () => {
-      const isDivergence = true;
+      const estimations = [ 1, 2, 3];
 
       describe('and estimated value equals one of divergences', () => {
-        const isEqualDivergence = true;
         const isValuePreset = false;
         const selectedValue = 1;
 
         it('should return RED_OPACITY color', () => {
-          expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
+          expect(getListedUserColor(isRoomDiscovered, estimations, selectedValue, isValuePreset))
             .toEqual(COLORS.RED_OPACITY);
         });
       });
@@ -63,13 +59,12 @@ describe('when getListedUserColor was called', () => {
 
   describe('and none of the cases was fulfilled', () => {
     const isRoomDiscovered = true;
-    const isDivergence = false;
-    const isEqualDivergence = false;
+    const estimations = [ 1, 2 ];
     const isValuePreset = false;
     const selectedValue = 1;
 
     it('should return WHITE color', () => {
-      expect(getListedUserColor(isRoomDiscovered, isDivergence, isEqualDivergence, isValuePreset, selectedValue))
+      expect(getListedUserColor(isRoomDiscovered, estimations, selectedValue, isValuePreset))
         .toEqual(COLORS.WHITE);
     });
   });

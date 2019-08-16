@@ -41,5 +41,8 @@
   "connect_with_jira": "Połącz z Jirą",
   "jira_auth_success": "Połączono!",
   "jira_auth_error": "Błąd! Sprawdź swoje dane",
-  "space_name": "Nazwa przestrzeni"
+  "space_name": "Nazwa przestrzeni",
+  "type_final_estimation": "WPROWADŹ OSTATECZNĄ ESTMACJĘ:",
+  "or_choose": "LUB WYBIERZ:",
+  "issue_key": "KOD TASKA:"
 }

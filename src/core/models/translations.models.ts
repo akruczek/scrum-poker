@@ -46,7 +46,10 @@ export enum TRANSLATIONS {
   SIGN_IN_TO_JIRA = 'sign_in_to_jira',
   GENERATE_JIRA_TOKEN_HELP = 'generate_jira_token_help',
   CONNECT_WITH_JIRA = 'connect_with_jira',
-  SPACE_NAME = 'space_name'
+  SPACE_NAME = 'space_name',
+  TYPE_FINAL_ESTIMATION = 'type_final_estimation',
+  OR_CHOOSE = 'or_choose',
+  ISSUE_KEY = 'issue_key',
 }
 
 export type Translation = {[key: string]: string};

@@ -12,3 +12,5 @@ export * from './add-default-user/add-default-user.helper';
 export * from './has-admin/has-admin.helper';
 export * from './jira-pusher-update/jira-pusher-update.helper';
 export * from './update-room-properties/update-room-properties.helper';
+export * from './get-estimation-proposition/get-estimation-proposition.helper';
+export * from './get-middle-estimations/get-middle-estimations.helper';

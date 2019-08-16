@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import { Button } from 'react-native-elements';
 import { getRiskCardColor, isRiskCard, NOOP } from '../../helpers';
 
@@ -10,7 +9,7 @@ interface Props {
 }
 
 export const CardIcon = ({ label, value, handlePress }: Props) => {
-  const isLongValue = String(value).length > 2;
+  const isLongLabel = String(label).length > 2;
 
   const buttonStyle = {
     width: 45,
@@ -20,7 +19,7 @@ export const CardIcon = ({ label, value, handlePress }: Props) => {
   };
 
   const buttonTitleStyle = {
-    fontSize: isLongValue ? 16 : 20,
+    fontSize: isLongLabel ? 16 : 20,
     display: isRiskCard(value) ? 'none' as 'none' : 'flex' as 'flex',
     fontFamily: 'space-mono',
   };

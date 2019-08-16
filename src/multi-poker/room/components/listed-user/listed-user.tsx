@@ -7,10 +7,7 @@ import { CardIcon } from '@core/components';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { RoomModel } from '../../../models/room.models';
 import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
-import { getListedUserColor } from '../../helpers/get-listed-user-color/get-listed-user-color.helper';
-import { isDivergence } from '../../helpers/is-divergence/is-divergence.helper';
-import { isEqualDivergence } from '../../helpers/is-equal-divergence/is-equal-divergence.helper';
-import { getListedUserIcon } from '../../helpers/get-listed-user-icon/get-listed-user-icon.helper';
+import { getListedUserColor, getListedUserIcon } from '../../helpers';
 
 interface Props {
   user: UserModel;
@@ -37,8 +34,8 @@ export const ListedUser = (props: Props) => {
   };
 
   const color = getListedUserColor(
-    isRoomDiscovered, isDivergence(estimations), isEqualDivergence(selectedValue)(estimations), isValuePresent, selectedValue,
-  );
+    isRoomDiscovered, estimations, selectedValue, isValuePresent,
+  )
 
   const rightElement = (isValuePresent && isRoomDiscovered) || (isValuePresent && isCurrentUser)
     ? <CardIcon label={selectedLabel} value={selectedValue} handlePress={handlePress} />

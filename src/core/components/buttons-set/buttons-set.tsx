@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const ButtonsSet = ({ titles, disabled, onPress }: Props) => (
-  <View style={{ backgroundColor: COLORS.WHITE }}>
+  <View style={{ backgroundColor: COLORS.WHITE, paddingTop: 5 }}>
     <Button
         title={translate(titles[0])}
         onPress={onPress[0]}

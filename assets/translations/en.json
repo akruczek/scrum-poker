@@ -41,5 +41,8 @@
   "connect_with_jira": "Connect with Jira",
   "jira_auth_success": "Successfully sign in!",
   "jira_auth_error": "Error! check your credentials",
-  "space_name": "Space name"
+  "space_name": "Space name",
+  "type_final_estimation": "TYPE FINAL ESTIMATION:",
+  "or_choose": "OR CHOOSE:",
+  "issue_key": "ISSUE KEY:"
 }

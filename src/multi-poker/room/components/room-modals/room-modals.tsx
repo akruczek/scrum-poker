@@ -5,7 +5,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { PokerCard } from '@core/models';
 import { _cond } from '@core/helpers';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../../../models/room.models';
-import { getNewEstimation, updateRoomProperties } from '../../helpers';
+import { getNewEstimation, updateRoomProperties, getEstimationProposition } from '../../helpers';
 import { SetValuePayload } from '../../../dashboard/store/dashboard.actions';
 import { UserModel } from '../../../../auth/models/auth.models';
 import { SelectCard } from '../../../dashboard/components/select-card/select-card';
@@ -48,7 +48,11 @@ export const _RoomModals = ({
       <SelectCard handleSelect={handleSelectCard} cards={room.poker.cards} />
     ),
     isJiraPusherVisible, (
-      <JiraPusher handleClose={() => setJiraPusherVisibility(false)} handleReset={handleReset} />
+      <JiraPusher
+          handleClose={() => setJiraPusherVisibility(false)}
+          handleReset={handleReset}
+          estimationsList={getEstimationProposition(room.users)}
+      />
     ),
     isEditingRoom, (
       <EditRoom
