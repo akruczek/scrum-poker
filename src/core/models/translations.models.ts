@@ -50,6 +50,8 @@ export enum TRANSLATIONS {
   TYPE_FINAL_ESTIMATION = 'type_final_estimation',
   OR_CHOOSE = 'or_choose',
   ISSUE_KEY = 'issue_key',
+  APPLY = 'apply',
+  JIRA_CONFIGURATION = 'jira_configuration',
 }
 
 export type Translation = {[key: string]: string};

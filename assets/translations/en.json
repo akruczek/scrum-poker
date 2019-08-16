@@ -2,7 +2,7 @@
   "multi_player": "Multi Player",
   "single_player": "Single Player",
   "settings": "Settings",
-  "logout": "Logout",
+  "logout": "LOGOUT",
   "reload_request": "You need to reload app to see changes",
   "language_en": "English",
   "language_en_native": "English",
@@ -44,5 +44,7 @@
   "space_name": "Space name",
   "type_final_estimation": "TYPE FINAL ESTIMATION:",
   "or_choose": "OR CHOOSE:",
-  "issue_key": "ISSUE KEY:"
+  "issue_key": "ISSUE KEY:",
+  "apply": "APPLY",
+  "jira_configuration": "JIRA CONFIGURATION"
 }

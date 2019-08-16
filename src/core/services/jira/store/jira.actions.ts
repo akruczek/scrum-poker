@@ -13,6 +13,9 @@ export enum JIRA_ACTIONS {
   AUTH_JIRA_SUCCESS = '[Jira]: Auth Jira success',
   AUTH_JIRA_ERROR = '[Jira]: Auth Jira error',
   INITIALIZE = '[Jira]: initialize',
+  SIGN_OUT = '[Jira]: Sign out',
+  SIGN_OUT_SUCCESS = '[Jira]: Sign out success',
+  SIGN_OUT_ERROR = '[Jira]: Sign out error',
 }
 
 export interface SetIssueStoryPointsAction extends Action {
@@ -60,6 +63,13 @@ export const authJiraSuccess =
   newAction<JiraUserModel | Response>(JIRA_ACTIONS.AUTH_JIRA_SUCCESS);
 export const authJiraError =
   newAction<any>(JIRA_ACTIONS.AUTH_JIRA_ERROR);
+
+export const jiraSignOut =
+  newAction<{}>(JIRA_ACTIONS.SIGN_OUT);
+export const jiraSignOutSuccess =
+  newAction<{}>(JIRA_ACTIONS.SIGN_OUT_SUCCESS);
+export const jiraSignOutError =
+  newAction<any>(JIRA_ACTIONS.SIGN_OUT_ERROR);
 
 export const clearJiraStatus =
   newAction<{}>(JIRA_ACTIONS.CLEAR_JIRA_STATUS);

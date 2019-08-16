@@ -57,7 +57,7 @@ export const EditRoom = (props: Props) => {
       <AppContainer>
         <ScrollContainer>
           <Container margins="10px 0">
-            <Text size={TEXT_SIZES.BIG}>
+            <Text size={TEXT_SIZES.BIG} align="center">
               {content.title[props.type]}
             </Text>
 

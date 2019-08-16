@@ -2,7 +2,7 @@
   "multi_player": "Tryb Wieloosobowy",
   "single_player": "Tryb jednoosobowy",
   "settings": "Ustawienia",
-  "logout": "Wyloguj",
+  "logout": "WYLOGUJ",
   "reload_request": "Zrestartuj aplikację aby zobaczyć zmiany",
   "language_en": "Angielski",
   "language_en_native": "English",
@@ -44,5 +44,7 @@
   "space_name": "Nazwa przestrzeni",
   "type_final_estimation": "WPROWADŹ OSTATECZNĄ ESTMACJĘ:",
   "or_choose": "LUB WYBIERZ:",
-  "issue_key": "KOD TASKA:"
+  "issue_key": "KOD TASKA:",
+  "apply": "ZATWIERDŹ",
+  "jira_configuration": "KONFIGURACJA JIRY"
 }

@@ -66,6 +66,10 @@ const authJiraErrorReducer = (_: JiraActions) => R.pipe(
   R.assoc('user', null),
 );
 
+const jiraSignOutErrorReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', false),
+);
+
 const signOutReducer = (_: AuthActions) => R.always(initialState);
 
 const reducers = {
@@ -80,6 +84,9 @@ const reducers = {
   [JIRA_ACTIONS.AUTH_JIRA_SUCCESS]: authJiraSuccessReducer,
   [JIRA_ACTIONS.AUTH_JIRA_ERROR]: authJiraErrorReducer,
   [JIRA_ACTIONS.INITIALIZE]: () => R.identity,
+  [JIRA_ACTIONS.SIGN_OUT]: signOutReducer,
+  [JIRA_ACTIONS.SIGN_OUT_SUCCESS]: signOutReducer,
+  [JIRA_ACTIONS.SIGN_OUT_ERROR]: jiraSignOutErrorReducer,
   [AUTH_ACTIONS.SIGN_OUT]: signOutReducer,
 };
 

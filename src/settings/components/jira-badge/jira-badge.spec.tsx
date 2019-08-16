@@ -1,12 +1,15 @@
 import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { Button } from 'react-native-elements';
+import { Provider } from 'react-redux';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
 import { JiraBadge } from './jira-badge';
 import { JiraBadgeContent } from './components/jira-badge-content/jira-badge-content';
 import { JiraBadgeIcon } from './components/jira-badge-icon/jira-badge-icon';
 import { JiraLogin } from '../jira-login/jira-login';
+import { appStore } from '../../../store/configure-store';
+import { JiraConfig } from '../jira-config/jira-config';
 
 describe('JiraBadge', () => {
   const authJira = jest.fn();
@@ -17,7 +20,9 @@ describe('JiraBadge', () => {
   describe('when JiraBadge was mounted with all needed props', () => {
     describe('and jiraUser is defined', () => {
       const wrapper = renderer.create(
-        <JiraBadge {...{ authJira, clearJiraStatus, isPending, jiraUser }} />
+        <Provider store={appStore}>
+          <JiraBadge {...{ authJira, clearJiraStatus, isPending, jiraUser }} />
+        </Provider>
       );
       const { props } = wrapper.root.findByType(Button);
 
@@ -31,9 +36,22 @@ describe('JiraBadge', () => {
           .toEqual('');
       });
 
-      it('should render Button with NOOP function as onPress prop', () => {
-        expect(props.onPress())
-          .toEqual(null);
+      it('should render JiraConfig component after press on Button', () => {
+        act(() => {
+          props.onPress();
+        });
+
+        expect(wrapper.root.findByType(JiraConfig))
+          .toBeTruthy();
+      });
+
+      it('should not render JiraConfig component after call JiraConfig handleClose prop', () => {
+        act(() => {
+          wrapper.root.findByType(JiraConfig).props.handleClose();
+        });
+
+        expect(wrapper.root.findAllByType(JiraConfig).length)
+          .toEqual(0);
       });
     });
 

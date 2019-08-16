@@ -1,18 +1,19 @@
 import * as R from 'ramda';
 import { ActionsObservable, ofType } from 'redux-observable';
-import { switchMap, pluck, map } from 'rxjs/operators';
-import { SetIssueStoryPointsPayload, JIRA_BD_CUSTOM_FIELDS, JiraAuthModel, JiraUserModel } from '../../../models';
+import { switchMap, pluck } from 'rxjs/operators';
+import { SetIssueStoryPointsPayload, JIRA_BD_CUSTOM_FIELDS, JiraAuthModel } from '../../../models';
 import { Jira } from '../jira.service';
 import { AppState } from '../../../../store/reducers';
-import {
-  JIRA_ACTIONS,
-  setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError, authJira as authJiraAction,
-  GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError, JiraActions,
-} from './jira.actions';
 import { Storage } from '../../device-storage/device-storage.service';
 import { EMPTY_ACTION } from '../../../constants';
 import { parseJiraAuthData } from '../helpers/parse-jira-auth-data/parse-jira-auth-data.helper';
 import { isPresent } from '../../../helpers';
+import {
+  JIRA_ACTIONS,
+  setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError, authJira as authJiraAction,
+  GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError, JiraActions,
+  jiraSignOutSuccess, jiraSignOutError,
+} from './jira.actions';
 
 const setIssueStoryPoints = ({ issueKey, value }: SetIssueStoryPointsPayload, state: AppState) => Jira
   .put(R.pathOr({}, [ 'jira', 'auth' ], state))
@@ -75,3 +76,14 @@ export const initializeJiraEpic = (action: ActionsObservable<JiraActions>) => ac
     ofType(JIRA_ACTIONS.INITIALIZE),
     switchMap(initializeJira),
   );
+
+const jiraSignOut = () => Storage
+  .multiDelete([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ])
+  .then(() => jiraSignOutSuccess())
+  .catch(error => jiraSignOutError(error));
+
+export const jiraSignOutEpic = (action: ActionsObservable<JiraActions>) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.SIGN_OUT),
+    switchMap(jiraSignOut),
+  )

@@ -3,7 +3,7 @@ import {
   signInEpic, signInSuccessEpic, signOutEpic, initializeAuthEpic,
 } from '../auth/store/auth.epics';
 import {
-  setIssueStoryPointsEpic, getIssueEpic, authJiraEpic, authJiraSuccessEpic, initializeJiraEpic,
+  setIssueStoryPointsEpic, getIssueEpic, authJiraEpic, authJiraSuccessEpic, initializeJiraEpic, jiraSignOutEpic,
 } from '@core/services/jira/store/jira.epics';
 import {
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic, initializeTranslationsEpic,
@@ -19,5 +19,5 @@ export const epics = combineEpics(
   showDownEpic, resetEpic, setValueEpic, setIssueStoryPointsEpic, addUserEpic,
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
   getIssueEpic,
-  authJiraEpic, authJiraSuccessEpic,
+  authJiraEpic, authJiraSuccessEpic, jiraSignOutEpic,
 );
