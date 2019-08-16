@@ -1,3 +1,14 @@
+## 0.4.0
+### Added:
+- Now you can connect with your own Jira account!
+- Estimation proposition based on chosen values
+### Improved:
+- App optimization
+- Displaying estimation in Room View
+- Jira integration
+### Fixed:
+- Different Keyboard avoiding view behavior on iOS/android
+
 ## 0.3.0
 ### Added:
 - Basic Jira Integration - Possibility to push final estimation to Jira!
