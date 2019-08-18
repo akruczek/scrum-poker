@@ -3,12 +3,12 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Avatar, Button } from 'react-native-elements';
+import { Avatar, Button, Input } from 'react-native-elements';
 import { Text, Separator, Container, ScrollContainer, AppContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
-import { JiraUserModel, TRANSLATIONS } from '@core/models';
+import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
-import { jiraSignOut } from '@core/services/jira/store/jira.actions';
+import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { translate } from '@core/services/translations/translate';
 
 interface Props {
@@ -18,14 +18,31 @@ interface Props {
 
 interface DispatchProps {
   jiraSignOut: () => void;
+  setJiraConfiguration: (payload: JiraConfigurationModel) => void;
+}
+
+interface StateProps {
+  jiraConfiguration: JiraConfigurationModel;
 }
 
 export const _JiraConfig = ({
-  jiraUser, handleClose, jiraSignOut,
-}: Props & DispatchProps) => {
+  jiraUser, jiraConfiguration, handleClose, jiraSignOut, setJiraConfiguration,
+}: Props & DispatchProps & StateProps) => {
+  const [ customField, setCustomField ] = React.useState<null | string>(null);
+
+  React.useEffect(() => {
+    setCustomField(R.propOr('', 'customField', jiraConfiguration));
+  }, []);
+
   const handleLogout = () => {
     jiraSignOut();
     handleClose();
+  };
+
+  const handleApply = () => {
+    if (customField) {
+      setJiraConfiguration({ customField });
+    }
   };
 
   return (
@@ -50,11 +67,15 @@ export const _JiraConfig = ({
             </Container>
           </Container>
           <Separator margin={10} />
+
+          <Text margins="10px 0" children="Jira field name:" />
+          <Input value={customField || ''} onChangeText={setCustomField} />
+          <Separator margin={20} />
         </ScrollContainer>
 
         <ButtonsSet
             titles={[ TRANSLATIONS.APPLY, TRANSLATIONS.DISMISS ]}
-            onPress={[ () => null, handleClose ]}
+            onPress={[ handleApply, handleClose ]}
         />
       </AppContainer>
     </Modal>
@@ -62,11 +83,15 @@ export const _JiraConfig = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { jiraSignOut },
+  { jiraSignOut, setJiraConfiguration },
   dispatch,
 );
 
-export const JiraConfig = connect<{}, DispatchProps, Props>(
-  null, mapDispatchToProps,
+const mapStateToProps = R.applySpec<StateProps>({
+  jiraConfiguration: R.path([ 'jira', 'configuration' ]),
+});
+
+export const JiraConfig = connect<StateProps, DispatchProps, Props>(
+  mapStateToProps, mapDispatchToProps,
 )(_JiraConfig);
 

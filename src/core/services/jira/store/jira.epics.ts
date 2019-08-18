@@ -1,27 +1,28 @@
 import * as R from 'ramda';
 import { ActionsObservable, ofType } from 'redux-observable';
 import { switchMap, pluck } from 'rxjs/operators';
-import { SetIssueStoryPointsPayload, JIRA_BD_CUSTOM_FIELDS, JiraAuthModel } from '../../../models';
+import { SetIssueStoryPointsPayload, JiraAuthModel, JiraConfigurationModel } from '../../../models';
 import { Jira } from '../jira.service';
 import { AppState } from '../../../../store/reducers';
 import { Storage } from '../../device-storage/device-storage.service';
-import { EMPTY_ACTION } from '../../../constants';
-import { parseJiraAuthData } from '../helpers/parse-jira-auth-data/parse-jira-auth-data.helper';
 import { isPresent } from '../../../helpers';
+import { parseJiraAuthData } from '../helpers/parse-jira-auth-data/parse-jira-auth-data.helper';
+import { EMPTY_ACTION } from '../../../constants';
 import {
   JIRA_ACTIONS,
   setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError, authJira as authJiraAction,
   GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError, JiraActions,
-  jiraSignOutSuccess, jiraSignOutError,
+  jiraSignOutSuccess, jiraSignOutError, SetJiraConfigurationAction, setJiraConfigurationSuccess, setJiraConfigurationError, getJiraConfigurationSuccess, getJiraConfigurationError,
 } from './jira.actions';
+import { parseJiraConfigurationData } from '../helpers/parse-jira-configuration-data/parse-jira-configuration-data.helper';
 
 const setIssueStoryPoints = ({ issueKey, value }: SetIssueStoryPointsPayload, state: AppState) => Jira
   .put(R.pathOr({}, [ 'jira', 'auth' ], state))
   .issue(issueKey)
-  .property(JIRA_BD_CUSTOM_FIELDS.STORY_POINTS)
+  .property(R.pathOr('', [ 'jira', 'configuration', 'customField' ], state))
   .set(value)
   .then(() => setIssueStoryPointsSuccess())
-  .catch((error: any) => setIssueStoryPointsError(error));
+  .catch(error => setIssueStoryPointsError(error));
 
 export const setIssueStoryPointsEpic = (action: ActionsObservable<SetIssueStoryPointsAction>, state: { value: AppState }) => action
   .pipe(
@@ -57,7 +58,7 @@ export const authJiraEpic = (action: ActionsObservable<AuthJiraAction>) => actio
 
 const saveJiraUser = (payload: JiraAuthModel) => Storage
   .multiSet([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ], R.values(payload))
-  .then(() => EMPTY_ACTION)
+  .then(() => getJiraConfiguration())
   .catch(R.identity);
 
 export const authJiraSuccessEpic = (action: ActionsObservable<JiraActions>, state: { value: AppState }) => action
@@ -68,8 +69,10 @@ export const authJiraSuccessEpic = (action: ActionsObservable<JiraActions>, stat
 
 const initializeJira = () => Storage
   .multiGet([ 'userJiraSpaceName', 'userJiraEmail', 'userJiraToken' ])
-  .then(response => isPresent(response) ? authJiraAction(parseJiraAuthData(response)) : authJiraError())
-  .catch(error => error);
+  .then(response => (isPresent(response) && response)
+    ? authJiraAction(parseJiraAuthData(response))
+    : authJiraError())
+  .catch(error => authJiraError(error));
 
 export const initializeJiraEpic = (action: ActionsObservable<JiraActions>) => action
   .pipe(
@@ -86,4 +89,27 @@ export const jiraSignOutEpic = (action: ActionsObservable<JiraActions>) => actio
   .pipe(
     ofType(JIRA_ACTIONS.SIGN_OUT),
     switchMap(jiraSignOut),
-  )
+  );
+
+const setJiraConfiguration = (payload: JiraConfigurationModel) => Storage
+  .set('jiraCustomField', payload.customField)
+  .then(() => setJiraConfigurationSuccess(payload))
+  .catch(error => setJiraConfigurationError(error));
+
+export const setJiraConfigurationEpic = (action: ActionsObservable<SetJiraConfigurationAction>) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.SET_JIRA_CONFIGURATION),
+    pluck('payload'),
+    switchMap(setJiraConfiguration),
+  );
+
+const getJiraConfiguration = () => Storage
+  .multiGet([ 'jiraCustomField' ])
+  .then(response => getJiraConfigurationSuccess(parseJiraConfigurationData(response)))
+  .catch(error => getJiraConfigurationError(error));
+
+export const getJiraConfigurationEpic = (action: ActionsObservable<JiraActions>) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.GET_JIRA_CONFIGURATION),
+    switchMap(getJiraConfiguration),
+  );

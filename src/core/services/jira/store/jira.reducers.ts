@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { JiraStateModel } from '../../../models';
-import { JiraActions, JIRA_ACTIONS, AuthJiraAction } from './jira.actions';
+import { JiraActions, JIRA_ACTIONS, AuthJiraAction, SetJiraConfigurationAction } from './jira.actions';
 import { AUTH_ACTIONS, AuthActions } from '../../../../auth/store/auth.actions';
 
 const initialState: JiraStateModel = {
@@ -9,6 +9,7 @@ const initialState: JiraStateModel = {
   success: false,
   auth: null,
   user: null,
+  configuration: null,
 };
 
 const setIssueReducer = (_: JiraActions) => R.pipe(
@@ -26,6 +27,33 @@ const setIssueErrorReducer = (_: JiraActions) => R.pipe(
   R.assoc('isPending', false),
   R.assoc('success', false),
   R.assoc('error', true),
+);
+
+const setJiraConfigurationReducer = (action: SetJiraConfigurationAction) => R.pipe(
+  R.assoc('isPending', true),
+  R.assoc('configuration', action.payload),
+);
+
+const setJiraConfigurationSuccessReducer = (_: SetJiraConfigurationAction) => R.pipe(
+  R.assoc('isPending', false),
+);
+
+const setJiraConfigurationErrorReducer = (_: SetJiraConfigurationAction) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('configuration', null),
+);
+
+const getJiraConfigurationReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', true),
+);
+
+const getJiraConfigurationSuccessReducer = (action: JiraActions) => R.pipe(
+  R.assoc('configuration', action.payload),
+  R.assoc('isPending', false),
+);
+
+const getJiraConfigurationErrorReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', false),
 );
 
 const getIssueReducer = (_: JiraActions) => R.pipe(
@@ -79,6 +107,12 @@ const reducers = {
   [JIRA_ACTIONS.GET_ISSUE]: getIssueReducer,
   [JIRA_ACTIONS.GET_ISSUE_SUCCESS]: getIssueSuccessReducer,
   [JIRA_ACTIONS.GET_ISSUE_ERROR]: getIssueErrorReducer,
+  [JIRA_ACTIONS.SET_JIRA_CONFIGURATION]: setJiraConfigurationReducer,
+  [JIRA_ACTIONS.SET_JIRA_CONFIGURATION_SUCCESS]: setJiraConfigurationSuccessReducer,
+  [JIRA_ACTIONS.SET_JIRA_CONFIGURATION_ERROR]: setJiraConfigurationErrorReducer,
+  [JIRA_ACTIONS.GET_JIRA_CONFIGURATION]: getJiraConfigurationReducer,
+  [JIRA_ACTIONS.GET_JIRA_CONFIGURATION_SUCCESS]: getJiraConfigurationSuccessReducer,
+  [JIRA_ACTIONS.GET_JIRA_CONFIGURATION_ERROR]: getJiraConfigurationErrorReducer,
   [JIRA_ACTIONS.CLEAR_JIRA_STATUS]: clearJiraStatusReducer,
   [JIRA_ACTIONS.AUTH_JIRA]: authJiraReducer,
   [JIRA_ACTIONS.AUTH_JIRA_SUCCESS]: authJiraSuccessReducer,

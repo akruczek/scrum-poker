@@ -3,14 +3,17 @@ import {
   signInEpic, signInSuccessEpic, signOutEpic, initializeAuthEpic,
 } from '../auth/store/auth.epics';
 import {
-  setIssueStoryPointsEpic, getIssueEpic, authJiraEpic, authJiraSuccessEpic, initializeJiraEpic, jiraSignOutEpic,
-} from '@core/services/jira/store/jira.epics';
-import {
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic, initializeTranslationsEpic,
 } from '@core/services/translations/store/translations.epics';
 import {
   addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic, updateRoomEpic,
 } from '../multi-poker/dashboard/store/dashboard.epics';
+import {
+  initializeJiraEpic,
+  setIssueStoryPointsEpic, getIssueEpic,
+  authJiraEpic, authJiraSuccessEpic,
+  jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
+} from '@core/services/jira/store/jira.epics';
 
 export const epics = combineEpics(
   initializeAuthEpic, initializeJiraEpic, initializeTranslationsEpic,
@@ -19,5 +22,5 @@ export const epics = combineEpics(
   showDownEpic, resetEpic, setValueEpic, setIssueStoryPointsEpic, addUserEpic,
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
   getIssueEpic,
-  authJiraEpic, authJiraSuccessEpic, jiraSignOutEpic,
+  authJiraEpic, authJiraSuccessEpic, jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
 );

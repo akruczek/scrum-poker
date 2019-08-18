@@ -8,3 +8,4 @@ export * from './is-risk-card/is-risk-card.helper';
 export * from './toggle-value/toggle-value.helper';
 export * from './noop/noop';
 export * from './get-default/get-default.helper';
+export * from './new-action/new-action.helper';

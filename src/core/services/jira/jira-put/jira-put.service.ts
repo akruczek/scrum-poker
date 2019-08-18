@@ -1,9 +1,9 @@
 import { encodeBasicAuthorization } from '../../../helpers/encode-basic-authorization/encode-basic-authorization.helper';
-import { JIRA_CUSTOM_FIELD, JiraAuthModel } from '../../../models';
+import { JiraAuthModel } from '../../../models';
 
 export const JiraPut = ({ email, token, spaceName }: JiraAuthModel) => ({
   issue: (key: string) => ({
-    property: (prop: JIRA_CUSTOM_FIELD) => ({
+    property: (prop: string) => ({
       set: (value: number) =>
         fetch(`https://${spaceName}.atlassian.net/rest/api/2/issue/${key}`, {
           method: 'PUT',

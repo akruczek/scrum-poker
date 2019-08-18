@@ -15,7 +15,7 @@
     "start:clear": "expo r -c",
     "eject": "expo eject",
     "test": "jest --watch --coverage",
-    "test:all": "jest --watchAll --coverage"
+    "test:all": "jest --watchAll --coverage --silent"
   },
   "jest": {
     "preset": "jest-expo",
