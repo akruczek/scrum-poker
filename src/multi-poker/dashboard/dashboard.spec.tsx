@@ -54,7 +54,7 @@ describe('Dashboard', () => {
 
   describe('when Dashboard was mounted with all needed props', () => {
     beforeEach(() => {
-      spyOn(Firebase, 'listen').and.returnValue(of({ 
+      spyOn(Firebase, 'subscribe').and.returnValue(of({ 
         database: () => ({}),
        }));
     });

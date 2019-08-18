@@ -50,7 +50,7 @@ export class Firebase {
     return this.post(path, null);
   }
 
-  static listen(path: string, callback?: (data: any) => void) {
+  static subscribe(path: string, callback?: (data: any) => void) {
     firebase
       .database()
       .ref(path)

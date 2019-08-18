@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { PokerCard } from '@core/models';
 import { RoomModel } from '../../models/room.models';
 import { UserModel } from '../../../auth/models/auth.models';
+import { newAction } from '../../../core/helpers';
 
 export enum DASHBOARD_ACTIONS {
   SET_ROOMS = '[Dashboard]: Set rooms',
@@ -92,36 +93,33 @@ export type DashboardActions =
   RoomAction &
   SetValueAction;
 
-const newAction = <P>(type: DASHBOARD_ACTIONS) =>
-  (payload?: P): { type: DASHBOARD_ACTIONS, payload?: P } => ({ type, payload });
+export const setRooms = newAction<DASHBOARD_ACTIONS, RoomModel[]>(DASHBOARD_ACTIONS.SET_ROOMS);
+export const setRoom = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.SET_ROOM);
 
-export const setRooms = newAction<RoomModel[]>(DASHBOARD_ACTIONS.SET_ROOMS);
-export const setRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.SET_ROOM);
+export const addRoom = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.ADD_ROOM);
+export const addRoomSuccess = newAction<DASHBOARD_ACTIONS, RoomModel[]>(DASHBOARD_ACTIONS.ADD_ROOM_SUCCESS);
+export const addRoomError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.ADD_ROOM_ERROR);
 
-export const addRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_ROOM);
-export const addRoomSuccess = newAction<RoomModel[]>(DASHBOARD_ACTIONS.ADD_ROOM_SUCCESS);
-export const addRoomError = newAction<any>(DASHBOARD_ACTIONS.ADD_ROOM_ERROR);
+export const removeRoom = newAction<DASHBOARD_ACTIONS, string>(DASHBOARD_ACTIONS.REMOVE_ROOM);
+export const removeRoomSuccess = newAction<DASHBOARD_ACTIONS, RoomModel[]>(DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS);
+export const removeRoomError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERROR);
 
-export const removeRoom = newAction<string>(DASHBOARD_ACTIONS.REMOVE_ROOM);
-export const removeRoomSuccess = newAction<RoomModel[]>(DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS);
-export const removeRoomError = newAction<any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERROR);
+export const addUser = newAction<DASHBOARD_ACTIONS, AddUserPayload>(DASHBOARD_ACTIONS.ADD_USER);
+export const addUserSuccess = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.ADD_USER_SUCCESS);
+export const addUserError = newAction<DASHBOARD_ACTIONS, UserModel>(DASHBOARD_ACTIONS.ADD_USER_ERROR);
 
-export const addUser = newAction<AddUserPayload>(DASHBOARD_ACTIONS.ADD_USER);
-export const addUserSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.ADD_USER_SUCCESS);
-export const addUserError = newAction<UserModel>(DASHBOARD_ACTIONS.ADD_USER_ERROR);
+export const showDown = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN);
+export const showDownSuccess = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN_SUCCESS);
+export const showDownError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.SHOW_DOWN_ERROR);
 
-export const showDown = newAction<RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN);
-export const showDownSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SHOW_DOWN_SUCCESS);
-export const showDownError = newAction<any>(DASHBOARD_ACTIONS.SHOW_DOWN_ERROR);
+export const reset = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.RESET);
+export const resetSuccess = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.RESET_SUCCESS);
+export const resetError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.RESET_ERROR);
 
-export const reset = newAction<RoomModel>(DASHBOARD_ACTIONS.RESET);
-export const resetSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.RESET_SUCCESS);
-export const resetError = newAction<any>(DASHBOARD_ACTIONS.RESET_ERROR);
+export const setValue = newAction<DASHBOARD_ACTIONS, SetValuePayload>(DASHBOARD_ACTIONS.SET_VALUE);
+export const setValueSuccess = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.SET_VALUE_SUCCESS);
+export const setValueError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.SET_VALUE_ERROR);
 
-export const setValue = newAction<SetValuePayload>(DASHBOARD_ACTIONS.SET_VALUE);
-export const setValueSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.SET_VALUE_SUCCESS);
-export const setValueError = newAction<any>(DASHBOARD_ACTIONS.SET_VALUE_ERROR);
-
-export const updateRoom = newAction<RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM);
-export const updateRoomSuccess = newAction<RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM_SUCCESS);
-export const updateRoomError = newAction<any>(DASHBOARD_ACTIONS.UPDATE_ROOM_ERROR);
+export const updateRoom = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM);
+export const updateRoomSuccess = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.UPDATE_ROOM_SUCCESS);
+export const updateRoomError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.UPDATE_ROOM_ERROR);

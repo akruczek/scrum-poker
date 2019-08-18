@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { UserModel } from '../models/auth.models';
+import { newAction } from '../../core/helpers';
 
 export enum AUTH_ACTIONS {
   SIGN_IN = '[Auth]: Sign in',
@@ -33,15 +34,12 @@ export type AuthActions =
   SignInErrorAction &
   SignOutAction;
 
-const newAction = <P>(type: AUTH_ACTIONS) =>
-  (payload?: P): { type: AUTH_ACTIONS, payload?: P } => ({ type, payload });
+export const signIn = newAction<AUTH_ACTIONS, string>(AUTH_ACTIONS.SIGN_IN);
+export const signInSuccess = newAction<AUTH_ACTIONS, UserModel>(AUTH_ACTIONS.SIGN_IN_SUCCESS);
+export const signInError = newAction<AUTH_ACTIONS, any>(AUTH_ACTIONS.SIGN_IN_ERROR);
 
-export const signIn = newAction<string>(AUTH_ACTIONS.SIGN_IN);
-export const signInSuccess = newAction<UserModel>(AUTH_ACTIONS.SIGN_IN_SUCCESS);
-export const signInError = newAction<any>(AUTH_ACTIONS.SIGN_IN_ERROR);
+export const signOut = newAction<AUTH_ACTIONS, {}>(AUTH_ACTIONS.SIGN_OUT);
+export const signOutSuccess = newAction<AUTH_ACTIONS, {}>(AUTH_ACTIONS.SIGN_OUT_SUCCESS);
+export const signOutError = newAction<AUTH_ACTIONS, {}>(AUTH_ACTIONS.SIGN_OUT_ERROR);
 
-export const signOut = newAction<{}>(AUTH_ACTIONS.SIGN_OUT);
-export const signOutSuccess = newAction<{}>(AUTH_ACTIONS.SIGN_OUT_SUCCESS);
-export const signOutError = newAction<{}>(AUTH_ACTIONS.SIGN_OUT_ERROR);
-
-export const initializeAuth = newAction<{}>(AUTH_ACTIONS.INITIALIZE);
+export const initializeAuth = newAction<AUTH_ACTIONS, {}>(AUTH_ACTIONS.INITIALIZE);

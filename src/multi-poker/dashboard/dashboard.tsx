@@ -34,7 +34,7 @@ export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) 
 
   React.useEffect(() => {
     setPending(true);
-    Firebase.listen('/rooms', updateRooms);
+    Firebase.subscribe('/rooms', updateRooms);
 
     return () => {
       Firebase.unsubscribe('/rooms');

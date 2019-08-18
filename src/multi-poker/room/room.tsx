@@ -39,7 +39,7 @@ export const _Room = ({
   const [ isEditingRoom, setEditingRoom ] = React.useState(false);
 
   React.useEffect(() => {
-    Firebase.listen(`/rooms/${room.id}`, getUsers);
+    Firebase.subscribe(`/rooms/${room.id}`, getUsers);
     addDefaultUser(user, room)(addUser);
 
     navigation.setParams({
