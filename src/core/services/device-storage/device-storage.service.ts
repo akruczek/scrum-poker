@@ -8,7 +8,6 @@ export class Storage {
     } catch (error) {
       console.error('Error saving data in device storage');
     }
-    return null;
   }
 
   static async get(key: string) {
@@ -17,7 +16,6 @@ export class Storage {
       return value;
     } catch (error) {
       console.error('Error getting data from device storage');
-      return null;
     }
   };
 
@@ -27,7 +25,6 @@ export class Storage {
     } catch (error) {
       console.error('Error removing data from device storage');
     }
-    return null;
   }
 
   static async multiSet(keys: string[], values: any[]) {
@@ -38,7 +35,6 @@ export class Storage {
     } catch (error) {
       console.error('Error saving multi data in device storage');
     }
-    return null;
   }
 
   static async multiGet(keys: string[]) {
@@ -49,7 +45,6 @@ export class Storage {
     } catch (error) {
       console.error('Error getting multi data from device storage');
     }
-    return null;
   }
 
   static async multiDelete(keys: string[]) {
@@ -59,6 +54,5 @@ export class Storage {
     } catch(error) {
       console.error('Error removing multi data from device storage');
     }
-    return null;
   }
 }

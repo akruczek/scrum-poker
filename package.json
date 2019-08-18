@@ -29,7 +29,8 @@
       "!src/**/*.spec.{ts,tsx}",
       "!src/**/index.ts",
       "!src/**/constants/*",
-      "!src/**/*.styled.{ts,tsx}"
+      "!src/**/*.styled.{ts,tsx}",
+      "!src/**/screens.ts"
     ]
   },
   "dependencies": {
