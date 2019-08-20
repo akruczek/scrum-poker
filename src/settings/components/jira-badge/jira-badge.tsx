@@ -3,7 +3,7 @@ import { Button } from 'react-native-elements';
 import { JiraAuthModel, TRANSLATIONS, JiraUserModel } from '@core/models';
 import { COLORS, TEXT_SIZES } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
-import { isNotNil, NOOP } from '@core/helpers';
+import { isNotNil, _cond } from '@core/helpers';
 import { JiraLogin } from '../jira-login/jira-login';
 import { JiraBadgeContent } from './components/jira-badge-content/jira-badge-content';
 import { JiraBadgeIcon } from './components/jira-badge-icon/jira-badge-icon';
@@ -38,20 +38,23 @@ export const JiraBadge = ({ authJira, isPending, jiraUser, clearJiraStatus }: Pr
           onPress={handlePress}
           raised
       />
-      {isSigningIn && (
-        <JiraLogin
-            isUser={isNotNil(jiraUser)}
-            isPending={isPending}
-            authJira={authJira}
-            handleClose={() => setSigningIn(false)}
-            clearJiraStatus={clearJiraStatus}
-        />
-      )}
-      {isEditingConfig && (
-        <JiraConfig
-            jiraUser={jiraUser}
-            handleClose={() => setEditingConfig(false)}
-        />
+
+      {_cond(
+        isSigningIn, (
+          <JiraLogin
+              isUser={isNotNil(jiraUser)}
+              isPending={isPending}
+              authJira={authJira}
+              handleClose={() => setSigningIn(false)}
+              clearJiraStatus={clearJiraStatus}
+          />
+        ),
+        isEditingConfig, (
+          <JiraConfig
+              jiraUser={jiraUser}
+              handleClose={() => setEditingConfig(false)}
+          />
+        ),
       )}
     </>
   );

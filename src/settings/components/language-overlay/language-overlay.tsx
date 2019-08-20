@@ -10,6 +10,7 @@ import { setLanguage } from '@core/services/translations/store/translations.acti
 import { Text, Container } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { getLanguageItemContent } from '../../helpers/get-language-item-content/get-language-item-content.helper';
+import { changeLanguage } from './helpers/change-language.helper';
 
 interface Props {
   isVisible: boolean;
@@ -25,12 +26,7 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
   const [ reloadInformation, setReloadInformation ] = React.useState(false);
 
   const handleChangeLanguage = (language: LANGUAGE_CODES) => {
-    if (language === currentLanguage) {
-      handleClose();
-    } else {
-      setLanguage(language);
-      setReloadInformation(true);
-    }
+    changeLanguage(language, currentLanguage)(handleClose, setLanguage, setReloadInformation);
   };
 
   const handleReload = () => {

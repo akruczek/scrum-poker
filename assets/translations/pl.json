@@ -46,5 +46,6 @@
   "or_choose": "LUB WYBIERZ:",
   "issue_key": "KOD TASKA:",
   "apply": "ZATWIERDŹ",
-  "jira_configuration": "KONFIGURACJA JIRY"
+  "jira_configuration": "KONFIGURACJA JIRY",
+  "jira_field_name": "Nazwa pola w Jirze:"
 }

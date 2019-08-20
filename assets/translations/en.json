@@ -46,5 +46,6 @@
   "or_choose": "OR CHOOSE:",
   "issue_key": "ISSUE KEY:",
   "apply": "APPLY",
-  "jira_configuration": "JIRA CONFIGURATION"
+  "jira_configuration": "JIRA CONFIGURATION",
+  "jira_field_name": "Jira field name:"
 }

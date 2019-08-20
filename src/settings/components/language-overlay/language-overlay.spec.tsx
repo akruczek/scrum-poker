@@ -91,5 +91,37 @@ describe('LanguageOverlay', () => {
           .toHaveBeenCalled();
       });
     });
+
+    describe('and isVisible prop equals "true"', () => {
+      const wrapper = renderer.create(
+        <_LanguageOverlay
+            handleClose={handleClose}
+            setLanguage={setLanguage}
+            currentLanguage={currentLanguage}
+            isVisible
+        />
+      );
+
+      it('should render Overlay component with true as isVisible prop', () => {
+        expect(wrapper.root.findAllByType(Overlay)[1].props.isVisible)
+          .toBeTruthy();
+      });
+    });
+
+    describe('and isVisible prop equals "true"', () => {
+      const wrapper = renderer.create(
+        <_LanguageOverlay
+            handleClose={handleClose}
+            setLanguage={setLanguage}
+            isVisible={false}
+            currentLanguage={currentLanguage}
+        />
+      );
+
+      it('should render Overlay component with false as isVisible prop', () => {
+        expect(wrapper.root.findAllByType(Overlay)[1].props.isVisible)
+          .toBeFalsy();
+      });
+    });
   });
 });

@@ -52,6 +52,7 @@ export enum TRANSLATIONS {
   ISSUE_KEY = 'issue_key',
   APPLY = 'apply',
   JIRA_CONFIGURATION = 'jira_configuration',
+  JIRA_FIELD_NAME = 'jira_field_name',
 }
 
 export type Translation = {[key: string]: string};

@@ -3,13 +3,14 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Avatar, Button, Input } from 'react-native-elements';
-import { Text, Separator, Container, ScrollContainer, AppContainer } from '@core/styled';
+import { Input } from 'react-native-elements';
+import { Text, Separator, ScrollContainer, AppContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { translate } from '@core/services/translations/translate';
+import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 
 interface Props {
   jiraUser: JiraUserModel;
@@ -52,23 +53,10 @@ export const _JiraConfig = ({
           <Text size={TEXT_SIZES.BIG} margins="10px 0 0" align="center">
             {translate(TRANSLATIONS.JIRA_CONFIGURATION)}
           </Text>
-          <Separator margin={10} />
-          <Container flexDirection="row" alignItems="center">
-            <Container flexDirection="row" justifyContent="flex-start">
-              <Avatar source={{ uri: jiraUser.avatarUrl }} rounded />
-              <Text margins="0 0 0 10px" children={jiraUser.displayName} />
-            </Container>
-            <Container flexDirection="row" justifyContent="flex-end">
-              <Button
-                  title={translate(TRANSLATIONS.LOGOUT)}
-                  icon={{ name: 'exit-to-app', color: 'white' }}
-                  onPress={handleLogout}
-              />
-            </Container>
-          </Container>
-          <Separator margin={10} />
 
-          <Text margins="10px 0" children="Jira field name:" />
+          <JiraConfigBadge {...{ handleLogout, jiraUser }} />
+
+          <Text margins="10px 0" children={translate(TRANSLATIONS.JIRA_FIELD_NAME)} />
           <Input value={customField || ''} onChangeText={setCustomField} />
           <Separator margin={20} />
         </ScrollContainer>
