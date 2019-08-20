@@ -7,10 +7,13 @@ import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/
 import { Preloader } from '@core/components';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
-import { getDefault } from '@core/helpers';
+import { getDefault, isPlatform } from '@core/helpers';
 import { signIn } from './store/auth.actions';
 import { AUTH_TYPES } from './models/auth.models';
-import { validateEmail } from './helpers/validate-email.helper';
+import { validateEmail } from './helpers/validate-email/validate-email.helper';
+import { authContent } from './helpers/auth-content/auth-content.helper';
+import { authSignIn } from './helpers/auth-sign-in/auth-sign-in.helper';
+import { handleAuthInputChange } from './helpers/handle-auth-input-change/handle-auth-input-change.helper';
 
 interface Props {
   type: AUTH_TYPES;
@@ -24,44 +27,26 @@ interface DispatchProps {
   signIn: (email: string) => void;
 }
 
-export const _Auth = (props: DispatchProps & StateProps & Props) => {
+export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & Props) => {
   const [ email, setEmail ] = React.useState('');
   const [ error, throwError ] = React.useState('');
 
-  const content = {
-    buttonText: {
-      [AUTH_TYPES.JOIN]: translate(TRANSLATIONS.JOIN),
-      [AUTH_TYPES.LOGIN]: translate(TRANSLATIONS.LOGIN),
-    },
-    title: {
-      [AUTH_TYPES.JOIN]: translate(TRANSLATIONS.JOIN_SESSION),
-      [AUTH_TYPES.LOGIN]: translate(TRANSLATIONS.SIGN_IN),
-    },
-  };
-
   const handleSignIn = (email: string) => {
-    if (validateEmail(email)) {
-      props.signIn(email);
-    } else {
-      throwError(translate(TRANSLATIONS.WRONG_EMAIL));
-    };
+    authSignIn(email)(signIn, throwError);
   };
 
   const handleChange = (email: string) => {
-    throwError('');
-    setEmail(email);
+    handleAuthInputChange(email)(setEmail, throwError);
   };
 
-  const { type, isPending } = props;
-  const { buttonText, title } = content;
-
-  const buttonTitle = getDefault(String)(buttonText[type]);
+  const buttonTitle = getDefault(String)(authContent('buttonText')[type]);
+  const offset = isPlatform('android') ? 90 : 70;
 
   return (
     <AppContainer>
-      <KeyboardAvoidingContainer keyboardVerticalOffset={100}>
-        <Container alignItems="center" justifyContent="center" margins="0 0 100px">
-          <Text margins="0 0 20px" children={title[type]} />
+      <KeyboardAvoidingContainer behavior="padding" keyboardVerticalOffset={offset}>
+        <Container alignItems="center" justifyContent="center">
+          <Text margins="0 0 20px" children={authContent('title')[type]} />
           <Input
               value={email}
               placeholder="Email"
@@ -72,9 +57,9 @@ export const _Auth = (props: DispatchProps & StateProps & Props) => {
         </Container>
 
         <Button title={buttonTitle} onPress={() => handleSignIn(email)} />
-
-        {isPending && <Preloader />}
       </KeyboardAvoidingContainer>
+
+      {isPending && <Preloader />}
     </AppContainer>
   );
 };

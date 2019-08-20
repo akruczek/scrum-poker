@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal } from 'react-native';
+import { Modal, Platform } from 'react-native';
 import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
@@ -8,6 +8,7 @@ import { translate } from '@core/services/translations/translate';
 import { TEXT_SIZES } from '@core/constants';
 import { Preloader, ActionModal } from '@core/components';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { isPlatform } from '@core/helpers';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
 import { jiraLoginUpdate } from './helpers/jira-login-update/jira-login-update.helper';
@@ -41,11 +42,13 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
     );
   });
 
+  const offset = isPlatform('android') ? 0 : 10;
+
   return (
     <>
       <Modal animationType="slide">
         <AppContainer>
-          <KeyboardAvoidingContainer>
+          <KeyboardAvoidingContainer keyboardVerticalOffset={offset}>
             <Container justifyContent="space-around" alignItems="center" margins="30px 0 0">
               <CustomIcon source={jiraIcon} size={ICON_SIZES.BIG} />
 
