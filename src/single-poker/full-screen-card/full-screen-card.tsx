@@ -8,10 +8,8 @@ interface Props {
   handleBackPress: () => void;
 }
 
-export const FullScreenCard = (props: Props) => {
-  return (
-    <Modal animationType="slide">
-      <CardButton card={props.card} handleSelect={props.handleBackPress} fullScreen />
-    </Modal>
-  );
-};
+export const FullScreenCard = ({ card, handleBackPress }: Props) => (
+  <Modal animationType="slide">
+    <CardButton card={card} handleSelect={handleBackPress} fullScreen />
+  </Modal>
+);

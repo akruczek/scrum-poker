@@ -8,11 +8,11 @@ interface Props {
   handleNavigate: (poker: PokerModel) => void;
 }
 
-export const PokersList = (props: Props) => (
+export const PokersList = ({ handleNavigate }: Props) => (
   <AppContainer>
     <ScrollContainer>
       {pokers.map((poker: PokerModel) => (
-        <ListItem key={poker.name} poker={poker} handlePress={props.handleNavigate} />
+        <ListItem key={poker.name} poker={poker} handlePress={handleNavigate} />
       ))}
     </ScrollContainer>
   </AppContainer>

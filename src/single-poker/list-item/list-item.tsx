@@ -11,21 +11,19 @@ interface Props {
   handlePress: (poker: PokerModel) => void;
 }
 
-export const ListItem = (props: Props) => {
-  const { icon, name, description } = props.poker;
-
+export const ListItem = ({ poker, iconSize, handlePress }: Props) => {
   const leftElement = (
-    <CustomIcon size={R.propOr(ICON_SIZES.STANDARD, 'iconSize', props)} source={icon} />
+    <CustomIcon size={iconSize || ICON_SIZES.STANDARD} source={poker.icon} />
   );
 
   return (
     <React.Fragment>
-      <TouchableOpacity onPress={() => props.handlePress(props.poker)}>
+      <TouchableOpacity onPress={() => handlePress(poker)}>
         <ListItemElement
             leftElement={leftElement}
             rightIcon={{ name: 'arrow-forward' }}
-            title={name}
-            subtitle={description}
+            title={poker.name}
+            subtitle={poker.description}
         />
       </TouchableOpacity>
       <Divider />
