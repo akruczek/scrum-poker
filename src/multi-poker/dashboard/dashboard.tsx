@@ -3,8 +3,6 @@ import * as R from 'ramda';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
-import { Firebase } from '@core/services/firebase/firebase.service';
-import { isPresent } from '@core/helpers';
 import { Preloader } from '@core/components';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
@@ -12,8 +10,10 @@ import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.action
 import { EditRoom } from './components/edit-room/edit-room';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
-import { prepareNewRoom } from './helpers/prepare-new-room/prepare-new-room.helper';
 import { joinRoom } from './helpers/join-room/join-room.helper';
+import { useSubscribeRooms } from './hooks/subscribe-rooms/subscribe-rooms.hook';
+import { addNewRoom } from './helpers/add-new-room/add-new-room.helper';
+import { getRoomsList } from './helpers/get-rooms-list/get-rooms-list.helper';
 
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
@@ -27,57 +27,33 @@ interface StateProps {
   jiraAccountId: string;
 }
 
-export const _Dashboard = (props: StateProps & DispatchProps & NavigationProps) => {
-  const [ isPending, setPending ] = React.useState(false);
+export const _Dashboard = ({
+  setRooms, setRoom, addRoom, removeRoom, rooms, jiraAccountId, navigation,
+}: StateProps & DispatchProps & NavigationProps) => {
   const [ isCreatingRoom, setCreateRoom ] = React.useState(false);
   const [ isSwiping, setSwiping ] = React.useState(false);
-
-  React.useEffect(() => {
-    setPending(true);
-    Firebase.subscribe('/rooms', updateRooms);
-
-    return () => {
-      Firebase.unsubscribe('/rooms');
-    };
-  }, []);
-
-  const updateRooms = (rooms: RoomModel[]) => {
-    props.setRooms(rooms);
-    setPending(false);
-  };
+  const isPending = useSubscribeRooms(setRooms);
 
   const handleNavigate = (room: RoomModel) => {
-    joinRoom(props.setRoom, props.navigation.navigate, room);
+    joinRoom(setRoom, navigation.navigate, room);
   }
 
   const handleAddRoom = (room: RoomModel) => {
-    const newRoom = prepareNewRoom(room);
-    setCreateRoom(false);
-    props.addRoom(newRoom);
-    handleNavigate(newRoom);
+    addNewRoom(room)(setCreateRoom, handleNavigate, addRoom);
   };
 
   const handleRemoveRoom = (room: RoomModel) => {
-    props.removeRoom(room.id);
+    removeRoom(room.id);
   };
-
-  const isConnectedWithJira = props.jiraAccountId;
 
   return (
     <AppContainer>
       <ScrollContainer>
-        {isPresent(props.rooms) && R.values(props.rooms).map((room: RoomModel) => room && (
-          <ListedRoom
-              key={room.id}
-              room={room}
-              isSwiping={isSwiping}
-              handleRemoveRoom={handleRemoveRoom}
-              handleNavigate={handleNavigate}
-              setSwiping={setSwiping}
-          />
+        {getRoomsList(rooms).map((room: RoomModel) => (
+          <ListedRoom key={room.id} {...{ room, isSwiping, handleRemoveRoom, handleNavigate, setSwiping }} />
         ))}
 
-        {isConnectedWithJira && <ListedNewRoom setCreateRoom={setCreateRoom} />}
+        {jiraAccountId && <ListedNewRoom setCreateRoom={setCreateRoom} />}
       </ScrollContainer>
 
       {isCreatingRoom && (
