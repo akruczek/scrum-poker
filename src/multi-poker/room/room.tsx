@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
-import { Firebase } from '@core/services/firebase/firebase.service';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton, HeaderRightIcon } from '@core/components';
@@ -16,6 +15,7 @@ import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { getEstimation, getResetPayload, hasAdmin, addDefaultUser } from './helpers';
 import { addUser, showDown, reset, setRoom, AddUserPayload } from '../dashboard/store/dashboard.actions';
 import { RoomModals } from './components/room-modals/room-modals';
+import { useSubscribeRoom } from './hooks/subscribe-room/subscribe-room.hook';
 
 interface StateProps {
   room: RoomModel;
@@ -33,29 +33,10 @@ interface DispatchProps {
 export const _Room = ({
   room, user, jiraAccountId, navigation, addUser, showDown, reset, setRoom,
 }: StateProps & NavigationProps & DispatchProps) => {
-  const [ users, setUsers ] = React.useState<UserModel[]>([]);
   const [ isSelecting, setSelecting ] = React.useState(false);
   const [ isJiraPusherVisible, setJiraPusherVisibility ] = React.useState(false);
   const [ isEditingRoom, setEditingRoom ] = React.useState(false);
-
-  React.useEffect(() => {
-    Firebase.subscribe(`/rooms/${room.id}`, getUsers);
-    addDefaultUser(user, room)(addUser);
-
-    navigation.setParams({
-      handleEditRoom: () => setEditingRoom(true),
-      isAdmin: jiraAccountId && (R.isEmpty(users) || hasAdmin(user.email, room.users, jiraAccountId)),
-    });
-
-    return () => {
-      Firebase.unsubscribe(`/rooms/${room.id}`);
-    };
-  }, []);
-
-  const getUsers = (room: RoomModel) => {
-    setUsers(R.values<RoomModel, any>(R.propOr([], 'users', room)));
-    setRoom(room);
-  };
+  const users = useSubscribeRoom(room, user, jiraAccountId, navigation)(addUser, setRoom, setEditingRoom);
 
   const handleReset = () => {
     reset(getResetPayload(room));
@@ -75,7 +56,7 @@ export const _Room = ({
   return (
     <AppContainer fullHorizontal>
       <ScrollContainer>
-        {(users || []).map((_user: UserModel) => (
+        {users.map((_user: UserModel) => (
           <ListedUser
               key={_user.email}
               onListItemPress={handleOnListItemPress}

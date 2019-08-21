@@ -35,7 +35,7 @@ export const ListedUser = (props: Props) => {
 
   const color = getListedUserColor(
     isRoomDiscovered, estimations, selectedValue, isValuePresent,
-  )
+  );
 
   const rightElement = (isValuePresent && isRoomDiscovered) || (isValuePresent && isCurrentUser)
     ? <CardIcon label={selectedLabel} value={selectedValue} handlePress={handlePress} />

@@ -14,6 +14,8 @@ import { ActionModal } from '@core/components/action-modal/action-modal';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { jiraPusherUpdate } from '../../helpers/jira-pusher-update/jira-pusher-update.helper';
 import { isBlank, isPresent } from '../../../../core/helpers';
+import { JiraPusherForm } from '../jira-pusher-form/jira-pusher-form';
+import { JiraPusherModals } from '../jira-pusher-modals/jira-pusher-modals';
 
 interface Props {
   handleClose: () => void;
@@ -63,38 +65,7 @@ export const _JiraPusher = ({
               </Text>
               <Separator margin={10} />
 
-              <Container alignItems="center" justifyContent="flex-start" alignContent="flex-start">
-                <Text margins="0 0 10px" children={translate(TRANSLATIONS.TYPE_FINAL_ESTIMATION)} />
-                <Input
-                    value={finalEstimation}
-                    placeholder={translate(TRANSLATIONS.FINAL_ESTIMATION)}
-                    onChangeText={setFinalEstimation}
-                    inputStyle={{ textAlign: 'center', fontSize: TEXT_SIZES.BIG }}
-                />
-                <Separator margin={10} />
-
-                {isPresent(estimationsList) && (
-                  <>
-                    <Text margins="0 0 10px" children={translate(TRANSLATIONS.OR_CHOOSE)} />
-                    <ViewContainer direction="row">
-                      {estimationsList.map(card => (
-                        <ViewContainer key={card.value} margins="0 5px">
-                          <CardButton card={card} handleSelect={() => setFinalEstimation(String(card.value))} />
-                        </ViewContainer>
-                      ))}
-                    </ViewContainer>
-                  </>
-                )}
-
-                <Separator margin={10} />
-                <Text margins="0 0 10px" children={translate(TRANSLATIONS.ISSUE_KEY)} />
-                <Input
-                    value={issueKey}
-                    placeholder={translate(TRANSLATIONS.JIRA_ISSUE_KEY)}
-                    onChangeText={setIssueKey}
-                    inputStyle={{ textAlign: 'center', fontSize: TEXT_SIZES.BIG }}
-                />
-              </Container>
+              <JiraPusherForm {...{ estimationsList, finalEstimation, issueKey, setFinalEstimation, setIssueKey }} />
             </Container>
           </ScrollContainer>
 
@@ -104,9 +75,7 @@ export const _JiraPusher = ({
           />
         </AppContainer>
 
-        <Preloader isVisible={isPending} />
-        <ActionModal isVisible={displaySuccess} type="success" message={TRANSLATIONS.JIRA_PUSH_SUCCESS} />
-        <ActionModal isVisible={displayError} type="error" message={TRANSLATIONS.JIRA_PUSH_ERROR} textSize={TEXT_SIZES.BIG} />
+        <JiraPusherModals {...{ isPending, displaySuccess, displayError }} />
       </Modal>
     </>
   );
@@ -126,4 +95,3 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
 export const JiraPusher = connect<StateProps, DispatchProps, Props>(
   mapStateToProps, mapDispatchToProps,
 )(_JiraPusher);
-
