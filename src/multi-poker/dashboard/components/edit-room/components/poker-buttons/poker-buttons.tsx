@@ -1,0 +1,26 @@
+import * as React from 'react';
+import * as R from 'ramda';
+import { ButtonGroup } from 'react-native-elements';
+import { PokerModel } from '@core/models';
+import { pokers } from '@core/constants';
+import { Separator } from '@core/styled';
+
+interface Props {
+  poker: PokerModel;
+  setPoker: (poker: PokerModel) => void,
+}
+
+export const PokerButtons = ({ poker, setPoker }: Props) => (
+  <>
+    <Separator margin={10} />
+    {R.splitEvery(2, pokers).map((buttonsGroup: PokerModel[], index: number) => (
+      <ButtonGroup
+          key={buttonsGroup[0].name}
+          buttons={R.map(R.prop('title'), buttonsGroup)}
+          selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
+          onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
+          containerStyle={{ marginRight: 10 }}
+      />
+    ))}
+  </>
+);

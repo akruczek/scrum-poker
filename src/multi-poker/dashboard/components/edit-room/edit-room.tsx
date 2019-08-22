@@ -1,16 +1,18 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
-import { Input, ButtonGroup } from 'react-native-elements';
-import { Container, Text, AppContainer, Separator, ScrollContainer } from '@core/styled';
-import { translate } from '@core/services/translations/translate';
-import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
-import { TRANSLATIONS, PokerModel } from '@core/models';
+import { Container, Text, AppContainer, ScrollContainer } from '@core/styled';
+import { TRANSLATIONS } from '@core/models';
 import { TEXT_SIZES, pokers } from '@core/constants';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
+import { useUpdateRoom } from './hooks/update-room/update-room.hook';
+import { getEditRoomContent } from './helpers/get-edit-room-content/get-edit-room-content.helper';
+import { PokerButtons } from './components/poker-buttons/poker-buttons';
+import { EditRoomForm } from './components/edit-room-form/edit-room-form';
+import { AllAdminsCheckbox } from './components/all-admins-checkbox/all-admins-checkbox';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -19,81 +21,39 @@ interface Props {
   room?: RoomModel;
 }
 
-export const EditRoom = (props: Props) => {
+export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => {
   const [ name, setName ] = React.useState('');
   const [ description, setDescription ] = React.useState('');
   const [ allAdmins, setAllAdmins ] = React.useState(false);
   const [ poker, setPoker ] = React.useState(pokers[0]);
 
-  React.useEffect(() => {
-    if (props.type === EDIT_ROOMS_TYPES.UPDATE && props.room) {
-      setName(props.room.name);
-      setDescription(props.room.description);
-      setAllAdmins(props.room.allAdmins);
-      setPoker(props.room.poker);
-    }
-  }, []);
-
-  const content = {
-    title: {
-      [EDIT_ROOMS_TYPES.CREATE]: translate(TRANSLATIONS.CREATE_ROOM),
-      [EDIT_ROOMS_TYPES.UPDATE]: translate(TRANSLATIONS.UPDATE_ROOM),
-    }
-  };
+  useUpdateRoom(type, room)(setName, setDescription, setAllAdmins, setPoker);
 
   const handleChange = (field: 'name' | 'description', value: string) => {
     getSettingMethod(setName, setDescription)(field)(value);
   };
 
-  const handleSubmit = () => {
-    const room = prepareRoomPayload(name, description, allAdmins, poker);
-    props.handleSubmit(room);
+  const handleUpdate = () => {
+    handleSubmit(prepareRoomPayload(name, description, allAdmins, poker));
   };
 
-  const submitButtonTranslation = props.type === EDIT_ROOMS_TYPES.CREATE ? 'CREATE' : 'UPDATE';
+  const isCreating = R.propEq('CREATE', type, EDIT_ROOMS_TYPES);
 
   return (
     <Modal animationType="slide">
       <AppContainer>
         <ScrollContainer>
           <Container margins="10px 0">
-            <Text size={TEXT_SIZES.BIG} align="center">
-              {content.title[props.type]}
-            </Text>
-
-            <Separator margin={10} />
-
-            {R.splitEvery(2, pokers).map((buttonsGroup: PokerModel[], index: number) => (
-              <ButtonGroup
-                  key={buttonsGroup[0].name}
-                  buttons={R.map(R.prop('title'), buttonsGroup)}
-                  selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
-                  onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
-                  containerStyle={{ marginRight: 10 }}
-              />
-            ))}
-
-            <Separator margin={10} />
-            <Input
-                value={name}
-                placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
-                onChangeText={(value: string) => handleChange('name', value)}
-            />
-            <Separator margin={20} />
-            <Input
-                value={description}
-                placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
-                onChangeText={(value: string) => handleChange('description', value)}
-            />
-            <Separator margin={20} />
-            {props.type === EDIT_ROOMS_TYPES.CREATE && (
-              <Checkbox title={TRANSLATIONS.ALL_ADMINS} onChange={setAllAdmins} />
-            )}
+            <Text size={TEXT_SIZES.BIG} align="center" children={getEditRoomContent(type)} />
+            <PokerButtons {...{ poker, setPoker }} />
+            <EditRoomForm {...{ name, description, handleChange }} />
+            <AllAdminsCheckbox {...{ isCreating, setAllAdmins }} />
           </Container>
         </ScrollContainer>
+
         <ButtonsSet
-            titles={[ TRANSLATIONS[submitButtonTranslation], TRANSLATIONS.DISMISS ]}
-            onPress={[ handleSubmit, props.handleDismiss ]}
+            titles={[ TRANSLATIONS[isCreating ? 'CREATE' : 'UPDATE'], TRANSLATIONS.DISMISS ]}
+            onPress={[ handleUpdate, handleDismiss ]}
         />
       </AppContainer>
     </Modal>
