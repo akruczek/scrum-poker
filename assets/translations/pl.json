@@ -49,5 +49,7 @@
   "jira_configuration": "KONFIGURACJA JIRY",
   "jira_field_name": "Nazwa pola w Jirze:",
   "project_key": "Kod projektu",
-  "no_project": "Brak projektu"
+  "no_project": "Brak projektu",
+  "user_story_only": "Tylko User Story",
+  "hide_done": "Ukryj Gotowe"
 }

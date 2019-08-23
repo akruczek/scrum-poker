@@ -49,5 +49,7 @@
   "jira_configuration": "JIRA CONFIGURATION",
   "jira_field_name": "Jira field name:",
   "project_key": "Project key",
-  "no_project": "No project"
+  "no_project": "No project",
+  "user_story_only": "User Story only",
+  "hide_done": "Hide Done"
 }

@@ -7,10 +7,11 @@ import { translate } from '@core/services/translations/translate';
 interface Props {
   title: TRANSLATIONS;
   onChange: (value: boolean) => void;
+  defaultChecked?: boolean;
 }
 
-export const Checkbox = ({ title, onChange }: Props) => {
-  const [ checked, check ] = React.useState(false);
+export const Checkbox = ({ title, onChange, defaultChecked }: Props) => {
+  const [ checked, check ] = React.useState(!!defaultChecked);
 
   const handlePress = () => {
     check(!checked);

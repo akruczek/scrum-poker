@@ -5,7 +5,7 @@ import { ListItem } from 'react-native-elements';
 import { JiraProjectModel, TRANSLATIONS } from '@core/models';
 import { ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
-import { ProjectAvatar } from '../project-avatar/project-avatar';
+import { TextAvatar } from '@core/components/text-avatar/text-avatar';
 
 interface Props {
   projects: JiraProjectModel[];
@@ -15,8 +15,8 @@ interface Props {
 export const ProjectsList = ({ projects, handleChoose }: Props) => {
   const leftElement = R.ifElse(
     R.isEmpty,
-    () => <ProjectAvatar content="" />,
-    (content: string) => <ProjectAvatar content={content} />,
+    () => <TextAvatar content="" />,
+    (content: string) => <TextAvatar content={content} />,
   );
 
   return (

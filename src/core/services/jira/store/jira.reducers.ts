@@ -89,7 +89,7 @@ const getProjectsErrorReducer = (_: JiraActions) => R.pipe(
 );
 
 const getProjectIssuesReducer = (_: JiraActions) => R.pipe(
-  R.assoc('isPending', true),
+  R.assoc('error', false),
 );
 
 const getProjectIssuesSuccessReducer = (action: JiraActions) => R.pipe(
