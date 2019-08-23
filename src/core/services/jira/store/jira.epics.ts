@@ -7,14 +7,16 @@ import { AppState } from '../../../../store/reducers';
 import { Storage } from '../../device-storage/device-storage.service';
 import { isPresent } from '../../../helpers';
 import { parseJiraAuthData } from '../helpers/parse-jira-auth-data/parse-jira-auth-data.helper';
-import { EMPTY_ACTION } from '../../../constants';
+import { parseJiraConfigurationData } from '../helpers/parse-jira-configuration-data/parse-jira-configuration-data.helper';
+import { parseJiraProjectsData } from '../helpers/parse-jira-projects-data/parse-jira-projects-data.helper';
 import {
   JIRA_ACTIONS,
   setIssueStoryPointsSuccess, SetIssueStoryPointsAction, setIssueStoryPointsError, authJira as authJiraAction,
   GetIssueAction, getIssueSuccess, getIssueError, AuthJiraAction, authJiraSuccess, authJiraError, JiraActions,
-  jiraSignOutSuccess, jiraSignOutError, SetJiraConfigurationAction, setJiraConfigurationSuccess, setJiraConfigurationError, getJiraConfigurationSuccess, getJiraConfigurationError,
+  jiraSignOutSuccess, jiraSignOutError, SetJiraConfigurationAction, setJiraConfigurationSuccess,
+  setJiraConfigurationError, getJiraConfigurationSuccess, getJiraConfigurationError, getProjectsSuccess,
+  getProjectsError,
 } from './jira.actions';
-import { parseJiraConfigurationData } from '../helpers/parse-jira-configuration-data/parse-jira-configuration-data.helper';
 
 const setIssueStoryPoints = ({ issueKey, value }: SetIssueStoryPointsPayload, state: AppState) => Jira
   .put(R.pathOr({}, [ 'jira', 'auth' ], state))
@@ -42,6 +44,18 @@ export const getIssueEpic = (action: ActionsObservable<GetIssueAction>, state: {
     ofType(JIRA_ACTIONS.GET_ISSUE),
     pluck('payload'),
     switchMap(payload => getIssue(payload, state.value)),
+  );
+
+const getProjects = (state: AppState) => Jira
+  .get(R.pathOr({}, [ 'jira', 'auth' ], state))
+  .issues()
+  .then(response => getProjectsSuccess(parseJiraProjectsData(response)))
+  .catch(error => getProjectsError(error));
+
+export const getProjectsEpic = (action: ActionsObservable<JiraActions>, state: { value: AppState }) => action
+  .pipe(
+    ofType(JIRA_ACTIONS.GET_PROJECTS),
+    switchMap(() => getProjects(state.value))
   );
 
 const authJira = (payload: JiraAuthModel) => Jira

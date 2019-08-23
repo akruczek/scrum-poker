@@ -12,7 +12,7 @@ import { RoomModel } from '../models/room.models';
 import { UserModel } from '../../auth/models/auth.models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
-import { getEstimation, getResetPayload, hasAdmin, addDefaultUser } from './helpers';
+import { getEstimation, getResetPayload, hasAdmin } from './helpers';
 import { addUser, showDown, reset, setRoom, AddUserPayload } from '../dashboard/store/dashboard.actions';
 import { RoomModals } from './components/room-modals/room-modals';
 import { useSubscribeRoom } from './hooks/subscribe-room/subscribe-room.hook';

@@ -1,13 +1,16 @@
 import { Action } from 'redux';
 import { newAction } from '@core/helpers';
 import {
-  SetIssueStoryPointsPayload, JiraAuthModel, JiraUserModel, JiraConfigurationModel,
+  SetIssueStoryPointsPayload, JiraAuthModel, JiraUserModel, JiraConfigurationModel, JiraProjectModel,
 } from '../../../models';
 
 export enum JIRA_ACTIONS {
   GET_ISSUE = '[Jira]: Get issue',
   GET_ISSUE_SUCCESS = '[Jira]: Get issue success',
   GET_ISSUE_ERROR = '[Jira]: Get issue error',
+  GET_PROJECTS = '[Jira]: Get projects',
+  GET_PROJECTS_SUCCESS = '[Jira]: Get projects success',
+  GET_PROJECTS_ERROR = '[Jira]: Get projects error',
   SET_ISSUE_STORY_POINTS = '[Jira]: Set issue story points',
   SET_ISSUE_STORY_POINTS_SUCCESS = '[Jira]: Set issue story points success',
   SET_ISSUE_STORY_POINTS_ERROR = '[Jira]: Set issue story points error',
@@ -60,6 +63,13 @@ export const getIssueSuccess =
   newAction<JIRA_ACTIONS, any>(JIRA_ACTIONS.GET_ISSUE_SUCCESS);
 export const getIssueError =
   newAction<JIRA_ACTIONS, any>(JIRA_ACTIONS.GET_ISSUE_ERROR);
+
+export const getProjects =
+  newAction<JIRA_ACTIONS, {}>(JIRA_ACTIONS.GET_PROJECTS);
+export const getProjectsSuccess =
+  newAction<JIRA_ACTIONS, JiraProjectModel[]>(JIRA_ACTIONS.GET_PROJECTS_SUCCESS);
+export const getProjectsError =
+  newAction<JIRA_ACTIONS, any>(JIRA_ACTIONS.GET_PROJECTS_ERROR);
 
 export const setIssueStoryPoints =
   newAction<JIRA_ACTIONS, SetIssueStoryPointsPayload>(JIRA_ACTIONS.SET_ISSUE_STORY_POINTS);

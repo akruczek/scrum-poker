@@ -5,6 +5,7 @@ export interface JiraStateModel {
   auth: JiraAuthModel | null;
   user: JiraUserModel | null;
   configuration: JiraConfigurationModel | null;
+  projects: JiraProjectModel[] | null;
 }
 
 export interface JiraConfigurationModel {
@@ -24,6 +25,13 @@ export interface SetIssueStoryPointsPayload {
 
 export interface JiraUserModel {
   accountId: string;
+  avatarUrl: string;
+  displayName: string;
+}
+
+export interface JiraProjectModel {
+  id: string;
+  key: string;
   avatarUrl: string;
   displayName: string;
 }

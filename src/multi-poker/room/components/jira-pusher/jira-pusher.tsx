@@ -1,19 +1,15 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { Modal, View } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Modal } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AppContainer, Container, Text, Separator, KeyboardAvoidingContainer, ViewContainer, ScrollContainer } from '@core/styled';
+import { AppContainer, Container, Text, Separator, ScrollContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { TRANSLATIONS, SetIssueStoryPointsPayload, PokerCard } from '@core/models';
 import { translate } from '@core/services/translations/translate';
 import { setIssueStoryPoints, clearJiraStatus } from '@core/services/jira/store/jira.actions'
-import { Preloader, CardButton } from '@core/components';
-import { ActionModal } from '@core/components/action-modal/action-modal';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { jiraPusherUpdate } from '../../helpers/jira-pusher-update/jira-pusher-update.helper';
-import { isBlank, isPresent } from '../../../../core/helpers';
 import { JiraPusherForm } from '../jira-pusher-form/jira-pusher-form';
 import { JiraPusherModals } from '../jira-pusher-modals/jira-pusher-modals';
 

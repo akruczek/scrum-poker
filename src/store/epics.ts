@@ -10,7 +10,7 @@ import {
 } from '../multi-poker/dashboard/store/dashboard.epics';
 import {
   initializeJiraEpic,
-  setIssueStoryPointsEpic, getIssueEpic,
+  setIssueStoryPointsEpic, getIssueEpic, getProjectsEpic,
   authJiraEpic, authJiraSuccessEpic,
   jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
 } from '@core/services/jira/store/jira.epics';
@@ -21,6 +21,6 @@ export const epics = combineEpics(
   addRoomEpic, removeRoomEpic, updateRoomEpic,
   showDownEpic, resetEpic, setValueEpic, setIssueStoryPointsEpic, addUserEpic,
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
-  getIssueEpic,
+  getIssueEpic, getProjectsEpic,
   authJiraEpic, authJiraSuccessEpic, jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
 );
