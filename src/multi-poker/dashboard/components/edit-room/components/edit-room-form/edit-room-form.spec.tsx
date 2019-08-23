@@ -1,22 +1,26 @@
 import * as React from 'react';
-import renderer, { act } from 'react-test-renderer';
-import { EditRoomForm } from './edit-room-form';
-import { Separator } from '@core/styled';
 import { Input } from 'react-native-elements';
+import { Provider } from 'react-redux';
+import renderer, { act } from 'react-test-renderer';
+import { Separator } from '@core/styled';
+import { EditRoomForm } from './edit-room-form';
+import { appStore } from '../../../../../../store/configure-store';
 
 describe('EditRoomForm', () => {
   const handleChange = jest.fn();
 
   describe('when EditRoomForm was mounted with all needed props', () => {
     const wrapper = renderer.create(
-      <EditRoomForm name="" description="" handleChange={handleChange} />
+      <Provider store={appStore}>
+        <EditRoomForm name="" description="" projectKey="" handleChange={handleChange} />
+      </Provider>
     );
 
-    it('should render 3 Separator components and 2 Input components', () => {
+    it('should render 4 Separator components and 3 Input components', () => {
       expect(wrapper.root.findAllByType(Separator).length)
-        .toEqual(3);
+        .toEqual(4);
       expect(wrapper.root.findAllByType(Input).length)
-        .toEqual(2);
+        .toEqual(3);
     });
 
     it('should call handleChange prop with "name" and passed value after change first input value', () => {

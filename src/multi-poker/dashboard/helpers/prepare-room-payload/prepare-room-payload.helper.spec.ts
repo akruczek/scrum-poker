@@ -10,9 +10,10 @@ describe('when prepareRoomPayload was called', () => {
       users: [],
       discovered: false,
       poker: pokers[0],
+      projectKey: 'KEY',
     };
 
-    expect(prepareRoomPayload('Room1', 'My Super Room', false, pokers[0]))
+    expect(prepareRoomPayload('Room1', 'My Super Room', 'KEY', false, pokers[0]))
       .toEqual(expectedPayload);
   });
 });

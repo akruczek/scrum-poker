@@ -47,5 +47,7 @@
   "issue_key": "ISSUE KEY:",
   "apply": "APPLY",
   "jira_configuration": "JIRA CONFIGURATION",
-  "jira_field_name": "Jira field name:"
+  "jira_field_name": "Jira field name:",
+  "project_key": "Project key",
+  "no_project": "No project"
 }

@@ -24,17 +24,18 @@ interface Props {
 export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => {
   const [ name, setName ] = React.useState('');
   const [ description, setDescription ] = React.useState('');
+  const [ projectKey, setProjectKey ] = React.useState('');
   const [ allAdmins, setAllAdmins ] = React.useState(false);
   const [ poker, setPoker ] = React.useState(pokers[0]);
 
-  useUpdateRoom(type, room)(setName, setDescription, setAllAdmins, setPoker);
+  useUpdateRoom(type, room)(setName, setDescription, setProjectKey, setAllAdmins, setPoker);
 
-  const handleChange = (field: 'name' | 'description', value: string) => {
-    getSettingMethod(setName, setDescription)(field)(value);
+  const handleChange = (field: 'name' | 'description' | 'projectKey', value: string) => {
+    getSettingMethod(setName, setDescription, setProjectKey)(field)(value);
   };
 
   const handleUpdate = () => {
-    handleSubmit(prepareRoomPayload(name, description, allAdmins, poker));
+    handleSubmit(prepareRoomPayload(name, description, projectKey, allAdmins, poker));
   };
 
   const isCreating = R.propEq('CREATE', type, EDIT_ROOMS_TYPES);
@@ -46,7 +47,7 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => 
           <Container margins="10px 0">
             <Text size={TEXT_SIZES.BIG} align="center" children={getEditRoomContent(type)} />
             <PokerButtons {...{ poker, setPoker }} />
-            <EditRoomForm {...{ name, description, handleChange }} />
+            <EditRoomForm {...{ name, description, projectKey, handleChange }} />
             <AllAdminsCheckbox {...{ isCreating, setAllAdmins }} />
           </Container>
         </ScrollContainer>

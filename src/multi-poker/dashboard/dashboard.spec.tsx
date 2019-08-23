@@ -1,6 +1,7 @@
 import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { of } from 'rxjs';
+import { Provider } from 'react-redux';
 import { ScrollContainer, AppContainer } from '@core/styled';
 import { SCREENS } from '@core/navigation/screens';
 import { Firebase } from '@core/services/firebase/firebase.service';
@@ -9,6 +10,7 @@ import { _Dashboard } from './dashboard';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
 import { EditRoom } from './components/edit-room/edit-room';
+import { appStore } from '../../store/configure-store';
 
 describe('Dashboard', () => {
   const mockedRooms: any = [
@@ -60,15 +62,17 @@ describe('Dashboard', () => {
     });
 
     const component = (
-      <_Dashboard
-          rooms={mockedRooms}
-          setRooms={setRooms}
-          setRoom={setRoom}
-          addRoom={addRoom}
-          removeRoom={removeRoom}
-          navigation={mockedNavigation}
-          jiraAccountId="some-uuid"
-      />
+      <Provider store={appStore}>
+        <_Dashboard
+            rooms={mockedRooms}
+            setRooms={setRooms}
+            setRoom={setRoom}
+            addRoom={addRoom}
+            removeRoom={removeRoom}
+            navigation={mockedNavigation}
+            jiraAccountId="some-uuid"
+        />
+      </Provider>
     );
 
     it('should wrap whole content with AppContainer component', () => {

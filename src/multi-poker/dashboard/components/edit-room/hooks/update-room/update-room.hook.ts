@@ -8,6 +8,7 @@ export const useUpdateRoom = (
 ) => (
   setName: (name: string) => void,
   setDescription: (description: string) => void,
+  setProjectKey: (projectKey: string) => void,
   setAllAdmins: (allAdmins: boolean) => void,
   setPoker: (poker: PokerModel) => void,
 ) => {
@@ -15,6 +16,7 @@ export const useUpdateRoom = (
     if (type === EDIT_ROOMS_TYPES.UPDATE && room) {
       setName(room.name);
       setDescription(room.description);
+      setProjectKey(room.projectKey);
       setAllAdmins(room.allAdmins);
       setPoker(room.poker);
     }

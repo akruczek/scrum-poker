@@ -11,7 +11,7 @@ export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
       }),
     }),
 
-  issues: () =>
+  projects: () =>
     fetch(`https://${spaceName}.atlassian.net/rest/api/3/project/search`, {
       method: 'GET',
       headers: new Headers({

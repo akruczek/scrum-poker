@@ -48,7 +48,7 @@ export const getIssueEpic = (action: ActionsObservable<GetIssueAction>, state: {
 
 const getProjects = (state: AppState) => Jira
   .get(R.pathOr({}, [ 'jira', 'auth' ], state))
-  .issues()
+  .projects()
   .then(response => getProjectsSuccess(parseJiraProjectsData(response)))
   .catch(error => getProjectsError(error));
 

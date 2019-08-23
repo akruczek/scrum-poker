@@ -47,5 +47,7 @@
   "issue_key": "KOD TASKA:",
   "apply": "ZATWIERDŹ",
   "jira_configuration": "KONFIGURACJA JIRY",
-  "jira_field_name": "Nazwa pola w Jirze:"
+  "jira_field_name": "Nazwa pola w Jirze:",
+  "project_key": "Kod projektu",
+  "no_project": "Brak projektu"
 }

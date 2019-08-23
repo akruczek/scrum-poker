@@ -19,4 +19,5 @@ export interface RoomModel {
   discovered?: boolean;
   allAdmins: boolean;
   poker: PokerModel;
+  projectKey: string;
 }
