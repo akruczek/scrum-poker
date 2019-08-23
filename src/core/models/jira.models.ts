@@ -6,6 +6,7 @@ export interface JiraStateModel {
   user: JiraUserModel | null;
   configuration: JiraConfigurationModel | null;
   projects: JiraProjectModel[] | null;
+  issues: JiraIssueModel[] | null;
 }
 
 export interface JiraConfigurationModel {
@@ -34,4 +35,11 @@ export interface JiraProjectModel {
   key: string;
   avatarUrl: string;
   displayName: string;
+}
+
+export interface JiraIssueModel {
+  id: string;
+  key: string;
+  createdAt: string;
+  summary: string;
 }

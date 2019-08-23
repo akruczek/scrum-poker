@@ -11,6 +11,7 @@ const initialState: JiraStateModel = {
   user: null,
   configuration: null,
   projects: null,
+  issues: null,
 };
 
 const setIssueReducer = (_: JiraActions) => R.pipe(
@@ -87,6 +88,20 @@ const getProjectsErrorReducer = (_: JiraActions) => R.pipe(
   R.assoc('error', true),
 );
 
+const getProjectIssuesReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', true),
+);
+
+const getProjectIssuesSuccessReducer = (action: JiraActions) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('issues', action.payload),
+);
+
+const getProjectIssuesErrorReducer = (_: JiraActions) => R.pipe(
+  R.assoc('isPending', false),
+  R.assoc('error', true),
+);
+
 const clearJiraStatusReducer = (_: JiraActions) => R.pipe(
   R.assoc('isPending', false),
   R.assoc('success', false),
@@ -125,6 +140,9 @@ const reducers = {
   [JIRA_ACTIONS.GET_PROJECTS]: getProjectsReducer,
   [JIRA_ACTIONS.GET_PROJECTS_SUCCESS]: getProjectsSuccessReducer,
   [JIRA_ACTIONS.GET_PROJECTS_ERROR]: getProjectsErrorReducer,
+  [JIRA_ACTIONS.GET_PROJECT_ISSUES]: getProjectIssuesReducer,
+  [JIRA_ACTIONS.GET_PROJECT_ISSUES_SUCCESS]: getProjectIssuesSuccessReducer,
+  [JIRA_ACTIONS.GET_PROJECT_ISSUES_ERROR]: getProjectIssuesErrorReducer,
   [JIRA_ACTIONS.SET_JIRA_CONFIGURATION]: setJiraConfigurationReducer,
   [JIRA_ACTIONS.SET_JIRA_CONFIGURATION_SUCCESS]: setJiraConfigurationSuccessReducer,
   [JIRA_ACTIONS.SET_JIRA_CONFIGURATION_ERROR]: setJiraConfigurationErrorReducer,

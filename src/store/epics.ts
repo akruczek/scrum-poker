@@ -12,7 +12,7 @@ import {
   initializeJiraEpic,
   setIssueStoryPointsEpic, getIssueEpic, getProjectsEpic,
   authJiraEpic, authJiraSuccessEpic,
-  jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
+  jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic, getProjectIssuesEpic,
 } from '@core/services/jira/store/jira.epics';
 
 export const epics = combineEpics(
@@ -21,6 +21,6 @@ export const epics = combineEpics(
   addRoomEpic, removeRoomEpic, updateRoomEpic,
   showDownEpic, resetEpic, setValueEpic, setIssueStoryPointsEpic, addUserEpic,
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
-  getIssueEpic, getProjectsEpic,
+  getIssueEpic, getProjectsEpic, getProjectIssuesEpic,
   authJiraEpic, authJiraSuccessEpic, jiraSignOutEpic, setJiraConfigurationEpic, getJiraConfigurationEpic,
 );
