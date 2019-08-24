@@ -1,3 +1,12 @@
+## 0.5.0
+### Added:
+- You can now set up your Jira default configuration, such as estimation field or default issues filters and use it in every Room!
+- Set up Jira configuration for each Room
+- Pushing estimation to Jira is even easier when you can select issue from list of all project issues!
+### Improved:
+- Jira Configuration View
+- Create / Edit Room View
+
 ## 0.4.0
 ### Added:
 - Now you can connect with your own Jira account!
