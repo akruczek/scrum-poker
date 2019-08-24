@@ -22,7 +22,7 @@ import {
 const setIssueStoryPoints = ({ issueKey, value }: SetIssueStoryPointsPayload, state: AppState) => Jira
   .put(R.pathOr({}, [ 'jira', 'auth' ], state))
   .issue(issueKey)
-  .property(R.pathOr('', [ 'jira', 'configuration', 'customField' ], state))
+  .property(R.pathOr('', [ 'rooms', 'model', 'customField' ], state))
   .set(value)
   .then(() => setIssueStoryPointsSuccess())
   .catch(error => setIssueStoryPointsError(error));
@@ -120,7 +120,10 @@ export const jiraSignOutEpic = (action: ActionsObservable<JiraActions>) => actio
   );
 
 const setJiraConfiguration = (payload: JiraConfigurationModel) => Storage
-  .set('jiraCustomField', payload.customField)
+  .multiSet(
+    [ 'jiraCustomField', 'jiraDefaultIssueType', 'jiraDefaultIssueStatus' ],
+    [ payload.customField, payload.defaultIssueType, payload.defaultIssueStatus ],
+  )
   .then(() => setJiraConfigurationSuccess(payload))
   .catch(error => setJiraConfigurationError(error));
 
@@ -132,7 +135,7 @@ export const setJiraConfigurationEpic = (action: ActionsObservable<SetJiraConfig
   );
 
 const getJiraConfiguration = () => Storage
-  .multiGet([ 'jiraCustomField' ])
+  .multiGet([ 'jiraCustomField', 'jiraDefaultIssueType', 'jiraDefaultIssueStatus' ])
   .then(response => getJiraConfigurationSuccess(parseJiraConfigurationData(response)))
   .catch(error => getJiraConfigurationError(error));
 

@@ -5,6 +5,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { Preloader } from '@core/components';
 import { NavigationProps } from '@core/navigation/navigation.model';
+import { JiraConfigurationModel } from '@core/models';
 import { RoomModel, EDIT_ROOMS_TYPES } from '../models/room.models';
 import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.actions';
 import { EditRoom } from './components/edit-room/edit-room';
@@ -25,10 +26,11 @@ interface DispatchProps {
 interface StateProps {
   rooms: {[key: string]: RoomModel};
   jiraAccountId: string;
+  jiraConfiguration: JiraConfigurationModel;
 }
 
 export const _Dashboard = ({
-  setRooms, setRoom, addRoom, removeRoom, rooms, jiraAccountId, navigation,
+  setRooms, setRoom, addRoom, removeRoom, rooms, jiraAccountId, navigation, jiraConfiguration,
 }: StateProps & DispatchProps & NavigationProps) => {
   const [ isCreatingRoom, setCreateRoom ] = React.useState(false);
   const [ isSwiping, setSwiping ] = React.useState(false);
@@ -61,6 +63,7 @@ export const _Dashboard = ({
             type={EDIT_ROOMS_TYPES.CREATE}
             handleSubmit={handleAddRoom}
             handleDismiss={() => setCreateRoom(false)}
+            jiraConfiguration={jiraConfiguration}
         />
       )}
 
@@ -72,6 +75,7 @@ export const _Dashboard = ({
 const mapStateToProps = R.applySpec<StateProps>({
   rooms: R.path([ 'rooms', 'models' ]),
   jiraAccountId: R.path([ 'jira', 'user', 'accountId' ]),
+  jiraConfiguration: R.path([ 'jira', 'configuration' ])
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(

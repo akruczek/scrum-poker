@@ -48,7 +48,7 @@ export const _EditRoomForm = ({
       <View>
         <Container flexDirection="row">
           <Container alignItems="center">
-            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_KEY)} />
+            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_NAME)} />
             <Input
                 value={name}
                 placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
@@ -58,7 +58,7 @@ export const _EditRoomForm = ({
           </Container>
 
           <Container alignItems="center">
-            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_NAME)} />
+            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_KEY)} />
             <Input
                 value={projectKey}
                 placeholder={translate(TRANSLATIONS.PLACEHOLDER_KEY)}

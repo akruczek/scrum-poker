@@ -2,13 +2,14 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { Modal, TouchableHighlight, View } from 'react-native';
 import { ListItem, Button, colors } from 'react-native-elements';
+import { connect } from 'react-redux';
 import { AppContainer, Container, ScrollContainer } from '@core/styled';
 import { JiraIssueModel, TRANSLATIONS } from '@core/models';
 import { TextAvatar } from '@core/components/text-avatar/text-avatar';
 import { COLORS } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
-import { connect } from 'react-redux';
+import { isPresent } from '@core/helpers';
 
 interface Props {
   issues: JiraIssueModel[];
@@ -33,11 +34,11 @@ export const _IssuesList = ({ issues, handleChoose, handleClose, defaultIssueTyp
 
   const filterIssues = R.pipe<JiraIssueModel[], JiraIssueModel[], JiraIssueModel[]>(
     R.when<JiraIssueModel[], JiraIssueModel[]>(
-      () => !!(onlyType && defaultIssueType),
+      () => !!(onlyType && isPresent(defaultIssueType)),
       R.filter(R.propEq('issueType', defaultIssueType)),
     ),
     R.when<JiraIssueModel[], JiraIssueModel[]>(
-      () => !!(onlyStatus && defaultIssueStatus),
+      () => !!(onlyStatus && isPresent(defaultIssueStatus)),
       R.filter(R.propEq('status', defaultIssueStatus)),
     ),
   );
@@ -45,12 +46,18 @@ export const _IssuesList = ({ issues, handleChoose, handleClose, defaultIssueTyp
   return (
     <Modal animationType="slide">
       <AppContainer>
-        <View style={{ height: 100 }}>
-          <Container flexDirection="row" justifyContent="space-around" alignItems="center">
-            <Checkbox title={TRANSLATIONS.DEFAULT_TYPE} onChange={setOnlyType} defaultChecked />
-            <Checkbox title={TRANSLATIONS.DEFAULT_STATUS} onChange={setOnlyStatus} defaultChecked />
-          </Container>
-        </View>
+        {(isPresent(defaultIssueType) || isPresent(defaultIssueStatus)) && (
+          <View style={{ height: 100 }}>
+            <Container flexDirection="row" justifyContent="space-around" alignItems="center">
+              {isPresent(defaultIssueType) && (
+                <Checkbox title={TRANSLATIONS.DEFAULT_TYPE} onChange={setOnlyType} defaultChecked />
+              )}
+              {isPresent(defaultIssueStatus) && (
+                <Checkbox title={TRANSLATIONS.DEFAULT_STATUS} onChange={setOnlyStatus} defaultChecked />
+              )}
+            </Container>
+          </View>
+        )}
 
         <ScrollContainer>
           {filterIssues(issues).map(issue => (

@@ -3,13 +3,13 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Input } from 'react-native-elements';
-import { Text, Separator, ScrollContainer, AppContainer } from '@core/styled';
+import { Text, ScrollContainer, AppContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { translate } from '@core/services/translations/translate';
+import { JiraConfigurationFields } from '@core/components/jira-configuration-fields/jira-configuration-fields';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 
 interface Props {
@@ -29,10 +29,14 @@ interface StateProps {
 export const _JiraConfig = ({
   jiraUser, jiraConfiguration, handleClose, jiraSignOut, setJiraConfiguration,
 }: Props & DispatchProps & StateProps) => {
-  const [ customField, setCustomField ] = React.useState<null | string>(null);
+  const [ customField, setCustomField ] = React.useState('');
+  const [ defaultIssueType, setDefaultIssueType ] = React.useState('')
+  const [ defaultIssueStatus, setDefaultIssueStatus ] = React.useState('');
 
   React.useEffect(() => {
     setCustomField(R.propOr('', 'customField', jiraConfiguration));
+    setDefaultIssueType(R.propOr('', 'defaultIssueType', jiraConfiguration));
+    setDefaultIssueStatus(R.propOr('', 'defaultIssueStatus', jiraConfiguration));
   }, []);
 
   const handleLogout = () => {
@@ -42,7 +46,7 @@ export const _JiraConfig = ({
 
   const handleApply = () => {
     if (customField) {
-      setJiraConfiguration({ customField });
+      setJiraConfiguration({ customField, defaultIssueType, defaultIssueStatus });
     }
   };
 
@@ -56,9 +60,10 @@ export const _JiraConfig = ({
 
           <JiraConfigBadge {...{ handleLogout, jiraUser }} />
 
-          <Text margins="10px 0" children={translate(TRANSLATIONS.JIRA_FIELD_NAME)} />
-          <Input value={customField || ''} onChangeText={setCustomField} />
-          <Separator margin={20} />
+          <JiraConfigurationFields {...{
+              customField, setCustomField, defaultIssueType,
+              setDefaultIssueType, defaultIssueStatus, setDefaultIssueStatus }}
+          />
         </ScrollContainer>
 
         <ButtonsSet

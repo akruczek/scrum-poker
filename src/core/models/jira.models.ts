@@ -11,6 +11,8 @@ export interface JiraStateModel {
 
 export interface JiraConfigurationModel {
   customField: string;
+  defaultIssueType: string;
+  defaultIssueStatus: string;
 }
 
 export interface JiraAuthModel {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Container, AppContainer, ScrollContainer } from '@core/styled';
-import { TRANSLATIONS } from '@core/models';
+import { TRANSLATIONS, JiraConfigurationModel } from '@core/models';
 import { pokers } from '@core/constants';
 import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
@@ -19,17 +19,20 @@ interface Props {
   handleSubmit: (payload: any) => void;
   handleDismiss: () => void;
   room?: RoomModel;
+  jiraConfiguration?: JiraConfigurationModel;
 }
 
-export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => {
+export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfiguration }: Props) => {
   const [ name, setName ] = React.useState('');
   const [ description, setDescription ] = React.useState('');
   const [ projectKey, setProjectKey ] = React.useState('');
   const [ allAdmins, setAllAdmins ] = React.useState(false);
   const [ poker, setPoker ] = React.useState(pokers[0]);
-  const [ customField, setCustomField ] = React.useState('');
-  const [ defaultIssueType, setDefaultIssueType ] = React.useState('');
-  const [ defaultIssueStatus, setDefaultIssueStatus ] = React.useState('');
+
+  const getDefaultConfig = (prop: string) => R.propOr(R.propOr('', prop, jiraConfiguration), prop, room) as any;
+  const [ customField, setCustomField ] = React.useState(getDefaultConfig('customField'));
+  const [ defaultIssueType, setDefaultIssueType ] = React.useState(getDefaultConfig('defaultIssueType'));
+  const [ defaultIssueStatus, setDefaultIssueStatus ] = React.useState(getDefaultConfig('defaultIssueStatus'));
 
   type State = 'name' | 'description' | 'projectKey' | 'customField' | 'defaultIssueType' | 'defaultIssueStatus';
 
@@ -53,13 +56,13 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => 
         <ScrollContainer>
           <Container margins="10px 0">
             <PokerButtons {...{ poker, setPoker }} />
-            <AllAdminsCheckbox {...{ isCreating, setAllAdmins }} />
             <EditRoomForm {...{ name, description, projectKey, handleChange }} />
             <JiraConfigurationForm {...{
-                customField, setCustomField,
+                customField, setCustomField, isCreating,
                 defaultIssueType, setDefaultIssueType,
                 defaultIssueStatus, setDefaultIssueStatus }}
             />
+            <AllAdminsCheckbox {...{ isCreating, setAllAdmins }} />
           </Container>
         </ScrollContainer>
 
@@ -70,4 +73,4 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss }: Props) => 
       </AppContainer>
     </Modal>
   );
-}
+};
