@@ -48,8 +48,20 @@
   "apply": "ZATWIERDŹ",
   "jira_configuration": "KONFIGURACJA JIRY",
   "jira_field_name": "Nazwa pola w Jirze:",
-  "project_key": "Kod projektu",
+  "placeholder_key": "Kod",
   "no_project": "Brak projektu",
-  "user_story_only": "Tylko User Story",
-  "hide_done": "Ukryj Gotowe"
+  "select_project_": "Wybierz projekt...",
+  "select_issue_": "Wybierz taska...",
+  "project_key": "Kod projektu",
+  "project_name": "Nazwa projektu",
+  "room_description": "Opis pokoju",
+  "use_my_jira_configuration": "Użyj mojej konfiguracji Jiry",
+  "custom_field": "Pole w Jirze",
+  "default_issue_type": "Domyślny typ taska (Task, Story, Bug, itp.)",
+  "default_issue_status": "Domyślny status taska (To Do, To Code, itp.)",
+  "custom_field_placeholder": "Id Pola",
+  "default_issue_type_placeholder": "Typ taska",
+  "default_issue_status_placeholder": "Status",
+  "default_type": "Domyślny typ",
+  "default_status": "Domyślny status"
 }

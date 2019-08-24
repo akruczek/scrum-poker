@@ -48,8 +48,20 @@
   "apply": "APPLY",
   "jira_configuration": "JIRA CONFIGURATION",
   "jira_field_name": "Jira field name:",
-  "project_key": "Project key",
+  "placeholder_key": "Key",
   "no_project": "No project",
-  "user_story_only": "User Story only",
-  "hide_done": "Hide Done"
+  "select_project_": "Select project...",
+  "select_issue_": "Select issue...",
+  "project_key": "Project key",
+  "project_name": "Project name",
+  "room_description": "Room description",
+  "use_my_jira_configuration": "Use my Jira configuration",
+  "custom_field": "Custom field (for estimations)",
+  "default_issue_type": "Default issue type (e.g. Story)",
+  "default_issue_status": "Default issue status (e.g. To Do)",
+  "custom_field_placeholder": "Custom field",
+  "default_issue_type_placeholder": "Issue type",
+  "default_issue_status_placeholder": "Status",
+  "default_type": "Default type",
+  "default_status": "Default status"
 }

@@ -9,7 +9,7 @@ import { TextAvatar } from '@core/components/text-avatar/text-avatar';
 
 interface Props {
   projects: JiraProjectModel[];
-  handleChoose: (projectKey: string) => void,
+  handleChoose: (project: JiraProjectModel) => void,
 }
 
 export const ProjectsList = ({ projects, handleChoose }: Props) => {
@@ -22,7 +22,7 @@ export const ProjectsList = ({ projects, handleChoose }: Props) => {
   return (
     <Modal animationType="slide">
       <ScrollContainer>
-        <TouchableHighlight onPress={() => handleChoose('')}>
+        <TouchableHighlight onPress={() => handleChoose({ displayName: '', key: '' } as any)}>
           <ListItem
               title={translate(TRANSLATIONS.NO_PROJECT)}
               rightIcon={{ name: 'arrow-forward' }}
@@ -32,7 +32,7 @@ export const ProjectsList = ({ projects, handleChoose }: Props) => {
         </TouchableHighlight>
 
         {projects.map(project => (
-          <TouchableHighlight key={project.id} onPress={() => handleChoose(project.key)}>
+          <TouchableHighlight key={project.id} onPress={() => handleChoose(project)}>
             <ListItem
                 title={project.displayName}
                 rightIcon={{ name: 'arrow-forward' }}

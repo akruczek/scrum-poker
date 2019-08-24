@@ -67,9 +67,7 @@ export const _JiraPusher = ({
               </Text>
               <Separator margin={10} />
 
-              <JiraPusherForm
-                  {...{ estimationsList, finalEstimation, issueKey, setFinalEstimation, setIssueKey, issues }}
-              />
+              <JiraPusherForm {...{ estimationsList, finalEstimation, issueKey, setFinalEstimation, setIssueKey, issues }} />
             </Container>
           </ScrollContainer>
 

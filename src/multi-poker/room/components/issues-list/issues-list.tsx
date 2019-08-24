@@ -8,6 +8,7 @@ import { TextAvatar } from '@core/components/text-avatar/text-avatar';
 import { COLORS } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
 import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
+import { connect } from 'react-redux';
 
 interface Props {
   issues: JiraIssueModel[];
@@ -15,10 +16,14 @@ interface Props {
   handleClose: () => void;
 }
 
-// TODO: filter by "userStoryOnly" and "hideDone"
-export const IssuesList = ({ issues, handleChoose, handleClose }: Props) => {
-  const [ userStoryOnly, setUserStoryOnly ] = React.useState(true);
-  const [ hideDone, setHideDone ] = React.useState(true);
+interface StateProps {
+  defaultIssueType: string;
+  defaultIssueStatus: string;
+}
+
+export const _IssuesList = ({ issues, handleChoose, handleClose, defaultIssueType, defaultIssueStatus }: Props & StateProps) => {
+  const [ onlyType, setOnlyType ] = React.useState(true);
+  const [ onlyStatus, setOnlyStatus ] = React.useState(true);
 
   const leftElement = R.ifElse(
     R.isEmpty,
@@ -26,18 +31,29 @@ export const IssuesList = ({ issues, handleChoose, handleClose }: Props) => {
     (content: string) => <TextAvatar content={content.split('-')[1]} />,
   );
 
+  const filterIssues = R.pipe<JiraIssueModel[], JiraIssueModel[], JiraIssueModel[]>(
+    R.when<JiraIssueModel[], JiraIssueModel[]>(
+      () => !!(onlyType && defaultIssueType),
+      R.filter(R.propEq('issueType', defaultIssueType)),
+    ),
+    R.when<JiraIssueModel[], JiraIssueModel[]>(
+      () => !!(onlyStatus && defaultIssueStatus),
+      R.filter(R.propEq('status', defaultIssueStatus)),
+    ),
+  );
+
   return (
     <Modal animationType="slide">
       <AppContainer>
         <View style={{ height: 100 }}>
           <Container flexDirection="row" justifyContent="space-around" alignItems="center">
-            <Checkbox title={TRANSLATIONS.USER_STORY_ONLY} onChange={setUserStoryOnly} defaultChecked />
-            <Checkbox title={TRANSLATIONS.HIDE_DONE} onChange={setHideDone} defaultChecked />
+            <Checkbox title={TRANSLATIONS.DEFAULT_TYPE} onChange={setOnlyType} defaultChecked />
+            <Checkbox title={TRANSLATIONS.DEFAULT_STATUS} onChange={setOnlyStatus} defaultChecked />
           </Container>
         </View>
 
         <ScrollContainer>
-          {issues.map(issue => (
+          {filterIssues(issues).map(issue => (
             <TouchableHighlight key={issue.id} onPress={() => handleChoose(issue.key)}>
               <ListItem
                   title={issue.summary}
@@ -58,3 +74,12 @@ export const IssuesList = ({ issues, handleChoose, handleClose }: Props) => {
     </Modal>
   );
 };
+
+const mapStateToProps = R.applySpec<StateProps>({
+  defaultIssueType: R.path([ 'rooms', 'model', 'defaultIssueType' ]),
+  defaultIssueStatus: R.path([ 'rooms', 'model', 'defaultIssueStatus' ]),
+});
+
+export const IssuesList = connect<StateProps, any, any>(
+  mapStateToProps, null,
+)(_IssuesList);

@@ -20,4 +20,7 @@ export interface RoomModel {
   allAdmins: boolean;
   poker: PokerModel;
   projectKey: string;
+  customField: string;
+  defaultIssueType: string;
+  defaultIssueStatus: string;
 }

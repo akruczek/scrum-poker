@@ -6,5 +6,7 @@ export const parseJiraProjectIssues = R.map<any, JiraIssueModel[]>(
     id, key,
     createdAt: fields.created,
     summary: fields.summary,
+    status: fields.status.name,
+    issueType: fields.issuetype.name,
   }),
 );

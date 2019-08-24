@@ -1,15 +1,17 @@
 import * as React from 'react';
 import * as R from 'ramda';
 import { Input } from 'react-native-elements';
+import { View } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
-import { Separator } from '@core/styled';
+import { connect } from 'react-redux';
+import { Separator, Text, Container } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, JiraProjectModel } from '@core/models';
 import { getProjects } from '@core/services/jira/store/jira.actions';
+import { LinkButton } from '@core/components/link-button/link-button';
+import { TEXT_SIZES } from '@core/constants';
 import { ProjectsList } from '../projects-list/projects-list';
-import { connect } from 'react-redux';
 import { useGetProjects } from '../../hooks/get-projects/get-projects.hook';
-import { TouchableHighlight } from 'react-native';
 
 interface Props {
   name: string;
@@ -33,36 +35,52 @@ export const _EditRoomForm = ({
 
   useGetProjects(getProjects);
 
-  const handleChooseProject = (key: string) => {
+  const handleChooseProject = (project: JiraProjectModel) => {
     chooseProject(false);
-    handleChange('projectKey', key);
+    handleChange('projectKey', project.key);
+    handleChange('name', project.displayName);
   }
 
   return (
     <>
       <Separator margin={10} />
-      <Input
-          value={name}
-          placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
-          onChangeText={(value: string) => handleChange('name', value)}
-      />
-      <Separator margin={20} />
-      <Input
-          value={description}
-          placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
-          onChangeText={(value: string) => handleChange('description', value)}
-      />
-      <Separator margin={20} />
 
-      <TouchableHighlight onPress={() => chooseProject(true)}>
+      <View>
+        <Container flexDirection="row">
+          <Container alignItems="center">
+            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_KEY)} />
+            <Input
+                value={name}
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
+                onChangeText={(value: string) => handleChange('name', value)}
+                inputStyle={{ textAlign: 'center' }}
+            />
+          </Container>
+
+          <Container alignItems="center">
+            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_NAME)} />
+            <Input
+                value={projectKey}
+                placeholder={translate(TRANSLATIONS.PLACEHOLDER_KEY)}
+                onChangeText={(value: string) => handleChange('projectKey', value)}
+                inputStyle={{ textAlign: 'center' }}
+            />
+          </Container>
+        </Container>
+        <LinkButton handlePress={() => chooseProject(true)} title={TRANSLATIONS.SELECT_PROJECT_} />
+      </View>
+
+      <Separator />
+
+      <Container alignItems="center" margins="20px 0 0">
+        <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.ROOM_DESCRIPTION)} />
         <Input
-            value={projectKey}
-            placeholder={translate(TRANSLATIONS.PROJECT_KEY)}
-            editable={false}
-            // onChangeText={(value: string) => handleChange('projectKey', value)}
-            // onFocus={() => chooseProject(true)}
+            value={description}
+            placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
+            onChangeText={(value: string) => handleChange('description', value)}
+            inputStyle={{ textAlign: 'center' }}
         />
-      </TouchableHighlight>
+      </Container>
 
       <Separator margin={20} />
 

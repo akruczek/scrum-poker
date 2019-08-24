@@ -52,6 +52,8 @@ export const _RoomModals = ({
           handleClose={() => setJiraPusherVisibility(false)}
           handleReset={handleReset}
           estimationsList={getEstimationProposition(room.users)}
+          defaultIssueType={room.defaultIssueType}
+          defaultIssueStatus={room.defaultIssueStatus}
       />
     ),
     isEditingRoom, (

@@ -5,8 +5,9 @@ import { CardButton } from '@core/components';
 import { isPresent } from '@core/helpers';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, PokerCard, JiraIssueModel } from '@core/models';
-import { TEXT_SIZES, COLORS } from '@core/constants';
+import { TEXT_SIZES } from '@core/constants';
 import { IssuesList } from '../issues-list/issues-list';
+import { LinkButton } from '../../../../core/components/link-button/link-button';
 
 interface Props {
   estimationsList: PokerCard[];
@@ -60,17 +61,15 @@ export const JiraPusherForm = ({
             onChangeText={setIssueKey}
             inputStyle={{ textAlign: 'center', fontSize: TEXT_SIZES.BIG }}
         />
-        <Button
-            title="Select issue..."
-            containerStyle={{ margin: 10 }}
-            buttonStyle={{ backgroundColor: COLORS.WHITE }}
-            titleStyle={{ color: COLORS.JIRA }}
-            onPress={() => chooseIssue(true)}
-        />
+        <LinkButton handlePress={() => chooseIssue(true)} title={TRANSLATIONS.SELECT_ISSUE_} />
       </Container>
       
       {isChoosingIssue && (
-        <IssuesList issues={issues} handleChoose={handleChooseIssue} handleClose={() => chooseIssue(false)} />
+        <IssuesList
+            issues={issues}
+            handleChoose={handleChooseIssue}
+            handleClose={() => chooseIssue(false)}
+        />
       )}
     </>
   );

@@ -42,4 +42,6 @@ export interface JiraIssueModel {
   key: string;
   createdAt: string;
   summary: string;
+  status: string;
+  issueType: string;
 }
