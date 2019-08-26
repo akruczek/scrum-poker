@@ -9,8 +9,7 @@ import { isPlatform } from '@core/helpers';
 import { signIn } from './store/auth.actions';
 import { AUTH_TYPES } from './models/auth.models';
 import { authContent } from './helpers/auth-content/auth-content.helper';
-import { authSignIn } from './helpers/auth-sign-in/auth-sign-in.helper';
-import { handleAuthInputChange } from './helpers/handle-auth-input-change/handle-auth-input-change.helper';
+import { useSignIn } from './hooks/sign-in.hook';
 
 interface Props {
   type: AUTH_TYPES;
@@ -25,18 +24,7 @@ interface DispatchProps {
 }
 
 export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & Props) => {
-  const [ email, setEmail ] = React.useState('');
-  const [ error, throwError ] = React.useState('');
-
-  const handleSignIn = (email: string) => {
-    authSignIn(email)(signIn, throwError);
-  };
-
-  const handleChange = (email: string) => {
-    handleAuthInputChange(email)(setEmail, throwError);
-  };
-
-  const buttonTitle = authContent('buttonText')[type];
+  const [ email, error, handleSignIn, handleChange ] = useSignIn(signIn);
   const offset = isPlatform('android') ? 90 : 70;
 
   return (
@@ -56,7 +44,7 @@ export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & 
           />
         </Container>
 
-        <Button title={String(buttonTitle)} onPress={() => handleSignIn(email)} />
+        <Button title={authContent('buttonText')[type]} onPress={() => handleSignIn(email)} />
       </KeyboardAvoidingContainer>
 
       {isPending && <Preloader />}

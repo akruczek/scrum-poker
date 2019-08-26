@@ -10,6 +10,7 @@ import { SettingsOverview } from '../../settings/settings';
 import { Auth } from '../../auth/auth';
 import { AUTH_TYPES } from '../../auth/models/auth.models';
 import { LanguageOverlay } from '../../settings/components/language-overlay/language-overlay';
+import { useToggleOverlay } from './hooks/toggle-overlay/toggle-overlay.hook';
 
 interface StateProps {
   email?: string;
@@ -17,11 +18,7 @@ interface StateProps {
 }
 
 export const _Settings = ({ email, language, navigation }: StateProps & NavigationProps) => {
-  const [ isSelectingLanguage, toggleOverlay ] = React.useState(false);
-
-  React.useEffect(() => {
-    navigation.setParams({ toggleOverlay });
-  }, []);
+  const [ isSelectingLanguage, toggleOverlay ] = useToggleOverlay(navigation);
 
   return (
     <>
@@ -30,7 +27,12 @@ export const _Settings = ({ email, language, navigation }: StateProps & Navigati
         <SettingsOverview navigation={navigation} />,
         <Auth type={AUTH_TYPES.LOGIN} />,
       )}
-      <LanguageOverlay isVisible={isSelectingLanguage} currentLanguage={language} handleClose={() => toggleOverlay(false)} />
+
+      <LanguageOverlay
+          isVisible={isSelectingLanguage}
+          currentLanguage={language}
+          handleClose={() => toggleOverlay(false)}
+      />
     </>
   );
 };

@@ -12,5 +12,10 @@ describe('when authContent was called', () => {
 
     expect(authContent('title'))
       .toEqual(expectedResult);
-  });  
+  });
+
+  it('should return empty object if no key exist in static object', () => {
+    expect(authContent('text' as any))
+      .toEqual({})
+  });
 });
