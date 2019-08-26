@@ -8,17 +8,18 @@ import { appStore } from '../../../../../../store/configure-store';
 
 describe('EditRoomForm', () => {
   const handleChange = jest.fn();
+  const getProjects = jest.fn();
 
   describe('when EditRoomForm was mounted with all needed props', () => {
     const wrapper = renderer.create(
       <Provider store={appStore}>
-        <EditRoomForm name="" description="" projectKey="" handleChange={handleChange} />
+        <EditRoomForm name="" description="" projectKey="" handleChange={handleChange} getProjects={getProjects} />
       </Provider>
     );
 
-    it('should render 4 Separator components and 3 Input components', () => {
+    it('should render 3 Separator components and 3 Input components', () => {
       expect(wrapper.root.findAllByType(Separator).length)
-        .toEqual(4);
+        .toEqual(3);
       expect(wrapper.root.findAllByType(Input).length)
         .toEqual(3);
     });
@@ -32,9 +33,18 @@ describe('EditRoomForm', () => {
         .toHaveBeenCalledWith('name', 'new Value');
     });
 
-    it('should call handleChange prop with "description" and passed value after change seconds input value', () => {
+    it('should call handleChange prop with "projectKey" and passed value after change second input value', () => {
       act(() => {
-        wrapper.root.findAllByType(Input)[1].props.onChangeText('desc');
+        wrapper.root.findAllByType(Input)[1].props.onChangeText('new Value');
+      });
+
+      expect(handleChange)
+        .toHaveBeenCalledWith('projectKey', 'new Value');
+    });
+
+    it('should call handleChange prop with "description" and passed value after change third input value', () => {
+      act(() => {
+        wrapper.root.findAllByType(Input)[2].props.onChangeText('desc');
       });
 
       expect(handleChange)

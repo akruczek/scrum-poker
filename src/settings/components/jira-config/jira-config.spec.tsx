@@ -12,6 +12,8 @@ describe('JiraConfig', () => {
   const setJiraConfiguration = jest.fn();
   const jiraConfiguration = {
     customField: 'customfield_00021',
+    defaultIssueType: 'Story',
+    defaultIssueStatus: 'To Do',
   };
   const jiraUser = {
     avatarUrl: 'some-url',
@@ -55,7 +57,7 @@ describe('JiraConfig', () => {
       const wrapper = renderer.create(
         <_JiraConfig
             jiraUser={jiraUser}
-            jiraConfiguration={{ customField: '' }}
+            jiraConfiguration={{ customField: '', defaultIssueType: '', defaultIssueStatus: '' }}
             handleClose={handleClose}
             jiraSignOut={jiraSignOut}
             setJiraConfiguration={setJiraConfiguration}
@@ -79,7 +81,7 @@ describe('JiraConfig', () => {
         });
 
         expect(setJiraConfiguration)
-          .toHaveBeenCalledWith({ customField: jiraConfiguration.customField });
+          .toHaveBeenCalledWith(jiraConfiguration);
       });
     });
   });
