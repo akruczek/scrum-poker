@@ -56,7 +56,13 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
               </Text>
 
               <SpaceNameInput {...{ spaceName, setSpaceName }} />
-              <Input placeholder="email" onChangeText={setEmail} value={email} />
+              <Input
+                  placeholder="email"
+                  onChangeText={setEmail}
+                  value={email}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+              />
               <TokenInput {...{ token, setToken }} />
             </Container>
 

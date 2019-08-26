@@ -11,12 +11,14 @@ describe('JiraLoginInput', () => {
       onChange: jest.fn(),
       value: 'hello',
       isSecure: true,
+      autoCapitalize: 'none',
+      autoCorrect: false,
     }
     const wrapper = renderer.create(<JiraLoginInput {...props} />);
 
     it('should render Input component with all props passed', () => {
       const expectedProps = R.zipObj(
-        [ 'placeholder', 'onChangeText', 'value', 'secureTextEntry' ],
+        [ 'placeholder', 'onChangeText', 'value', 'secureTextEntry', 'autoCapitalize', 'autoCorrect' ],
         R.values(props),
       );
 

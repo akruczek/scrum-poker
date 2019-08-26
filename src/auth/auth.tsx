@@ -5,7 +5,7 @@ import { Button, Input } from 'react-native-elements';
 import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/styled';
 import { Preloader } from '@core/components';
-import { getDefault, isPlatform } from '@core/helpers';
+import { isPlatform } from '@core/helpers';
 import { signIn } from './store/auth.actions';
 import { AUTH_TYPES } from './models/auth.models';
 import { authContent } from './helpers/auth-content/auth-content.helper';
@@ -36,7 +36,7 @@ export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & 
     handleAuthInputChange(email)(setEmail, throwError);
   };
 
-  const buttonTitle = getDefault(String)(authContent('buttonText')[type]);
+  const buttonTitle = authContent('buttonText')[type];
   const offset = isPlatform('android') ? 90 : 70;
 
   return (
@@ -46,14 +46,17 @@ export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & 
           <Text margins="0 0 20px" children={authContent('title')[type]} />
           <Input
               value={email}
+              autoCapitalize="none"
+              keyboardType="email-address"
               placeholder="Email"
               onChangeText={handleChange}
               errorMessage={error}
               errorStyle={{ position: 'absolute', top: 40 }}
+              inputStyle={{ textAlign: 'center' }}
           />
         </Container>
 
-        <Button title={buttonTitle} onPress={() => handleSignIn(email)} />
+        <Button title={String(buttonTitle)} onPress={() => handleSignIn(email)} />
       </KeyboardAvoidingContainer>
 
       {isPending && <Preloader />}

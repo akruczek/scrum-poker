@@ -7,6 +7,7 @@ interface Props {
   onChange: (value: string) => void;
   value: string;
   isSecure?: boolean;
+
 }
 
 export const JiraLoginInput = ({ placeholder, onChange, value, isSecure }: Props) => (
@@ -16,6 +17,8 @@ export const JiraLoginInput = ({ placeholder, onChange, value, isSecure }: Props
         onChangeText={onChange}
         value={value}
         secureTextEntry={isSecure}
+        autoCapitalize="none"
+        autoCorrect={false}
     />
   </View>
 );
