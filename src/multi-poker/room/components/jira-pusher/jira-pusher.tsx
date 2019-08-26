@@ -8,7 +8,7 @@ import { TEXT_SIZES } from '@core/constants';
 import { TRANSLATIONS, SetIssueStoryPointsPayload, PokerCard, JiraIssueModel } from '@core/models';
 import { translate } from '@core/services/translations/translate';
 import { setIssueStoryPoints, clearJiraStatus, getProjectIssues } from '@core/services/jira/store/jira.actions'
-import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { ButtonsSet } from '@core/components';
 import { jiraPusherUpdate } from '../../helpers/jira-pusher-update/jira-pusher-update.helper';
 import { JiraPusherForm } from '../jira-pusher-form/jira-pusher-form';
 import { JiraPusherModals } from '../jira-pusher-modals/jira-pusher-modals';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { Modal } from 'react-native';
 import { Button } from 'react-native-elements';
-import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { ButtonsSet } from '@core/components';
 import { _JiraConfig } from './jira-config';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { Text } from '@core/styled';
 import { SpaceNameTooltip } from './space-name-tooltip';
-import { Text } from '../../../../../core/styled';
 
 describe('SpaceNameTooltip', () => {
   describe('when SpaceNameTooltip was mounted with all needed props', () => {

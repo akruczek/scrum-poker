@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
+import { Checkbox, JiraConfigurationFields } from '@core/components';
 import { TRANSLATIONS } from '@core/models';
-import { JiraConfigurationFields } from '@core/components/jira-configuration-fields/jira-configuration-fields';
 import { Separator } from '@core/styled';
 
 interface Props {

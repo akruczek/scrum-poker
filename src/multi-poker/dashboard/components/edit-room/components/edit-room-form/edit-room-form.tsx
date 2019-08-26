@@ -1,15 +1,13 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { Input } from 'react-native-elements';
 import { View } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Separator, Text, Container } from '@core/styled';
-import { translate } from '@core/services/translations/translate';
+import { Separator, Container } from '@core/styled';
 import { TRANSLATIONS, JiraProjectModel } from '@core/models';
 import { getProjects } from '@core/services/jira/store/jira.actions';
-import { LinkButton } from '@core/components/link-button/link-button';
-import { TEXT_SIZES } from '@core/constants';
+import { LinkButton, CustomInput } from '@core/components';
+import { Box } from '@core/styled';
 import { ProjectsList } from '../projects-list/projects-list';
 import { useGetProjects } from '../../hooks/get-projects/get-projects.hook';
 
@@ -44,44 +42,36 @@ export const _EditRoomForm = ({
   return (
     <>
       <Separator margin={10} />
-
       <View>
         <Container flexDirection="row">
-          <Container alignItems="center">
-            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_NAME)} />
-            <Input
-                value={name}
-                placeholder={translate(TRANSLATIONS.PLACEHOLDER_NAME)}
-                onChangeText={(value: string) => handleChange('name', value)}
-                inputStyle={{ textAlign: 'center' }}
-            />
-          </Container>
-
-          <Container alignItems="center">
-            <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.PROJECT_KEY)} />
-            <Input
-                value={projectKey}
-                placeholder={translate(TRANSLATIONS.PLACEHOLDER_KEY)}
-                onChangeText={(value: string) => handleChange('projectKey', value)}
-                inputStyle={{ textAlign: 'center' }}
-            />
-          </Container>
+          <CustomInput
+              handleChange={(value: string) => handleChange('name', value)}
+              label={TRANSLATIONS.PROJECT_NAME}
+              value={name}
+              placeholder={TRANSLATIONS.PLACEHOLDER_NAME}
+              centered
+          />
+          <CustomInput
+              handleChange={(value: string) => handleChange('projectKey', value)}
+              label={TRANSLATIONS.PROJECT_KEY}
+              value={projectKey}
+              placeholder={TRANSLATIONS.PLACEHOLDER_KEY}
+              centered
+          />
         </Container>
-        <LinkButton handlePress={() => chooseProject(true)} title={TRANSLATIONS.SELECT_PROJECT_} />
+        <Box top={5}>
+          <LinkButton handlePress={() => chooseProject(true)} title={TRANSLATIONS.SELECT_PROJECT_} />
+        </Box>
       </View>
 
-      <Separator />
-
-      <Container alignItems="center" margins="20px 0 0">
-        <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.ROOM_DESCRIPTION)} />
-        <Input
-            value={description}
-            placeholder={translate(TRANSLATIONS.PLACEHOLDER_DESCRIPTION)}
-            onChangeText={(value: string) => handleChange('description', value)}
-            inputStyle={{ textAlign: 'center' }}
-        />
-      </Container>
-
+      <Separator  margin={10} />
+      <CustomInput
+          handleChange={(value: string) => handleChange('description', value)}
+          label={TRANSLATIONS.ROOM_DESCRIPTION}
+          value={description}
+          placeholder={TRANSLATIONS.PLACEHOLDER_DESCRIPTION}
+          centered
+      />
       <Separator margin={20} />
 
       {isChoosingProject && (

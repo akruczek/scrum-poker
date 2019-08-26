@@ -12,7 +12,6 @@ interface Props {
 export const LinkButton = ({ handlePress, title }: Props) => (
   <Button
       title={translate(title)}
-      containerStyle={{ margin: 10 }}
       buttonStyle={{ backgroundColor: COLORS.WHITE }}
       titleStyle={{ color: COLORS.JIRA }}
       onPress={() => handlePress()}

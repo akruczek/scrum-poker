@@ -17,7 +17,6 @@ export const PokerButtons = ({ poker, setPoker }: Props) => (
           buttons={R.map(R.prop('title'), buttonsGroup)}
           selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
           onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
-          containerStyle={{ marginRight: 10 }}
       />
     ))}
   </>

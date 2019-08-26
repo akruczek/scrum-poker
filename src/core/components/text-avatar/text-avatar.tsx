@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { Text } from '@core/styled';
-import { AvatarContainer } from '@core/styled/avatar-container/avatar-container.styled';
+import { Text, AvatarContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { _cond } from '../../helpers';
 

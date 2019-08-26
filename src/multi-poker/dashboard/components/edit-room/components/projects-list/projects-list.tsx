@@ -5,7 +5,7 @@ import { ListItem } from 'react-native-elements';
 import { JiraProjectModel, TRANSLATIONS } from '@core/models';
 import { ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
-import { TextAvatar } from '@core/components/text-avatar/text-avatar';
+import { TextAvatar } from '@core/components';
 
 interface Props {
   projects: JiraProjectModel[];

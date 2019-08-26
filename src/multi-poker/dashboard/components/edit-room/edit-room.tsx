@@ -4,7 +4,7 @@ import { Modal } from 'react-native';
 import { Container, AppContainer, ScrollContainer } from '@core/styled';
 import { TRANSLATIONS, JiraConfigurationModel } from '@core/models';
 import { pokers } from '@core/constants';
-import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { ButtonsSet } from '@core/components';
 import { EDIT_ROOMS_TYPES, RoomModel } from '../../../models/room.models';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';

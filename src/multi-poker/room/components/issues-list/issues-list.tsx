@@ -5,10 +5,9 @@ import { ListItem, Button, colors } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { AppContainer, Container, ScrollContainer } from '@core/styled';
 import { JiraIssueModel, TRANSLATIONS } from '@core/models';
-import { TextAvatar } from '@core/components/text-avatar/text-avatar';
+import { TextAvatar, Checkbox } from '@core/components';
 import { COLORS } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
-import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
 import { isPresent } from '@core/helpers';
 
 interface Props {

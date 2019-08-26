@@ -1,8 +1,8 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { ListedUserIcon } from './listed-user-icon';
-import { Animatable } from '@core/components';
 import { Icon } from 'react-native-elements';
+import { Animatable } from '@core/components';
+import { ListedUserIcon } from './listed-user-icon';
 
 describe('ListedUserIcon', () => {
   describe('when ListedUserIcon was mounted with all needed props', () => {

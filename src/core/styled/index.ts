@@ -1,4 +1,6 @@
 export * from './app-container/app-container.styled';
+export * from './avatar-container/avatar-container.styled';
+export * from './box/box.styled';
 export * from './container/container.styled';
 export * from './custom-icon/custom-icon.styled';
 export * from './image/image.styled';

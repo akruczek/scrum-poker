@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Separator, Container, Text } from '../../styled';
-import { translate } from '../../services/translations/translate';
+import { Separator } from '../../styled';
 import { TRANSLATIONS } from '../../models';
-import { TEXT_SIZES } from '../../constants';
-import { Input } from 'react-native-elements';
+import { CustomInput } from '../custom-input/custom-input';
 
 interface Props {
   customField: string;
@@ -15,39 +13,35 @@ interface Props {
 }
 
 export const JiraConfigurationFields = ({
-  customField, setCustomField, defaultIssueType, setDefaultIssueType, defaultIssueStatus, setDefaultIssueStatus,
+  customField, setCustomField,
+  defaultIssueType, setDefaultIssueType,
+  defaultIssueStatus, setDefaultIssueStatus,
 }: Props) => (
   <>
-    <Container alignItems="center">
-      <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.CUSTOM_FIELD)} />
-      <Input
-          value={customField}
-          placeholder={translate(TRANSLATIONS.CUSTOM_FIELD_PLACEHOLDER)}
-          onChangeText={setCustomField}
-          inputStyle={{ textAlign: 'center' }}
-      />
-    </Container>
+    <CustomInput
+        handleChange={setCustomField}
+        label={TRANSLATIONS.CUSTOM_FIELD}
+        value={customField}
+        placeholder={TRANSLATIONS.CUSTOM_FIELD_PLACEHOLDER}
+        centered
+    />
 
     <Separator margin={10} />
-    <Container alignItems="center">
-      <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.DEFAULT_ISSUE_TYPE)} />
-      <Input
-          value={defaultIssueType}
-          placeholder={translate(TRANSLATIONS.DEFAULT_ISSUE_TYPE_PLACEHOLDER)}
-          onChangeText={setDefaultIssueType}
-          inputStyle={{ textAlign: 'center' }}
-      />
-    </Container>
+    <CustomInput
+        handleChange={setDefaultIssueType}
+        label={TRANSLATIONS.DEFAULT_ISSUE_TYPE}
+        value={defaultIssueType}
+        placeholder={TRANSLATIONS.DEFAULT_ISSUE_TYPE_PLACEHOLDER}
+        centered
+    />
     <Separator margin={10} />
 
-    <Container alignItems="center">
-      <Text size={TEXT_SIZES.SMALL} children={translate(TRANSLATIONS.DEFAULT_ISSUE_STATUS)} />
-      <Input
-          value={defaultIssueStatus}
-          placeholder={translate(TRANSLATIONS.DEFAULT_ISSUE_STATUS_PLACEHOLDER)}
-          onChangeText={setDefaultIssueStatus}
-          inputStyle={{ textAlign: 'center' }}
-      />
-    </Container>
+    <CustomInput
+        handleChange={setDefaultIssueStatus}
+        label={TRANSLATIONS.DEFAULT_ISSUE_STATUS}
+        value={defaultIssueStatus}
+        placeholder={TRANSLATIONS.DEFAULT_ISSUE_STATUS_PLACEHOLDER}
+        centered
+    />
   </>
 );

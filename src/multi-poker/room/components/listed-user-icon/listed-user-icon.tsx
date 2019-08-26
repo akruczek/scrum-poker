@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ifElse } from '@core/helpers';
 import { Icon } from 'react-native-elements';
 import { ICON_SIZES, STATIC_ANIMATIONS } from '@core/models';
+import { ifElse } from '@core/helpers';
 import { Animatable } from '@core/components';
 
 interface Props {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { AllAdminsCheckbox } from './all-admins-checkbox';
-import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
+import { Checkbox } from '@core/components';
 
 describe('AllAdminsCheckbox', () => {
   describe('when AllAdminsCheckbox was mounted with all needed props', () => {

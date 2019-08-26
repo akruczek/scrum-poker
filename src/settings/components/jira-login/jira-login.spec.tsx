@@ -9,9 +9,7 @@ import { JiraLogin } from './jira-login';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { Input, Button } from 'react-native-elements';
 import { TokenInput } from './components/token-input/token-input';
-import { ButtonsSet } from '../../../core/components/buttons-set/buttons-set';
-import { Preloader, ActionModal } from '../../../core/components';
-import { handleJiraAuth } from './helpers/handle-jira-auth/handle-jira-auth.helper';
+import { ButtonsSet, Preloader } from '@core/components';
 
 describe('JiraLogin', () => {
   const mockedFunctions = {

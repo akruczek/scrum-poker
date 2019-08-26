@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import { Text, ScrollContainer, AppContainer } from '@core/styled';
 import { TEXT_SIZES } from '@core/constants';
 import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
-import { ButtonsSet } from '@core/components/buttons-set/buttons-set';
+import { ButtonsSet, JiraConfigurationFields } from '@core/components';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { translate } from '@core/services/translations/translate';
-import { JiraConfigurationFields } from '@core/components/jira-configuration-fields/jira-configuration-fields';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 
 interface Props {

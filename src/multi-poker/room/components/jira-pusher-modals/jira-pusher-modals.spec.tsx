@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { Preloader, ActionModal } from '@core/components';
 import { JiraPusherModals } from './jira-pusher-modals';
-import { Preloader, ActionModal } from '../../../../core/components';
 
 describe('JiraPusherModals', () => {
   describe('when JiraPusherModals was mounted with all needed props', () => {

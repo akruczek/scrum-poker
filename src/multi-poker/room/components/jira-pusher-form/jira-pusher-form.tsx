@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { Container, Text, Separator, ViewContainer } from '@core/styled';
-import { CardButton } from '@core/components';
+import { CardButton, LinkButton } from '@core/components';
 import { isPresent } from '@core/helpers';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, PokerCard, JiraIssueModel } from '@core/models';
 import { TEXT_SIZES } from '@core/constants';
 import { IssuesList } from '../issues-list/issues-list';
-import { LinkButton } from '../../../../core/components/link-button/link-button';
 
 interface Props {
   estimationsList: PokerCard[];

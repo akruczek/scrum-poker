@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ifElse } from '@core/helpers';
-import { Checkbox } from '@core/components/checkbox-button/checkbox-button';
+import { Checkbox } from '@core/components';
 import { TRANSLATIONS } from '@core/models';
 import { Separator } from '@core/styled';
 
