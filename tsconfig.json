@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@core/*": [ "src/core/*" ],
-      "@assets/*": [ "assets/*" ]
+      "@assets/*": [ "assets/*" ],
+      "@test-utils/*": [ "test-utils/*" ]
     },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
