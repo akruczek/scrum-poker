@@ -1,11 +1,51 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
+import { Button } from 'react-native-elements';
 import { CardIcon } from './card-icon';
-import { Button, colors } from 'react-native-elements';
-import { NOOP } from '../../helpers';
 
 describe('CardIcon', () => {
   const handlePress = jest.fn();
+
+  describe('when CardIcon was mounted without correct label prop', () => {
+    const wrapper = renderer.create(
+      <CardIcon value="risk_red" label={undefined as any} />
+    );
+
+    it('should render Button with "?" as title prop', () => {
+      expect(wrapper.root.findByType(Button).props.title)
+        .toEqual('?');
+    });
+  });
+
+  describe('when CardIcon was mounted without handlePress prop', () => {
+    const wrapper = renderer.create(
+      <CardIcon value="risk_red" label={undefined as any} />
+    );
+
+    it('should call NOOP after press on Button', () => {
+      renderer.act(() => {
+        wrapper.root.findByType(Button).props.onPress();
+      });
+
+      expect(handlePress)
+        .not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when CardIcon was mounted with correct handlePress prop', () => {
+    const wrapper = renderer.create(
+      <CardIcon value="risk_red" handlePress={handlePress} label={undefined as any} />
+    );
+
+    it('should call handlePress with given value after press on Button', () => {
+      renderer.act(() => {
+        wrapper.root.findByType(Button).props.onPress();
+      });
+
+      expect(handlePress)
+        .toHaveBeenCalledWith('risk_red');
+    });
+  });
   
   describe('when CardIcon was mounted with all needed props', () => {
     const wrapper = renderer.create(

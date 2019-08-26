@@ -30,7 +30,7 @@ export const CustomInput = ({ label, labelSize, placeholder, value, handleChange
   );
 
   return ifElse(
-    () => !!label,
+    !!label,
     <Container alignItems="center">
       <Text size={labelSize || TEXT_SIZES.SMALL} children={translate(label || '')} />
       {inputElement()}
