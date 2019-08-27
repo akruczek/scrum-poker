@@ -1,9 +1,6 @@
 import { appStore } from '../../../store/configure-store';
 import { Translations } from './translations.service';
 import { translate } from '@core/services/translations/translate';
-import { Storage } from '../device-storage/device-storage.service';
-import { TRANSLATIONS_ACTIONS } from './store/translations.actions';
-import { LANGUAGE_CODES } from '../../models/translations.models';
 import * as pl from '@assets/translations/pl.json';
 import * as en from '@assets/translations/en.json';
 

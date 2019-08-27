@@ -1,7 +1,7 @@
 import { ActionsObservable, ofType } from 'redux-observable';
 import { switchMap, pluck } from 'rxjs/operators';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { RoomModel } from '../../models/room.models';
+import { RoomModel } from '@core/models';
 import {
   DASHBOARD_ACTIONS,
   addRoomError, addRoomSuccess, AddRoomAction,

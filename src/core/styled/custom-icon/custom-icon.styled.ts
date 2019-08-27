@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import styled from 'styled-components/native';
-import { ICON_SIZES } from '../../models/custom-icons.models';
 import { ImageProps } from 'react-native';
+import { ICON_SIZES } from '../../models';
 
 interface Props {
   size: ICON_SIZES;

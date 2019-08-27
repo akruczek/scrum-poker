@@ -1,7 +1,6 @@
 import { translate } from '@core/services/translations/translate';
-import { TRANSLATIONS } from '@core/models';
+import { TRANSLATIONS, EDIT_ROOMS_TYPES } from '@core/models';
 import { getEditRoomContent } from './get-edit-room-content.helper';
-import { EDIT_ROOMS_TYPES } from '../../../../../models/room.models';
 
 describe('when getEditRoomContent was called', () => {
   describe('and given type is one of EDIT_ROOMS_TYPES values', () => {

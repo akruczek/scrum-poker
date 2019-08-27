@@ -3,9 +3,8 @@ import renderer, { act } from 'react-test-renderer';
 import { ActivityIndicator, Platform } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAvoidingContainer } from '@core/styled';
+import { AUTH_TYPES } from '@core/models';
 import { _Auth } from './auth';
-import { AUTH_TYPES } from './models/auth.models';
-import { isPlatform } from '../core/helpers';
 
 describe('Auth', () => {
   const signIn = jest.fn();

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { RoomsStateModel } from '../../models/room.models';
+import { RoomsStateModel } from '@core/models';
 import {
   DASHBOARD_ACTIONS, DashboardActions, SetRoomsAction, SetRoomAction,
   AddRoomAction, RemoveRoomAction, AddUserAction, RoomAction, SetValueAction,
@@ -23,7 +23,7 @@ const addRoomReducer = (action: AddRoomAction) => R.pipe(
 )
 
 const removeRoomReducer = (action: RemoveRoomAction) => R.evolve({
-  models: R.remove(action.payload, 1),
+  models: R.remove(Number(action.payload), 1),
 });
 
 const addUserReducer = (action: AddUserAction) => R.evolve({

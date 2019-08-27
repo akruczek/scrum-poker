@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { TranslationsStateModel, LANGUAGE_CODES } from '../../../models/translations.models';
+import { TranslationsStateModel, LANGUAGE_CODES } from '../../../models';
 import {
   TRANSLATIONS_ACTIONS, TranslationsActions,
   GetTranslationsAction, GetTranslationsSuccessAction, GetTranslationsErrorAction,

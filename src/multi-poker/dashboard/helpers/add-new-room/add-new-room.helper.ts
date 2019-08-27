@@ -1,4 +1,4 @@
-import { RoomModel } from '../../../models/room.models';
+import { RoomModel } from '@core/models';
 import { prepareNewRoom } from '../prepare-new-room/prepare-new-room.helper';
 
 export const addNewRoom = (

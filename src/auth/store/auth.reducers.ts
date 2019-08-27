@@ -1,6 +1,5 @@
 import * as R from 'ramda';
-import { AuthStateModel } from '../models/auth.models';
-import { USER_ROLE } from '../../core/models/user.models';
+import { AuthStateModel, USER_ROLE } from '@core/models';
 import {
   AUTH_ACTIONS, AuthActions,
   SignInAction, SignInSuccessAction, SignInErrorAction, SignOutAction, signOut,

@@ -1,5 +1,5 @@
-import { RoomModel } from '../../../models/room.models';
-import { SCREENS } from '../../../../core/navigation/screens';
+import { SCREENS } from '@core/navigation/screens';
+import { RoomModel } from '@core/models';
 
 export const joinRoom = (
   setRoom: (room: RoomModel) => void,

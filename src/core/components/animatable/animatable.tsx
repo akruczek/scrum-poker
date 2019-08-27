@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _Animatable from 'react-native-animatable';
-import { ANIMATIONS, ANIMATION_DIRECTION } from '../../models/animations.models';
+import { ANIMATIONS, ANIMATION_DIRECTION } from '../../models';
 
 interface Props {
   children?: any;

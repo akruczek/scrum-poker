@@ -4,8 +4,7 @@ import { ListItem, Divider } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
 import { parseBriiskName, isPresent } from '@core/helpers';
 import { CardIcon } from '@core/components';
-import { UserModel } from '../../../../auth/models/auth.models';
-import { RoomModel } from '../../../models/room.models';
+import { UserModel, RoomModel } from '@core/models';
 import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
 import { getListedUserColor, getListedUserIcon } from '../../helpers';
 

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { USER_ROLE } from '@core/models/user.models';
+import { USER_ROLE } from '@core/models';
 
 export const isAdmin = (email: string) => R.pipe(
   R.find(R.propEq('email', email)),

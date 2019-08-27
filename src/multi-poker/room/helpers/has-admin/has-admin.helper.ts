@@ -1,6 +1,6 @@
 import * as R from 'ramda';
+import { UserModel } from '@core/models';
 import { isAdmin } from '../is-admin/is-admin.helper';
-import { UserModel } from '../../../../auth/models/auth.models';
 
 export const hasAdmin = (
   email: string,

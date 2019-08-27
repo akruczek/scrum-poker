@@ -1,6 +1,5 @@
+import { PokerCard } from '@core/models';
 import { getNewEstimation } from './get-new-estimation.helper';
-import { PokerCard } from '../../../../core/models';
-import { UserModel } from '../../../../auth/models/auth.models';
 
 describe('when getNewEstimation was called', () => {
   const rooms: any[] = [

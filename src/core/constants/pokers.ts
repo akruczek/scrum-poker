@@ -3,7 +3,7 @@ import fibonacciPokerIcon from '@assets/custom-icons/fibonacci-poker.png';
 import tShirtPokerIcon from '@assets/custom-icons/t-shirt-poker.png';
 import riskPokerIcon from '@assets/custom-icons/risk-poker.png';
 import { CARDS } from './cards';
-import { PokerModel } from '../models/poker.models';
+import { PokerModel } from '../models';
 
 export const pokers: PokerModel[] = [
   {

@@ -1,5 +1,5 @@
 import 'jasmine';
-import { LANGUAGE_CODES } from '../../../models/translations.models';
+import { LANGUAGE_CODES } from '../../../models';
 import { getTranslations, getTranslationsSuccess, getTranslationsError, setLanguage, setLanguageSuccess, setLanguageError } from './translations.actions';
 import { translationsReducer } from './translations.reducers';
 

@@ -6,8 +6,8 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/styled';
 import { Preloader } from '@core/components';
 import { isPlatform } from '@core/helpers';
+import { AUTH_TYPES } from '@core/models';
 import { signIn } from './store/auth.actions';
-import { AUTH_TYPES } from './models/auth.models';
 import { authContent } from './helpers/auth-content/auth-content.helper';
 import { useSignIn } from './hooks/sign-in.hook';
 

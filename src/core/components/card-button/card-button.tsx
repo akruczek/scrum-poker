@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from 'react-native-elements';
 import layout from '../../constants/layout';
 import { isRiskCard, getRiskCardColor } from '../../helpers';
-import { PokerCard } from '../../models/poker-card.models';
+import { PokerCard } from '../../models';
 
 interface Props {
   card: PokerCard;

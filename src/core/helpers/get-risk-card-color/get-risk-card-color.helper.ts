@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { colors as elementColors } from 'react-native-elements';
 import { isRiskCard } from '../is-risk-card/is-risk-card.helper';
-import { CardColors, CARD_COLORS } from '../../models/poker-card.models';
+import { CardColors, CARD_COLORS } from '../../models';
 import { COLORS } from '../../constants';
 
 export const getRiskCardColor = R.ifElse(

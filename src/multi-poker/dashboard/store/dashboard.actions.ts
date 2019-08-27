@@ -1,8 +1,6 @@
 import { Action } from 'redux';
-import { PokerCard } from '@core/models';
-import { RoomModel } from '../../models/room.models';
-import { UserModel } from '../../../auth/models/auth.models';
-import { newAction } from '../../../core/helpers';
+import { PokerCard, RoomModel, UserModel } from '@core/models';
+import { newAction } from '@core/helpers';
 
 export enum DASHBOARD_ACTIONS {
   SET_ROOMS = '[Dashboard]: Set rooms',

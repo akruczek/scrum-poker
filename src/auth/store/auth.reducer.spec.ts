@@ -1,4 +1,4 @@
-import { USER_ROLE } from '../../core/models/user.models';
+import { USER_ROLE } from '@core/models';
 import { signIn, signInSuccess, signInError, signOut, signOutSuccess, signOutError } from './auth.actions';
 import { authReducer } from './auth.reducers';
 

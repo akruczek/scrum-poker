@@ -1,8 +1,5 @@
-import { USER_ROLE } from '@core/models/user.models';
-import { parseEmailToId } from '@core/helpers';
-import { isBlank } from '@core/helpers';
-import { UserModel } from '../../../../auth/models/auth.models';
-import { RoomModel } from '../../../models/room.models';
+import { USER_ROLE, UserModel, RoomModel } from '@core/models';
+import { parseEmailToId, isBlank } from '@core/helpers';
 import { AddUserPayload } from '../../../dashboard/store/dashboard.actions';
 
 export const getNewUser = (user: UserModel, room: RoomModel): AddUserPayload => {

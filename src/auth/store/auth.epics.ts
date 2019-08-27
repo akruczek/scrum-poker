@@ -3,13 +3,13 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Storage } from '@core/services/device-storage/device-storage.service';
 import { Firebase } from '@core/services/firebase/firebase.service';
 import { EMPTY_ACTION } from '@core/constants';
-import { UserModel } from '../models/auth.models';
+import { UserModel } from '@core/models';
+import { isPresent } from '@core/helpers';
 import {
   AUTH_ACTIONS,
   SignInAction, signInError, signInSuccess, SignInSuccessAction,
   SignOutAction, signOutSuccess, signOutError,
 } from './auth.actions';
-import { isPresent } from '../../core/helpers';
 
 const signIn = (email: string) => Firebase
   .signIn(email, 'password')

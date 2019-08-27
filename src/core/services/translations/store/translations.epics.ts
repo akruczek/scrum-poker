@@ -1,7 +1,7 @@
 import { ActionsObservable, ofType } from 'redux-observable';
 import { switchMap, pluck, map } from 'rxjs/operators';
 import { Translations } from '../translations.service';
-import { LANGUAGE_CODES, Translation } from '../../../models/translations.models';
+import { LANGUAGE_CODES, Translation } from '../../../models';
 import { Storage } from '../../device-storage/device-storage.service';
 import { isPresent } from '../../../helpers';
 import {
@@ -9,7 +9,6 @@ import {
   getTranslationsError, getTranslationsSuccess, SetLanguageAction,
   setLanguageSuccess, setLanguageError, SetLanguageSuccessAction,
 } from './translations.actions';
-import { EMPTY_ACTION } from '../../../constants';
 
 const getTranslations = (language: LANGUAGE_CODES) => Translations
   .get(language)

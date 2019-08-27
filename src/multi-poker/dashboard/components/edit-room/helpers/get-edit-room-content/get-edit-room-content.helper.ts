@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import { translate } from '@core/services/translations/translate';
-import { TRANSLATIONS } from '@core/models';
-import { EDIT_ROOMS_TYPES } from '../../../../../models/room.models';
+import { TRANSLATIONS, EDIT_ROOMS_TYPES } from '@core/models';
 
 export const getEditRoomContent = (type: EDIT_ROOMS_TYPES) => R.pathOr(
   '',

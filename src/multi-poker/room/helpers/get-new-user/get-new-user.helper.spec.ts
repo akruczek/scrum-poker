@@ -1,5 +1,5 @@
+import { USER_ROLE } from '@core/models';
 import { getNewUser } from './get-new-user.helper';
-import { USER_ROLE } from '../../../../core/models/user.models';
 
 describe('when getNewUser was called', () => {
   const rooms: any = [

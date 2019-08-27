@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { TRANSLATIONS } from '@core/models';
 import { translate } from '@core/services/translations/translate';
 import { _SinglePlayer, SinglePlayer } from './single-player';
-import { PokersList } from '../../single-poker/pokers-list/pokers-list';
+import { PokersList } from '../../single-poker/components/pokers-list/pokers-list';
 
 describe('SinglePlayer', () => {
   describe('when SinglePlayer was mounted with all needed props', () => {

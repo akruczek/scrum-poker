@@ -1,6 +1,5 @@
 import * as R from 'ramda';
-import { UserModel } from '../../../../auth/models/auth.models';
-import { RoomModel } from '../../../models/room.models';
+import { UserModel, RoomModel } from '@core/models';
 import { getNewUser } from '../get-new-user/get-new-user.helper';
 import { AddUserPayload } from '../../../dashboard/store/dashboard.actions';
 

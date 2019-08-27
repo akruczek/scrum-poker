@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { RoomModel } from '../../../models/room.models';
+import { RoomModel } from '@core/models';
 
 export const useSubscribeRooms = (setRooms: (room: RoomModel[]) => void) => {
   const [ isPending, setPending ] = React.useState(false);

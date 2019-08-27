@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import { translate } from '@core/services/translations/translate';
-import { TRANSLATIONS } from '@core/models';
-import { AUTH_TYPES } from '../../models/auth.models';
+import { TRANSLATIONS, AUTH_TYPES } from '@core/models';
 
 export const authContent = (prop: 'buttonText' | 'title'): { [key: string]: string } =>
   R.propOr({}, prop, {

@@ -1,6 +1,5 @@
 import * as R from 'ramda';
-import { UserModel } from '../../../../auth/models/auth.models';
-import { PokerCard } from '../../../../core/models';
+import { UserModel, PokerCard } from '@core/models';
 import { getMiddleEstimations } from '../get-middle-estimations/get-middle-estimations.helper';
 
 export const getEstimationProposition =

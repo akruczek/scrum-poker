@@ -4,9 +4,8 @@ import { TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
 import { ListItem, Divider } from 'react-native-elements';
 import { CustomIcon } from '@core/styled';
-import { ICON_SIZES } from '@core/models';
+import { ICON_SIZES, RoomModel } from '@core/models';
 import { SwipeDeleteBar } from '../swipe-delete-bard/swipe-delete-bar';
-import { RoomModel } from '../../../models/room.models';
 
 interface Props {
   room: RoomModel;

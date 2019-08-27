@@ -1,5 +1,5 @@
 import { PokerModel } from '@core/models';
-import { UserModel } from '../../auth/models/auth.models';
+import { UserModel } from './auth.models';
 
 export enum EDIT_ROOMS_TYPES {
   CREATE = 'create',

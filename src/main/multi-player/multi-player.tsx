@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { ifElse } from '@core/helpers';
 import { translate } from '@core/services/translations/translate';
-import { TRANSLATIONS } from '@core/models';
+import { TRANSLATIONS, AUTH_TYPES } from '@core/models';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { Auth } from '../../auth/auth';
-import { AUTH_TYPES } from '../../auth/models/auth.models';
 
 interface StateProps {
   email: string;

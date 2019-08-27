@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { LANGUAGE_CODES, Translation } from '../../../models/translations.models';
+import { LANGUAGE_CODES, Translation } from '../../../models';
 import { newAction } from '../../../helpers';
 
 export enum TRANSLATIONS_ACTIONS {

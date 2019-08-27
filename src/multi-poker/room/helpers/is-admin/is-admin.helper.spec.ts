@@ -1,5 +1,5 @@
 import { isAdmin } from './is-admin.helper';
-import { USER_ROLE } from '../../../../core/models/user.models';
+import { USER_ROLE } from '@core/models';
 
 describe('when isAdmin was called', () => {
   const users = [

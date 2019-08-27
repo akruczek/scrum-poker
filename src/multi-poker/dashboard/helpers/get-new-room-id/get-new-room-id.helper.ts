@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { RoomModel } from '../../../models/room.models';
+import { RoomModel } from '@core/models';
 
 export const getNewRoomId = R.ifElse(
   R.isEmpty,

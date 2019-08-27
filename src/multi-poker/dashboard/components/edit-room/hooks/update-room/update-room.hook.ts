@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { EDIT_ROOMS_TYPES, RoomModel } from '../../../../../models/room.models';
-import { PokerModel } from '../../../../../../core/models';
+import { PokerModel, EDIT_ROOMS_TYPES, RoomModel } from '@core/models';
 
 export const useUpdateRoom = (
   type: EDIT_ROOMS_TYPES,
