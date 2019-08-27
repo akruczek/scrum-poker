@@ -2,16 +2,13 @@ import React from 'react';
 import { ScrollContainer, AppContainer, Container, ViewContainer } from '@core/styled';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
-import { CARDS, CARDS_STACK } from '@core/constants';
 import { HeaderBackButton, CardButton } from '@core/components';
 import { PokerCard } from '@core/models';
-import { FullScreenCard } from './full-screen-card/full-screen-card';
+import { FullScreenCard } from './components/full-screen-card/full-screen-card';
+import { useSelectCard } from './hooks/select-cards/select-cards.hook';
 
 const _SinglePoker = ({ navigation }: NavigationProps) => {
-  const [ selectedCard, handleSelect ] = React.useState();
-
-  const cardsStack: CARDS = navigation.getParam('cards');
-  const cards: PokerCard[] = CARDS_STACK[cardsStack];
+  const [ cards, selectedCard, handleSelect ] = useSelectCard(navigation);
 
   return (
     <AppContainer>

@@ -6,6 +6,8 @@ import riskPokerIcon from '@assets/custom-icons/risk-poker.png';
 import { CARDS } from '@core/constants';
 import { ICON_SIZES } from '@core/models';
 import { ListItem } from './list-item';
+import { ListItemIcon } from '../list-item-icon/list-item-icon';
+import { CustomIcon } from '../../../core/styled';
 
 describe('ListItem', () => {
   const handlePress = jest.fn();
@@ -44,10 +46,10 @@ describe('ListItem', () => {
       expect(listItem.props.rightIcon)
         .toEqual({ name: 'arrow-forward' });
 
-      expect(listItem.props.leftElement.props.size)
+      expect(listItem.props.leftElement.props.iconSize)
         .toEqual(ICON_SIZES.STANDARD);
 
-      expect(listItem.props.leftElement.props.source)
+      expect(listItem.findByType(CustomIcon).props.source)
         .toEqual(riskPokerIcon);
     });
 
@@ -66,10 +68,10 @@ describe('ListItem', () => {
       <ListItem handlePress={handlePress} poker={mockedPoker} />,
     );
 
-    it('should render ListItemElement with default (STANDARD) icon size', () => {
-      const listItem = wrapper.root.findByType(ListItemElement);
+    it('should render CustomIcon with default (STANDARD) icon size', () => {
+      const listItemIcon = wrapper.root.findByType(CustomIcon);
 
-      expect(listItem.props.leftElement.props.size)
+      expect(listItemIcon.props.size)
         .toEqual(ICON_SIZES.STANDARD);
     });
   });

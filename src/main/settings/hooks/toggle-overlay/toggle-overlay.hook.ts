@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { NavigationScreenProp } from 'react-navigation';
 
-type ReturnType = [ boolean, (value: boolean) => void ];
+type ReturnType = [
+  boolean,
+  (value: boolean) => void,
+];
 
 export const useToggleOverlay = (
   navigation: NavigationScreenProp<any, any>

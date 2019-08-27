@@ -5,7 +5,7 @@ import { CARDS_STACK, CARDS } from '@core/constants';
 import { CardButton } from '@core/components';
 import { AppContainer, ScrollContainer } from '@core/styled';
 import { SinglePoker } from './single-poker';
-import { FullScreenCard } from './full-screen-card/full-screen-card';
+import { FullScreenCard } from './components/full-screen-card/full-screen-card';
 
 describe('SinglePoker', () => {
   describe('when SinglePoker was mounted with all needed props', () => {
