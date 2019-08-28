@@ -8,9 +8,9 @@ interface Props {
   setCreateRoom: (value: boolean) => void;
 }
 
-export const ListedNewRoom = (props: Props) => (
+export const ListedNewRoom = ({ setCreateRoom }: Props) => (
   <>
-    <TouchableOpacity onPress={() => props.setCreateRoom(true)}>
+    <TouchableOpacity onPress={() => setCreateRoom(true)}>
       <ListItem
           title={translate(TRANSLATIONS.ADD_ROOM)}
           subtitle={translate(TRANSLATIONS.ADD_NEW_ROOM)}

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import { SwipeDeleteBarContainer } from '../../styled/swipe-delete-bar-container/swipe-delete-bar-container.styled';
+import { SwipeBarContainer } from '@core/styled';
 
 describe('SwipeDeleteBar', () => {
   describe('when SwipeDeleteBar was mounted with all needed props', () => {
     const wrapper = renderer.create(
-      <SwipeDeleteBarContainer height={100} />
+      <SwipeBarContainer height={100} />
     );
 
-    it('should render SwipeDeleteBarContainer with given height', () => {
-      expect(wrapper.root.findByType(SwipeDeleteBarContainer).props.height)
+    it('should render SwipeBarContainer with given height', () => {
+      expect(wrapper.root.findByType(SwipeBarContainer).props.height)
         .toEqual(100);
     });
 

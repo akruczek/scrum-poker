@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Container, AppContainer, ScrollContainer } from '@core/styled';
 import { TRANSLATIONS, JiraConfigurationModel, EDIT_ROOMS_TYPES, RoomModel } from '@core/models';
-import { pokers } from '@core/constants';
 import { ButtonsSet } from '@core/components';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
@@ -12,6 +11,8 @@ import { PokerButtons } from './components/poker-buttons/poker-buttons';
 import { EditRoomForm } from './components/edit-room-form/edit-room-form';
 import { AllAdminsCheckbox } from './components/all-admins-checkbox/all-admins-checkbox';
 import { JiraConfigurationForm } from './components/jira-configuration-form/jira-configuration-form';
+import { useGetJiraConfiguration } from './hooks/get-jira-configuration/get-jira-configuration.hook';
+import { useUpdateForm } from './hooks/update-form/update-form.hook';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -21,21 +22,19 @@ interface Props {
   jiraConfiguration?: JiraConfigurationModel;
 }
 
+type State = 'name' | 'description' | 'projectKey' | 'customField' | 'defaultIssueType' | 'defaultIssueStatus';
+
 export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfiguration }: Props) => {
-  const [ name, setName ] = React.useState('');
-  const [ description, setDescription ] = React.useState('');
-  const [ projectKey, setProjectKey ] = React.useState('');
-  const [ allAdmins, setAllAdmins ] = React.useState(false);
-  const [ poker, setPoker ] = React.useState(pokers[0]);
+  const [
+    name, description, projectKey, allAdmins, poker,
+    setName, setDescription, setProjectKey, setAllAdmins, setPoker,
+  ] = useUpdateForm();
 
-  const getDefaultConfig = (prop: string) => R.propOr(R.propOr('', prop, jiraConfiguration), prop, room) as any;
-  const [ customField, setCustomField ] = React.useState(getDefaultConfig('customField'));
-  const [ defaultIssueType, setDefaultIssueType ] = React.useState(getDefaultConfig('defaultIssueType'));
-  const [ defaultIssueStatus, setDefaultIssueStatus ] = React.useState(getDefaultConfig('defaultIssueStatus'));
+  const [
+    customField, setCustomField, defaultIssueType, setDefaultIssueType, defaultIssueStatus, setDefaultIssueStatus,
+  ] = useGetJiraConfiguration(room, jiraConfiguration);
 
-  type State = 'name' | 'description' | 'projectKey' | 'customField' | 'defaultIssueType' | 'defaultIssueStatus';
-
-  useUpdateRoom(type, room)(setName, setDescription, setProjectKey, setAllAdmins, setPoker);
+  useUpdateRoom(type, room)(setName, setDescription, setProjectKey, setAllAdmins, setPoker,);
 
   const handleChange = (field: State, value: string) => {
     getSettingMethod(setName, setDescription, setProjectKey, setCustomField, setDefaultIssueType, setDefaultIssueStatus)(field)(value);

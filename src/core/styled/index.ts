@@ -8,5 +8,6 @@ export * from './keyboard-avoiding-container/keyboard-avoiding-container.styled'
 export * from './link/link.styled';
 export * from './scroll-container/scroll-container.styled';
 export * from './separator/separator.styled';
+export * from './swipe-bar-container/swipe-bar-container.styled';
 export * from './text/text.styled';
 export * from './view-container/view-container.styled';

@@ -46,6 +46,12 @@ describe('Dashboard', () => {
     },
   ];
 
+  const mockedJiraConfiguration = {
+    customField: '',
+    defaultIssueType: '',
+    defaultIssueStatus: '',
+  };
+
   const setRooms = jest.fn();
   const setRoom = jest.fn();
   const addRoom = jest.fn();
@@ -71,6 +77,7 @@ describe('Dashboard', () => {
             removeRoom={removeRoom}
             navigation={mockedNavigation}
             jiraAccountId="some-uuid"
+            jiraConfiguration={mockedJiraConfiguration}
         />
       </Provider>
     );
@@ -125,19 +132,33 @@ describe('Dashboard', () => {
         .toHaveBeenCalledWith(SCREENS.ROOM);
     });
 
-    it('should show EditRoom component after call setCreateRoom prop of ListedNewRoom component', () => {
+    describe('when setCreateRoom prop of ListedNewRoom component was called', () => {
       const wrapper = renderer.create(component);
-      act(() => {
-        wrapper.root.findByType(ListedNewRoom).props.setCreateRoom(true);
+
+      
+      it('should show EditRoom component', () => {
+        act(() => {
+          wrapper.root.findByType(ListedNewRoom).props.setCreateRoom(true);
+        });
+    
+        const editRoom: any = wrapper.root.findByType(EditRoom);
+
+        expect(editRoom)
+          .toBeTruthy();
+        expect(editRoom.parent.type)
+          .not.toEqual('ScrollView');
       });
 
-      const editRoom: any = wrapper.root.findByType(EditRoom);
+      it('should hide EditRoom component after call EditRoom handleDismiss prop', () => {
+        act(() => {
+          wrapper.root.findByType(EditRoom).props.handleDismiss();
+        });
 
-      expect(editRoom)
-        .toBeTruthy();
-      expect(editRoom.parent.type)
-        .not.toEqual('ScrollView');
+        expect(wrapper.root.findAllByType(EditRoom).length)
+          .toEqual(0);
+      });
     });
+
 
     it('should remove one room after call handleRemoveRoom prop of ListedRoom component', () => {
       const wrapper = renderer.create(component);
