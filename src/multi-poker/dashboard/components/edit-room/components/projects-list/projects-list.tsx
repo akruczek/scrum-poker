@@ -1,47 +1,26 @@
 import * as React from 'react';
-import * as R from 'ramda';
-import { Modal, TouchableHighlight } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { Modal } from 'react-native';
 import { JiraProjectModel, TRANSLATIONS } from '@core/models';
 import { ScrollContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
-import { TextAvatar } from '@core/components';
+import { ListedProject } from '../listed-project/listed-project';
 
 interface Props {
   projects: JiraProjectModel[];
   handleChoose: (project: JiraProjectModel) => void,
 }
 
-export const ProjectsList = ({ projects, handleChoose }: Props) => {
-  const leftElement = R.ifElse(
-    R.isEmpty,
-    () => <TextAvatar content="" />,
-    (content: string) => <TextAvatar content={content} />,
-  );
+export const ProjectsList = ({ projects, handleChoose }: Props) => (
+  <Modal animationType="slide">
+    <ScrollContainer>
+      <ListedProject
+          project={{ displayName: translate(TRANSLATIONS.NO_PROJECT), key: '' } as JiraProjectModel}
+          handleChoose={handleChoose}
+      />
 
-  return (
-    <Modal animationType="slide">
-      <ScrollContainer>
-        <TouchableHighlight onPress={() => handleChoose({ displayName: '', key: '' } as any)}>
-          <ListItem
-              title={translate(TRANSLATIONS.NO_PROJECT)}
-              rightIcon={{ name: 'arrow-forward' }}
-              leftElement={leftElement('')}
-              containerStyle={{ height: 80 }}
-          />
-        </TouchableHighlight>
-
-        {projects.map(project => (
-          <TouchableHighlight key={project.id} onPress={() => handleChoose(project)}>
-            <ListItem
-                title={project.displayName}
-                rightIcon={{ name: 'arrow-forward' }}
-                leftElement={leftElement(project.key)}
-                containerStyle={{ height: 80 }}
-            />
-          </TouchableHighlight>
-        ))}
-      </ScrollContainer>
-    </Modal>
-  );
-};
+      {projects.map(project => (
+        <ListedProject key={project.id} {...{ project, handleChoose }} />
+      ))}
+    </ScrollContainer>
+  </Modal>
+);

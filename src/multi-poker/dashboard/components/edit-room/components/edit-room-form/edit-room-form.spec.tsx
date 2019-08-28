@@ -5,6 +5,8 @@ import renderer, { act } from 'react-test-renderer';
 import { Separator } from '@core/styled';
 import { EditRoomForm } from './edit-room-form';
 import { appStore } from '../../../../../../store/configure-store';
+import { EditRoomProjectFields } from '../edit-room-project-fields/edit-room-project-fields';
+import { ProjectsList } from '../projects-list/projects-list';
 
 describe('EditRoomForm', () => {
   const handleChange = jest.fn();
@@ -49,6 +51,15 @@ describe('EditRoomForm', () => {
 
       expect(handleChange)
         .toHaveBeenCalledWith('description', 'desc');
+    });
+
+    it('should display ProjectsList component after call chooseProject with "true"', () => {
+      act(() => {
+        wrapper.root.findByType(EditRoomProjectFields).props.chooseProject(true);
+      });
+
+      expect(wrapper.root.findAllByType(ProjectsList).length)
+        .toEqual(1);
     });
   });
 });

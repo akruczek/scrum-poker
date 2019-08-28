@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { View } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Separator, Container } from '@core/styled';
+import { Separator } from '@core/styled';
 import { TRANSLATIONS, JiraProjectModel } from '@core/models';
 import { getProjects } from '@core/services/jira/store/jira.actions';
-import { LinkButton, CustomInput } from '@core/components';
-import { Box } from '@core/styled';
+import { CustomInput } from '@core/components';
 import { ProjectsList } from '../projects-list/projects-list';
 import { useGetProjects } from '../../hooks/get-projects/get-projects.hook';
+import { EditRoomProjectFields } from '../edit-room-project-fields/edit-room-project-fields';
+import { useChooseProject } from '../../hooks/choose-project/choose-project.hook';
 
 interface Props {
   name: string;
@@ -29,40 +29,13 @@ interface StateProps {
 export const _EditRoomForm = ({
   name, description, projectKey, projects, handleChange, getProjects,
 }: Props & DispatchProps & StateProps) => {
-  const [ isChoosingProject, chooseProject ] = React.useState(false);
-
   useGetProjects(getProjects);
-
-  const handleChooseProject = (project: JiraProjectModel) => {
-    chooseProject(false);
-    handleChange('projectKey', project.key);
-    handleChange('name', project.displayName);
-  }
+  const [ isChoosingProject, chooseProject, handleChooseProject ] = useChooseProject(handleChange)
 
   return (
     <>
       <Separator margin={10} />
-      <View>
-        <Container flexDirection="row">
-          <CustomInput
-              handleChange={(value: string) => handleChange('name', value)}
-              label={TRANSLATIONS.PROJECT_NAME}
-              value={name}
-              placeholder={TRANSLATIONS.PLACEHOLDER_NAME}
-              centered
-          />
-          <CustomInput
-              handleChange={(value: string) => handleChange('projectKey', value)}
-              label={TRANSLATIONS.PROJECT_KEY}
-              value={projectKey}
-              placeholder={TRANSLATIONS.PLACEHOLDER_KEY}
-              centered
-          />
-        </Container>
-        <Box top={5}>
-          <LinkButton handlePress={() => chooseProject(true)} title={TRANSLATIONS.SELECT_PROJECT_} />
-        </Box>
-      </View>
+      <EditRoomProjectFields {...{ name, projectKey, handleChange, chooseProject }}  />
 
       <Separator  margin={10} />
       <CustomInput
@@ -75,7 +48,7 @@ export const _EditRoomForm = ({
       <Separator margin={20} />
 
       {isChoosingProject && (
-        <ProjectsList projects={projects} handleChoose={handleChooseProject} />
+        <ProjectsList projects={projects || []} handleChoose={handleChooseProject} />
       )}
     </>
   );
@@ -93,4 +66,3 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
 export const EditRoomForm = connect<StateProps, DispatchProps, any>(
   mapStateToProps, mapDispatchToProps,
 )(_EditRoomForm);
-
