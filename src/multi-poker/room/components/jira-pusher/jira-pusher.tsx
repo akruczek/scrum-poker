@@ -3,16 +3,15 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AppContainer, Container, Text, Separator, ScrollContainer } from '@core/styled';
-import { TEXT_SIZES } from '@core/constants';
+import { AppContainer, Container, ScrollContainer } from '@core/styled';
 import { TRANSLATIONS, SetIssueStoryPointsPayload, PokerCard, JiraIssueModel } from '@core/models';
-import { translate } from '@core/services/translations/translate';
 import { setIssueStoryPoints, clearJiraStatus, getProjectIssues } from '@core/services/jira/store/jira.actions'
 import { ButtonsSet } from '@core/components';
-import { jiraPusherUpdate } from '../../helpers/jira-pusher-update/jira-pusher-update.helper';
 import { JiraPusherForm } from '../jira-pusher-form/jira-pusher-form';
 import { JiraPusherModals } from '../jira-pusher-modals/jira-pusher-modals';
 import { useGetProjectIssues } from '../../hooks/get-project-issues/get-project-issues.hook';
+import { useJiraPush } from '../../hooks/jira-push/jira-push.hook';
+import { JiraPusherHeader } from '../jira-pusher-header/jira-pusher-header';
 
 interface Props {
   handleClose: () => void;
@@ -39,22 +38,12 @@ export const _JiraPusher = ({
 }: Props & DispatchProps & StateProps) => {
   const [ finalEstimation, setFinalEstimation ] = React.useState('');
   const [ issueKey, setIssueKey ] = React.useState('');
-  const [ displaySuccess, setSuccess ] = React.useState(false);
-  const [ displayError, setError ] = React.useState(false);
-  const [ waiting, setWaiting ] = React.useState(false);
+  const [ displaySuccess, displayError, handlePush ] =
+    useJiraPush(issueKey, finalEstimation, isPending, isSuccess, isError)(
+      setIssueStoryPoints, clearJiraStatus, handleClose, handleReset
+    );
 
   useGetProjectIssues(getProjectIssues);
-
-  const handlePush = () => {
-    setWaiting(true);
-    setIssueStoryPoints({ issueKey, value: Number(finalEstimation) || 0 });
-  };
-
-  React.useEffect(() => {
-    jiraPusherUpdate(isPending, waiting, isSuccess, isError)(
-      setSuccess, setError, setWaiting, clearJiraStatus, handleClose, handleReset,
-    );
-  });
 
   return (
     <>
@@ -62,11 +51,7 @@ export const _JiraPusher = ({
         <AppContainer>
           <ScrollContainer>
             <Container margins="10px 0">
-              <Text size={TEXT_SIZES.BIG} align="center">
-                {translate(TRANSLATIONS.PUSH_TO_JIRA)}
-              </Text>
-              <Separator margin={10} />
-
+              <JiraPusherHeader />
               <JiraPusherForm {...{ estimationsList, finalEstimation, issueKey, setFinalEstimation, setIssueKey, issues }} />
             </Container>
           </ScrollContainer>

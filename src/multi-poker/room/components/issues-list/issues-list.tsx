@@ -5,10 +5,13 @@ import { ListItem, Button, colors } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { AppContainer, Container, ScrollContainer } from '@core/styled';
 import { JiraIssueModel, TRANSLATIONS } from '@core/models';
-import { TextAvatar, Checkbox } from '@core/components';
+import { Checkbox } from '@core/components';
 import { COLORS } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
 import { isPresent } from '@core/helpers';
+import { useFilterIssues } from '../../hooks/filter-issues/filter-issues.hook';
+import { ListedIssueIcon } from '../listed-issue-icon/listed-issue-icon';
+import { IssuesFilters } from '../issues-filters/issues-filters';
 
 interface Props {
   issues: JiraIssueModel[];
@@ -21,49 +24,22 @@ interface StateProps {
   defaultIssueStatus: string;
 }
 
-export const _IssuesList = ({ issues, handleChoose, handleClose, defaultIssueType, defaultIssueStatus }: Props & StateProps) => {
-  const [ onlyType, setOnlyType ] = React.useState(true);
-  const [ onlyStatus, setOnlyStatus ] = React.useState(true);
-
-  const leftElement = R.ifElse(
-    R.isEmpty,
-    () => <TextAvatar content="" />,
-    (content: string) => <TextAvatar content={content.split('-')[1]} />,
-  );
-
-  const filterIssues = R.pipe<JiraIssueModel[], JiraIssueModel[], JiraIssueModel[]>(
-    R.when<JiraIssueModel[], JiraIssueModel[]>(
-      () => !!(onlyType && isPresent(defaultIssueType)),
-      R.filter(R.propEq('issueType', defaultIssueType)),
-    ),
-    R.when<JiraIssueModel[], JiraIssueModel[]>(
-      () => !!(onlyStatus && isPresent(defaultIssueStatus)),
-      R.filter(R.propEq('status', defaultIssueStatus)),
-    ),
-  );
+export const _IssuesList = ({
+  issues, handleChoose, handleClose, defaultIssueType, defaultIssueStatus
+}: Props & StateProps) => {
+  const [ setOnlyStatus, setOnlyType, filteredIssues ] = useFilterIssues(defaultIssueType, defaultIssueStatus);
 
   return (
     <Modal animationType="slide">
       <AppContainer>
-        {(isPresent(defaultIssueType) || isPresent(defaultIssueStatus)) && (
-          <View style={{ height: 100 }}>
-            <Container flexDirection="row" justifyContent="space-around" alignItems="center">
-              {isPresent(defaultIssueType) && (
-                <Checkbox title={TRANSLATIONS.DEFAULT_TYPE} onChange={setOnlyType} defaultChecked />
-              )}
-              {isPresent(defaultIssueStatus) && (
-                <Checkbox title={TRANSLATIONS.DEFAULT_STATUS} onChange={setOnlyStatus} defaultChecked />
-              )}
-            </Container>
-          </View>
-        )}
+        <IssuesFilters {...{ setOnlyStatus, setOnlyType, defaultIssueStatus, defaultIssueType }} />
 
         <ScrollContainer>
-          {filterIssues(issues).map(issue => (
+          {filteredIssues(issues).map(issue => (
             <TouchableHighlight key={issue.id} onPress={() => handleChoose(issue.key)}>
               <ListItem
                   title={issue.summary}
-                  leftElement={leftElement(issue.key)}
+                  leftElement={<ListedIssueIcon content={issue.key} />}
               />
             </TouchableHighlight>
           ))}
