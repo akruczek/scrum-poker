@@ -10,10 +10,10 @@ import { setRooms, setRoom, addRoom, removeRoom } from './store/dashboard.action
 import { EditRoom } from './components/edit-room/edit-room';
 import { ListedRoom } from './components/listed-room/listed-room';
 import { ListedNewRoom } from './components/listed-new-room/listed-new-room';
-import { joinRoom } from './helpers/join-room/join-room.helper';
 import { useSubscribeRooms } from './hooks/subscribe-rooms/subscribe-rooms.hook';
-import { addNewRoom } from './helpers/add-new-room/add-new-room.helper';
 import { getRoomsList } from './helpers/get-rooms-list/get-rooms-list.helper';
+import { useCreateRoom } from './hooks/create-room/create-room.hook';
+import { useRemoveRoom } from './hooks/remove-room/remove-room.hook';
 
 interface DispatchProps {
   setRooms: (rooms: RoomModel[]) => void;
@@ -29,23 +29,13 @@ interface StateProps {
 }
 
 export const _Dashboard = ({
-  setRooms, setRoom, addRoom, removeRoom, rooms, jiraAccountId, navigation, jiraConfiguration,
+  setRooms, setRoom, addRoom, removeRoom, rooms,
+  jiraAccountId, navigation, jiraConfiguration,
 }: StateProps & DispatchProps & NavigationProps) => {
-  const [ isCreatingRoom, setCreateRoom ] = React.useState(false);
-  const [ isSwiping, setSwiping ] = React.useState(false);
-  const isPending = useSubscribeRooms(setRooms);
-
-  const handleNavigate = (room: RoomModel) => {
-    joinRoom(setRoom, navigation.navigate, room);
-  }
-
-  const handleAddRoom = (room: RoomModel) => {
-    addNewRoom(room)(setCreateRoom, handleNavigate, addRoom);
-  };
-
-  const handleRemoveRoom = (room: RoomModel) => {
-    removeRoom(room.id);
-  };
+  const [ isPending ] = useSubscribeRooms(setRooms);
+  const [ isSwiping, setSwiping, handleRemoveRoom ] = useRemoveRoom(removeRoom);
+  const [ isCreatingRoom, setCreateRoom, handleNavigate, handleAddRoom ] =
+    useCreateRoom(addRoom, setRoom, navigation.navigate)
 
   return (
     <AppContainer>
