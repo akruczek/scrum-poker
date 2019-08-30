@@ -1,44 +1,32 @@
 import * as React from 'react';
-import * as R from 'ramda';
 import { ListItem, Divider } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
-import { parseBriiskName, isPresent } from '@core/helpers';
-import { CardIcon } from '@core/components';
+import { parseBriiskName } from '@core/helpers';
 import { UserModel, RoomModel } from '@core/models';
-import { ListedUserIcon } from '../listed-user-icon/listed-user-icon';
-import { getListedUserColor, getListedUserIcon } from '../../helpers';
+import { getListedUserColor, getListedUserValues, getListedUserProperties } from '../../helpers';
+import { ListedUserEstimation } from '../listed-user-estimation/listed-user-estimation';
 
 interface Props {
   user: UserModel;
   room: RoomModel;
   onListItemPress: (email: string) => void;
   email: string;
-  estimations: (number|string)[] | null;
+  estimations: number[] | null;
 }
 
-export const ListedUser = (props: Props) => {
-  const { user, room, email } = props;
-
-  const selectedValue = R.pathOr(null, [ 'selectedValue', 'value' ], user);
-  const selectedLabel = R.pathOr('?', [ 'selectedValue', 'label' ], user);
-  const estimations: number[] = R.propOr([], 'estimations', props);
-
-  const isValuePresent = isPresent(user.selectedValue);
-  const isRoomDiscovered: boolean = R.propOr(false, 'discovered', room);
-  const isCurrentUser = R.propEq('email', email, user);
-  const icon = getListedUserIcon(isValuePresent, isRoomDiscovered, isCurrentUser);
+export const ListedUser = ({ user, room, email, estimations, onListItemPress }: Props) => {
+  const [ selectedValue, selectedLabel ] = getListedUserValues(user);
+  const [ isValuePresent, isRoomDiscovered, isCurrentUser, icon ] = getListedUserProperties(room, user, email);
 
   const handlePress = () => {
-    props.onListItemPress(user.email);
+    onListItemPress(user.email);
   };
 
-  const color = getListedUserColor(
-    isRoomDiscovered, estimations, selectedValue, isValuePresent,
-  );
+  const color = getListedUserColor(isRoomDiscovered, estimations || [], selectedValue, isValuePresent);
 
-  const rightElement = (isValuePresent && isRoomDiscovered) || (isValuePresent && isCurrentUser)
-    ? <CardIcon label={selectedLabel} value={selectedValue} handlePress={handlePress} />
-    : <ListedUserIcon isCurrentUser={isCurrentUser} icon={icon} />;
+  const listedUserEstimationProps = {
+    isValuePresent, isRoomDiscovered, isCurrentUser, selectedLabel, selectedValue, handlePress, icon,
+  };
 
   return (
     <View>
@@ -46,7 +34,7 @@ export const ListedUser = (props: Props) => {
         <ListItem
             title={parseBriiskName(user.email)}
             subtitle={user.email}
-            rightElement={rightElement}
+            rightElement={<ListedUserEstimation {...listedUserEstimationProps} />}
             containerStyle={{ backgroundColor: color }}
         />
       </TouchableOpacity>

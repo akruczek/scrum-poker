@@ -4,6 +4,8 @@ export * from './get-estimation/get-estimation.helper';
 export * from './get-estimation-proposition/get-estimation-proposition.helper';
 export * from './get-listed-user-color/get-listed-user-color.helper';
 export * from './get-listed-user-icon/get-listed-user-icon.helper';
+export * from './get-listed-user-properties/get-listed-user-properties.helper';
+export * from './get-listed-user-values/get-listed-user-values.helper';
 export * from './get-middle-estimations/get-middle-estimations.helper';
 export * from './get-new-estimation/get-new-estimation.helper';
 export * from './get-new-user/get-new-user.helper';

@@ -1,17 +1,13 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { Modal, TouchableHighlight, View } from 'react-native';
-import { ListItem, Button, colors } from 'react-native-elements';
+import { Modal } from 'react-native';
 import { connect } from 'react-redux';
-import { AppContainer, Container, ScrollContainer } from '@core/styled';
-import { JiraIssueModel, TRANSLATIONS } from '@core/models';
-import { Checkbox } from '@core/components';
-import { COLORS } from '@core/constants';
-import { translate } from '@core/services/translations/translate';
-import { isPresent } from '@core/helpers';
+import { AppContainer } from '@core/styled';
+import { JiraIssueModel } from '@core/models';
 import { useFilterIssues } from '../../hooks/filter-issues/filter-issues.hook';
-import { ListedIssueIcon } from '../listed-issue-icon/listed-issue-icon';
 import { IssuesFilters } from '../issues-filters/issues-filters';
+import { ListedIssues } from '../listed-issues/listed-issues';
+import { IssuesListButtonsSet } from '../issues-list-buttons-set/issues-list-buttons-set';
 
 interface Props {
   issues: JiraIssueModel[];
@@ -33,25 +29,8 @@ export const _IssuesList = ({
     <Modal animationType="slide">
       <AppContainer>
         <IssuesFilters {...{ setOnlyStatus, setOnlyType, defaultIssueStatus, defaultIssueType }} />
-
-        <ScrollContainer>
-          {filteredIssues(issues).map(issue => (
-            <TouchableHighlight key={issue.id} onPress={() => handleChoose(issue.key)}>
-              <ListItem
-                  title={issue.summary}
-                  leftElement={<ListedIssueIcon content={issue.key} />}
-              />
-            </TouchableHighlight>
-          ))}
-        </ScrollContainer>
-        
-        <View style={{ backgroundColor: COLORS.WHITE, paddingTop: 5 }}>
-          <Button
-              buttonStyle={{ backgroundColor: colors.secondary }}
-              onPress={() => handleClose()}
-              title={translate(TRANSLATIONS.DISMISS)}
-          />
-        </View>
+        <ListedIssues issues={filteredIssues(issues)} handleChoose={handleChoose} />
+        <IssuesListButtonsSet handleClose={handleClose} />
       </AppContainer>
     </Modal>
   );

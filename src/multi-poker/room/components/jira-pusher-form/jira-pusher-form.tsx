@@ -15,7 +15,7 @@ interface Props {
   issues: JiraIssueModel[];
   setFinalEstimation: (value: string) => void;
   setIssueKey: (value: string) => void;
-}
+}2
 
 export const JiraPusherForm = ({
   estimationsList, finalEstimation, issueKey, setFinalEstimation, setIssueKey, issues,
