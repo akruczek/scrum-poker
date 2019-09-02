@@ -21,7 +21,7 @@ export const CardIcon = ({ label, value, handlePress }: Props) => {
   const buttonTitleStyle = {
     fontSize: isLongLabel ? 16 : 20,
     display: isRiskCard(value) ? 'none' as 'none' : 'flex' as 'flex',
-    fontFamily: 'space-mono',
+    fontFamily: 'livvic',
   };
 
   return (

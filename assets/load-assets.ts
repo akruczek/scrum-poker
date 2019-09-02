@@ -8,6 +8,7 @@ export const loadAssets = async (): Promise<any> => {
     ]),
     Font.loadAsync({
       'space-mono': require('./fonts/SpaceMono-Regular.ttf'),
+      'livvic': require('./fonts/Livvic-Medium.ttf'),
     }),
   ]);
 };
