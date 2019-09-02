@@ -1,3 +1,11 @@
+## 0.5.1
+### Improved:
+- Inputs behavior - use inputs settings like auto correct, input types, secure text entry and more!
+- App optimization
+- Room view to display Room name in header
+### Fixed:
+- Crash when someone deleted room you were in
+
 ## 0.5.0
 ### Added:
 - You can now set up your Jira default configuration, such as estimation field or default issues filters and use it in every Room!
