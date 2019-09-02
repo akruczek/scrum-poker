@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { JiraProjectModel } from '@core/models';
+import { isPresent } from '@core/helpers';
 
 type ReturnType = [
   boolean,
@@ -12,10 +13,10 @@ export const useChooseProject = (
 ): ReturnType => {
   const [ isChoosingProject, chooseProject ] = React.useState(false);
 
-  const handleChooseProject = (project: JiraProjectModel) => {
+  const handleChooseProject = ({ key, displayName }: JiraProjectModel) => {
     chooseProject(false);
-    handleChange('projectKey', project.key);
-    handleChange('name', project.displayName);
+    handleChange('projectKey', key);
+    handleChange('name', isPresent(key) ? displayName : '');
   }
 
   return [ isChoosingProject, chooseProject, handleChooseProject ]
