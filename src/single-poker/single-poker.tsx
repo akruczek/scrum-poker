@@ -4,6 +4,7 @@ import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton, CardButton } from '@core/components';
 import { PokerCard } from '@core/models';
+import { headerTitleStyle } from '@core/constants';
 import { FullScreenCard } from './components/full-screen-card/full-screen-card';
 import { useSelectCard } from './hooks/select-cards/select-cards.hook';
 
@@ -32,6 +33,7 @@ const _SinglePoker = ({ navigation }: NavigationProps) => {
 _SinglePoker.navigationOptions = ({ navigation }: NavigationProps) => ({
   title: navigation.getParam('title'),
   headerLeft: <HeaderBackButton navigation={navigation} screen={SCREENS.SINGLE_PLAYER} />,
+  headerTitleStyle,
 });
 
 export const SinglePoker = _SinglePoker;

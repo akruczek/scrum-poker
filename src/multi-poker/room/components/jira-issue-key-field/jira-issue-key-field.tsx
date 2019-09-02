@@ -3,7 +3,7 @@ import { Input } from 'react-native-elements';
 import { Separator, Text } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
-import { TEXT_SIZES } from '@core/constants';
+import { TEXT_SIZES, defaultFont } from '@core/constants';
 
 interface Props {
   issueKey: string;
@@ -18,7 +18,7 @@ export const JiraIssueKeyField = ({ issueKey, setIssueKey }: Props) => (
         value={issueKey}
         placeholder={translate(TRANSLATIONS.JIRA_ISSUE_KEY)}
         onChangeText={setIssueKey}
-        inputStyle={{ textAlign: 'center', fontSize: TEXT_SIZES.BIG }}
+        inputStyle={{ textAlign: 'center', fontSize: TEXT_SIZES.BIG, fontFamily: defaultFont }}
     />
   </>
 );

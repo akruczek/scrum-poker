@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
 import { ListItem, Divider } from 'react-native-elements';
 import { RoomModel } from '@core/models';
+import { Text } from '@core/styled';
 import { SwipeDeleteBar } from '../swipe-delete-bar/swipe-delete-bar';
 import { ListedRoomIcon } from '../listed-room-icon/listed-room-icon';
 
@@ -27,8 +28,8 @@ export const ListedRoom = ({
     >
       <TouchableOpacity onPress={() => handleNavigate(room)}>
         <ListItem
-            title={room.name}
-            subtitle={R.propOr(room.name, 'description', room)}
+            title={<Text children={room.name} />}
+            subtitle={<Text children={R.propOr(room.name, 'description', room)} />}
             rightIcon={{ name: 'arrow-forward' }}
             leftElement={<ListedRoomIcon icon={room.poker.icon} />}
             containerStyle={{ height: 80 }}

@@ -7,6 +7,7 @@ import { AppContainer, KeyboardAvoidingContainer, Container, Text } from '@core/
 import { Preloader } from '@core/components';
 import { isPlatform } from '@core/helpers';
 import { AUTH_TYPES } from '@core/models';
+import { defaultFont, TEXT_SIZES } from '@core/constants';
 import { signIn } from './store/auth.actions';
 import { authContent } from './helpers/auth-content/auth-content.helper';
 import { useSignIn } from './hooks/sign-in.hook';
@@ -31,7 +32,7 @@ export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & 
     <AppContainer>
       <KeyboardAvoidingContainer behavior="padding" keyboardVerticalOffset={offset}>
         <Container alignItems="center" justifyContent="center">
-          <Text margins="0 0 20px" children={authContent('title')[type]} />
+          <Text margins="0 0 20px" size={TEXT_SIZES.REGULAR} children={authContent('title')[type]} />
           <Input
               value={email}
               autoCapitalize="none"
@@ -40,7 +41,7 @@ export const _Auth = ({ type, isPending, signIn }: DispatchProps & StateProps & 
               onChangeText={handleChange}
               errorMessage={error}
               errorStyle={{ position: 'absolute', top: 40 }}
-              inputStyle={{ textAlign: 'center' }}
+              inputStyle={{ textAlign: 'center', fontFamily: defaultFont }}
           />
         </Container>
 

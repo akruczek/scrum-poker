@@ -3,6 +3,7 @@ import * as renderer from 'react-test-renderer';
 import * as R from 'ramda';
 import { CardButton } from './card-button';
 import { Button, colors } from 'react-native-elements';
+import { defaultFont } from '../../constants';
 import layout from '../../constants/layout';
 
 describe('CardButton', () => {
@@ -26,6 +27,7 @@ describe('CardButton', () => {
           titleStyle: {
             fontSize: 160,
             display: 'flex',
+            fontFamily: defaultFont,
           },
           raised: true,
         };
@@ -63,6 +65,7 @@ describe('CardButton', () => {
           titleStyle: {
             fontSize: 30,
             display: 'flex',
+            fontFamily: defaultFont,
           },
           raised: true,
         };

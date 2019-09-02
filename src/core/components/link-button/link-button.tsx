@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button } from 'react-native-elements';
-import { COLORS } from '../../constants';
+import { COLORS, defaultFont } from '../../constants';
 import { TRANSLATIONS } from '../../models';
 import { translate } from '../../services/translations/translate';
 
@@ -13,7 +13,7 @@ export const LinkButton = ({ handlePress, title }: Props) => (
   <Button
       title={translate(title)}
       buttonStyle={{ backgroundColor: COLORS.WHITE }}
-      titleStyle={{ color: COLORS.JIRA }}
+      titleStyle={{ color: COLORS.JIRA, fontFamily: defaultFont }}
       onPress={() => handlePress()}
   />
 );

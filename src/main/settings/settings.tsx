@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { NavigationProps } from '@core/navigation/navigation.model';
 import { ifElse } from '@core/helpers';
 import { HeaderRightIcon } from '@core/components';
+import { headerTitleStyle } from '@core/constants';
 import { LANGUAGE_CODES, TRANSLATIONS, AUTH_TYPES } from '@core/models';
 import { translate } from '@core/services/translations/translate';
 import { SettingsOverview } from '../../settings/settings';
@@ -38,7 +39,8 @@ export const _Settings = ({ email, language, navigation }: StateProps & Navigati
 
 _Settings.navigationOptions = ({ navigation }: NavigationProps) => ({
   title: translate(TRANSLATIONS.SETTINGS),
-  headerRight: <HeaderRightIcon icon="language" onPress={() => navigation.getParam('toggleOverlay')(true)} />
+  headerRight: <HeaderRightIcon icon="language" onPress={() => navigation.getParam('toggleOverlay')(true)} />,
+  headerTitleStyle,
 });
 
 const mapStateToProps = R.applySpec<StateProps>({

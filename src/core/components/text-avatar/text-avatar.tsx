@@ -10,8 +10,7 @@ interface Props {
 
 export const TextAvatar = ({ content }: Props) => {
   const textSize = _cond(
-    content.length > 5, TEXT_SIZES.TINY,
-    content.length > 3, TEXT_SIZES.SMALL,
+    content.length > 3, TEXT_SIZES.TINY,
     R.T, TEXT_SIZES.REGULAR
   )
 

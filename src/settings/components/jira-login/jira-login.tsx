@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Modal, Platform } from 'react-native';
+import { Modal } from 'react-native';
 import { Input } from 'react-native-elements';
 import jiraIcon from '@assets/custom-icons/jira.png';
 import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
 import { Container, AppContainer, Text, CustomIcon, KeyboardAvoidingContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
-import { TEXT_SIZES } from '@core/constants';
+import { TEXT_SIZES, defaultFont } from '@core/constants';
 import { Preloader, ActionModal, ButtonsSet } from '@core/components';
 import { isPlatform } from '@core/helpers';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
@@ -62,6 +62,7 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
                   value={email}
                   keyboardType="email-address"
                   autoCapitalize="none"
+                  inputStyle={{ fontFamily: defaultFont }}
               />
               <TokenInput {...{ token, setToken }} />
             </Container>

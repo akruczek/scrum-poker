@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import renderer from 'react-test-renderer';
 import { Input } from 'react-native-elements';
+import { defaultFont } from '@core/constants';
 import { JiraLoginInput } from './jira-login-input';
 
 describe('JiraLoginInput', () => {
@@ -13,12 +14,15 @@ describe('JiraLoginInput', () => {
       isSecure: true,
       autoCapitalize: 'none',
       autoCorrect: false,
+      inputStyle: {
+        fontFamily: defaultFont,
+      },
     }
     const wrapper = renderer.create(<JiraLoginInput {...props} />);
 
     it('should render Input component with all props passed', () => {
       const expectedProps = R.zipObj(
-        [ 'placeholder', 'onChangeText', 'value', 'secureTextEntry', 'autoCapitalize', 'autoCorrect' ],
+        [ 'placeholder', 'onChangeText', 'value', 'secureTextEntry', 'autoCapitalize', 'autoCorrect', 'inputStyle' ],
         R.values(props),
       );
 

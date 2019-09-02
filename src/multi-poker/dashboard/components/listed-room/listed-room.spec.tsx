@@ -7,7 +7,7 @@ import { Divider, ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 
 describe('ListedRoom', () => {
-  const room = {
+  const room: any = {
     id: 'room-uuid',
     name: 'My Room',
     description: 'Super Room',
@@ -121,7 +121,7 @@ describe('ListedRoom', () => {
     );
 
     it('should render ListItem with room description as subtitle prop', () => {
-      expect(wrapper.root.findByType(ListItem).props.subtitle)
+      expect(wrapper.root.findByType(ListItem).props.subtitle.props.children)
         .toEqual(room.description);
     });
   });
@@ -147,7 +147,7 @@ describe('ListedRoom', () => {
     );
 
     it('should render ListItem with room name as subtitle prop', () => {
-      expect(wrapper.root.findByType(ListItem).props.subtitle)
+      expect(wrapper.root.findByType(ListItem).props.subtitle.props.children)
         .toEqual(room.name);
     });
   });

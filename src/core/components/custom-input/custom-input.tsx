@@ -3,7 +3,7 @@ import { Input } from 'react-native-elements';
 import { ifElse } from '../../helpers';
 import { TRANSLATIONS } from '../../models';
 import { Container, Text } from '../../styled';
-import { TEXT_SIZES } from '../../constants';
+import { TEXT_SIZES, defaultFont } from '../../constants';
 import { translate } from '../../services/translations/translate';
 
 interface Props {
@@ -25,7 +25,7 @@ export const CustomInput = ({ label, labelSize, placeholder, value, handleChange
         value={value}
         placeholder={translate(placeholder || '')}
         onChangeText={onChange}
-        inputStyle={centered ? { textAlign: 'center' } : {}}
+        inputStyle={{ textAlign: centered ? 'center' : 'left', fontFamily: defaultFont }}
     />
   );
 

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { Separator } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS } from '@core/models';
+import { defaultFont } from '@core/constants';
 
 interface Props {
   handleShowDown: () => void;
@@ -17,6 +18,7 @@ export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, hand
     <Button
         title={translate(TRANSLATIONS[isDiscovered ? 'PUSH_TO_JIRA' : 'SHOW_DOWN'])}
         onPress={isDiscovered ? handlePushToJira : handleShowDown}
+        titleStyle={{ fontFamily: defaultFont }}
     />
 
     <Separator margin={10} />
@@ -25,6 +27,7 @@ export const RoomButtonsSet = ({ isDiscovered, handleShowDown, handleReset, hand
         disabled={!isDiscovered}
         title={translate(TRANSLATIONS.RESET)}
         buttonStyle={{ backgroundColor: colors.secondary }}
+        titleStyle={{ fontFamily: defaultFont }}
         onPress={handleReset}
     />
   </View>

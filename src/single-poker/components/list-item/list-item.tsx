@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Divider, ListItem as ListItemElement } from 'react-native-elements';
 import { PokerModel, ICON_SIZES } from '@core/models';
+import { Text } from '@core/styled';
 import { ListItemIcon } from '../list-item-icon/list-item-icon';
 
 interface Props {
@@ -16,8 +17,8 @@ export const ListItem = ({ poker, iconSize, handlePress }: Props) => (
       <ListItemElement
           leftElement={<ListItemIcon {...{ iconSize, poker }} />}
           rightIcon={{ name: 'arrow-forward' }}
-          title={poker.name}
-          subtitle={poker.description}
+          title={<Text children={poker.name} />}
+          subtitle={<Text children={poker.description} />}
       />
     </TouchableOpacity>
     <Divider />

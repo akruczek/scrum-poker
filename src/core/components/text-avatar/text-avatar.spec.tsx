@@ -26,11 +26,11 @@ describe('TextAvatar', () => {
         <TextAvatar content="hello" />
       );
 
-      it('should render Text component with small text size and given content inside', () => {
+      it('should render Text component with tiny text size and given content inside', () => {
         const text = wrapper.root.findByType(Text);
 
         expect(text.props.size)
-          .toEqual(TEXT_SIZES.SMALL);
+          .toEqual(TEXT_SIZES.TINY);
         expect(text.props.children)
           .toEqual('hello');
       });

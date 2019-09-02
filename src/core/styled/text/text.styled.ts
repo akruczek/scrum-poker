@@ -13,7 +13,7 @@ interface Props {
 
 export const Text = styled.Text<Props & TextProps>`
   font-family: 'livvic';
-  font-size: ${R.propOr(TEXT_SIZES.REGULAR, 'size')}px;
+  font-size: ${R.propOr(TEXT_SIZES.SMALL, 'size')}px;
   text-align: ${R.propOr('left', 'align')};
   text-decoration-line: ${R.propOr('none', 'decorationLine')};
   margin: ${R.propOr(0, 'margins')};

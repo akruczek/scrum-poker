@@ -8,7 +8,7 @@ import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
 import { translate } from '@core/services/translations/translate';
 import { setLanguage } from '@core/services/translations/store/translations.actions';
 import { Text, Container } from '@core/styled';
-import { TEXT_SIZES } from '@core/constants';
+import { TEXT_SIZES, defaultFont } from '@core/constants';
 import { getLanguageItemContent } from '../../helpers/get-language-item-content/get-language-item-content.helper';
 import { changeLanguage } from './helpers/change-language.helper';
 
@@ -41,7 +41,7 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
             {translate(TRANSLATIONS.RELOAD_REQUEST)}
           </Text>
 
-          <Button title={translate(TRANSLATIONS.RELOAD)} onPress={handleReload} />
+          <Button title={translate(TRANSLATIONS.RELOAD)} onPress={handleReload} titleStyle={{ fontFamily: defaultFont }} />
         </Container>
       </Overlay>
 
@@ -50,8 +50,8 @@ export const _LanguageOverlay = ({ isVisible, currentLanguage, handleClose, setL
           {R.values(LANGUAGE_CODES).map(code => (
             <ListItem
                 key={code}
-                title={translate(getLanguageItemContent(code)('title'))}
-                subtitle={translate(getLanguageItemContent(code)('subtitle'))}
+                title={<Text children={translate(getLanguageItemContent(code)('title'))} />}
+                subtitle={<Text children={translate(getLanguageItemContent(code)('subtitle'))} />}
                 onPress={() => handleChangeLanguage(code)}
             />
           ))}

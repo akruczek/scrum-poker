@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { CheckBox } from 'react-native-elements';
 import { TRANSLATIONS } from '../../models';
-import { TEXT_SIZES } from '../../constants';
-import { translate } from '@core/services/translations/translate';
+import { translate } from '../../services/translations/translate';
+import { Text } from '../../styled';
 
 interface Props {
   title: TRANSLATIONS;
@@ -20,10 +20,9 @@ export const Checkbox = ({ title, onChange, defaultChecked }: Props) => {
 
   return (
     <CheckBox
-        title={translate(title)}
+        title={<Text style={{ marginLeft: 10 }} children={translate(title)} />}
         checked={checked}
         onPress={handlePress}
-        textStyle={{ fontSize: TEXT_SIZES.REGULAR }}
         containerStyle={{ padding: 15 }}
     />
   )

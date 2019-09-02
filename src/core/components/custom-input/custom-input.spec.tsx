@@ -4,6 +4,7 @@ import { Input } from 'react-native-elements';
 import { CustomInput } from './custom-input';
 import { Container, Text } from '../../styled';
 import { translate } from '../../services/translations/translate';
+import { defaultFont } from '../../constants';
 
 describe('CustomInput', () => {
   const handleChange = jest.fn();
@@ -51,8 +52,13 @@ describe('CustomInput', () => {
       });
 
       it('should render Input with empty object as inputStyle prop', () => {
+        const expectedStyle = {
+          textAlign: 'left',
+          fontFamily: defaultFont,
+        };
+
         expect(wrapper.root.findByType(Input).props.inputStyle)
-          .toEqual({});
+          .toEqual(expectedStyle);
       });
     });
   });

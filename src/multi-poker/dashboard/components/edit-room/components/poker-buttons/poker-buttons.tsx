@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as R from 'ramda';
 import { ButtonGroup } from 'react-native-elements';
 import { PokerModel } from '@core/models';
-import { pokers } from '@core/constants';
+import { pokers, defaultFont } from '@core/constants';
 
 interface Props {
   poker: PokerModel;
@@ -17,6 +17,7 @@ export const PokerButtons = ({ poker, setPoker }: Props) => (
           buttons={R.map(R.prop('title'), buttonsGroup)}
           selectedIndex={R.findIndex(R.propEq('name', poker.name))(pokers) - (2 * index)}
           onPress={groupIndex => setPoker(pokers[groupIndex + (2 * index)])}
+          textStyle={{ fontFamily: defaultFont }}
       />
     ))}
   </>

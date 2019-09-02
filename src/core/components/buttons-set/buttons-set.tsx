@@ -3,9 +3,9 @@ import * as R from 'ramda';
 import { View } from 'react-native';
 import { Button, colors } from 'react-native-elements';
 import { Separator } from '../../styled';
-import { COLORS } from '../../constants';
+import { COLORS, defaultFont } from '../../constants';
 import { TRANSLATIONS } from '../../models';
-import { translate } from '@core/services/translations/translate';
+import { translate } from '../../services/translations/translate';
 
 interface Props {
   titles: [ TRANSLATIONS, TRANSLATIONS ];
@@ -19,6 +19,7 @@ export const ButtonsSet = ({ titles, disabled, onPress }: Props) => (
         title={translate(titles[0])}
         onPress={onPress[0]}
         disabled={R.propOr(false, '0', disabled)}
+        titleStyle={{ fontFamily: defaultFont }}
     />
 
     <Separator margin={10} />
@@ -28,6 +29,7 @@ export const ButtonsSet = ({ titles, disabled, onPress }: Props) => (
         onPress={onPress[1]}
         buttonStyle={{ backgroundColor: colors.secondary }}
         disabled={R.propOr(false, '1', disabled)}
+        titleStyle={{ fontFamily: defaultFont }}
     />
   </View>
 );

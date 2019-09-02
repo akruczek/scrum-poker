@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Input } from 'react-native-elements';
+import { defaultFont } from '@core/constants';
 
 interface Props {
   placeholder: string;
@@ -19,6 +20,8 @@ export const JiraLoginInput = ({ placeholder, onChange, value, isSecure }: Props
         secureTextEntry={isSecure}
         autoCapitalize="none"
         autoCorrect={false}
+        // style={{ fontFamily: defaultFont, fontWeight: undefined }}
+        inputStyle={{ fontFamily: defaultFont }}
     />
   </View>
 );

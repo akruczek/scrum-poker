@@ -3,6 +3,7 @@ import { Avatar, Button } from 'react-native-elements';
 import { Separator, Container, Text } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, JiraUserModel } from '@core/models';
+import { TEXT_SIZES, defaultFont } from '@core/constants';
 
 interface Props {
   handleLogout: () => void;
@@ -16,7 +17,7 @@ export const JiraConfigBadge = ({ handleLogout, jiraUser }: Props) => (
     <Container flexDirection="row" alignItems="center">
       <Container flexDirection="row" justifyContent="flex-start">
         <Avatar source={{ uri: jiraUser.avatarUrl }} rounded />
-        <Text margins="0 0 0 10px" children={jiraUser.displayName} />
+        <Text size={TEXT_SIZES.REGULAR} margins="0 0 0 10px" children={jiraUser.displayName} />
       </Container>
 
       <Container flexDirection="row" justifyContent="flex-end">
@@ -24,6 +25,7 @@ export const JiraConfigBadge = ({ handleLogout, jiraUser }: Props) => (
             title={translate(TRANSLATIONS.LOGOUT)}
             icon={{ name: 'exit-to-app', color: 'white' }}
             onPress={handleLogout}
+            titleStyle={{ fontFamily: defaultFont }}
         />
       </Container>
     </Container>

@@ -7,6 +7,7 @@ import { NavigationProps } from '@core/navigation/navigation.model';
 import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton, HeaderRightIcon } from '@core/components';
 import { RoomModel, UserModel } from '@core/models';
+import { headerTitleStyle } from '@core/constants';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { getEstimation, getResetPayload, hasAdmin, forceQuitRoom } from './helpers';
@@ -92,6 +93,7 @@ _Room.navigationOptions = ({ navigation }: NavigationProps) => ({
   headerRight: navigation.getParam('isAdmin') && (
     <HeaderRightIcon icon="edit" onPress={navigation.getParam('handleEditRoom')} />
   ),
+  headerTitleStyle,
 });
 
 const mapStateToProps = R.applySpec<StateProps>({

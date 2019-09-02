@@ -37,10 +37,10 @@ describe('ListItem', () => {
     it('should render ListItemElement with expected props', () => {
       const listItem = wrapper.root.findByType(ListItemElement);
 
-      expect(listItem.props.title)
+      expect(listItem.props.title.props.children)
         .toEqual('Test Poker');
 
-      expect(listItem.props.subtitle)
+      expect(listItem.props.subtitle.props.children)
         .toEqual('POKER description');
 
       expect(listItem.props.rightIcon)

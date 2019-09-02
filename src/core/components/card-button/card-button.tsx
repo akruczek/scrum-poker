@@ -3,6 +3,7 @@ import { Button } from 'react-native-elements';
 import layout from '../../constants/layout';
 import { isRiskCard, getRiskCardColor } from '../../helpers';
 import { PokerCard } from '../../models';
+import { defaultFont } from '../../constants';
 
 interface Props {
   card: PokerCard;
@@ -22,6 +23,7 @@ export const CardButton = (props: Props) => {
   };
 
   const buttonTitleStyle = {
+    fontFamily: defaultFont,
     fontSize: fullScreen ? 160 : 30,
     display: isRiskCard(card.value) ? 'none' as 'none' : 'flex' as 'flex',
   };

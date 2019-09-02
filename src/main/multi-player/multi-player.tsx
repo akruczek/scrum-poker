@@ -5,6 +5,7 @@ import { NavigationProps } from '@core/navigation/navigation.model';
 import { ifElse } from '@core/helpers';
 import { translate } from '@core/services/translations/translate';
 import { TRANSLATIONS, AUTH_TYPES } from '@core/models';
+import { headerTitleStyle } from '@core/constants';
 import { Dashboard } from '../../multi-poker/dashboard/dashboard';
 import { Auth } from '../../auth/auth';
 
@@ -20,6 +21,7 @@ export const _MultiPlayer = ({ email, navigation }: StateProps & NavigationProps
 
 _MultiPlayer.navigationOptions = () => ({
   title: translate(TRANSLATIONS.MULTI_PLAYER),
+  headerTitleStyle,
 });
 
 const mapStateToProps = R.applySpec<StateProps>({
