@@ -10,7 +10,7 @@ import { HeaderBackButton, HeaderRightIcon } from '@core/components';
 import { TRANSLATIONS, RoomModel, UserModel } from '@core/models';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
-import { getEstimation, getResetPayload, hasAdmin } from './helpers';
+import { getEstimation, getResetPayload, hasAdmin, forceQuitRoom } from './helpers';
 import { addUser, showDown, reset, setRoom, AddUserPayload } from '../dashboard/store/dashboard.actions';
 import { RoomModals } from './components/room-modals/room-modals';
 import { useSubscribeRoom } from './hooks/subscribe-room/subscribe-room.hook';
@@ -34,7 +34,14 @@ export const _Room = ({
   const [ isSelecting, setSelecting ] = React.useState(false);
   const [ isJiraPusherVisible, setJiraPusherVisibility ] = React.useState(false);
   const [ isEditingRoom, setEditingRoom ] = React.useState(false);
-  const users = useSubscribeRoom(room, user, jiraAccountId, navigation)(addUser, setRoom, setEditingRoom);
+  
+  const handleForceQuitRoom = () => {
+    forceQuitRoom(setSelecting, setJiraPusherVisibility, setEditingRoom, navigation.navigate);
+  };
+
+  const users = useSubscribeRoom(room, user, jiraAccountId, navigation)(
+    addUser, setRoom, setEditingRoom, handleForceQuitRoom
+  );
 
   const handleReset = () => {
     reset(getResetPayload(room));

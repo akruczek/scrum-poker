@@ -1,5 +1,6 @@
 export * from './add-default-user/add-default-user.helper';
 export * from './filter-issues/filter-issues.helper';
+export * from './force-quit-room/force-quit-room.helper';
 export * from './get-estimation/get-estimation.helper';
 export * from './get-estimation-proposition/get-estimation-proposition.helper';
 export * from './get-listed-user-color/get-listed-user-color.helper';
