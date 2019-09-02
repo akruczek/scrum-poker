@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { Container } from '@core/styled';
 import { ifElse, isPlatform, isBlank } from '@core/helpers';
 import { Firebase } from '@core/services/firebase/firebase.service';
-import { LANGUAGE_CODES } from '@core/models';
 import { loadAssets } from '@assets/load-assets';
 import { AppNavigator } from './App.navigation';
 import { appStore } from './src/store/configure-store';
