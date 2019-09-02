@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ListItem, Divider } from 'react-native-elements';
 import { View, TouchableOpacity } from 'react-native';
-import { parseBriiskName } from '@core/helpers';
+import { parseEmailToName } from '@core/helpers';
 import { UserModel, RoomModel } from '@core/models';
 import { getListedUserColor, getListedUserValues, getListedUserProperties } from '../../helpers';
 import { ListedUserEstimation } from '../listed-user-estimation/listed-user-estimation';
@@ -32,7 +32,7 @@ export const ListedUser = ({ user, room, email, estimations, onListItemPress }: 
     <View>
       <TouchableOpacity onPress={handlePress}>
         <ListItem
-            title={parseBriiskName(user.email)}
+            title={parseEmailToName(user.email)}
             subtitle={user.email}
             rightElement={<ListedUserEstimation {...listedUserEstimationProps} />}
             containerStyle={{ backgroundColor: color }}
