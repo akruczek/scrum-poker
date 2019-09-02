@@ -7,6 +7,7 @@ export const updateRoomProperties = (
 ) => (
   updateRoom: (room: RoomModel) => void,
   setEditingRoom: (value: boolean) => void,
+  setParams: (payload: {[key: string]: string}) => void,
 ) => {
   const isPokerChange = !R.eqProps('poker', newRoom, currentRoom);
 
@@ -20,10 +21,15 @@ export const updateRoomProperties = (
     R.always(false),
   )(currentRoom.discovered);
 
+  if (!R.eqProps('name', currentRoom, newRoom)) {
+    setParams({ roomName: newRoom.name });
+  }
+
   updateRoom({
     ...currentRoom,
     ...newRoom,
     discovered, users,
   });
+
   setEditingRoom(false);
 };

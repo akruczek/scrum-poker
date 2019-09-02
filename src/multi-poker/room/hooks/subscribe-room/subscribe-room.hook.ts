@@ -40,6 +40,7 @@ export const useSubscribeRoom = (
     navigation.setParams({
       handleEditRoom: () => setEditingRoom(true),
       isAdmin: jiraAccountId && (R.isEmpty(users) || hasAdmin(user.email, room.users, jiraAccountId)),
+      roomName: room.name,
     });
 
     return () => {

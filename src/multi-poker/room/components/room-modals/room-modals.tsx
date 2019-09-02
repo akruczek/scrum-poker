@@ -21,6 +21,7 @@ interface Props {
   setJiraPusherVisibility: (value: boolean) => void;
   setEditingRoom: (value: boolean) => void;
   handleReset: () => void;
+  setParams: (payload: {[key: string]: string}) => void,
 }
 
 interface DispatchProps {
@@ -30,7 +31,7 @@ interface DispatchProps {
 
 export const _RoomModals = ({
   isSelecting, room, user, isJiraPusherVisible, isEditingRoom,
-  setSelecting, setJiraPusherVisibility, setEditingRoom, setValue, updateRoom, handleReset,
+  setSelecting, setJiraPusherVisibility, setEditingRoom, setValue, updateRoom, handleReset, setParams,
 }: Props & DispatchProps) => {
   const handleSelectCard = (card: PokerCard) => {
     setSelecting(false);
@@ -38,7 +39,7 @@ export const _RoomModals = ({
   };
 
   const handleUpdateRoom = (newRoom: RoomModel) => {
-    updateRoomProperties(newRoom, room)(updateRoom, setEditingRoom);
+    updateRoomProperties(newRoom, room)(updateRoom, setEditingRoom, setParams);
   };
 
   return _cond(

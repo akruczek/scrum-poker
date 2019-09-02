@@ -4,6 +4,7 @@ import { updateRoomProperties } from './update-room-properties.helper';
 describe('when updateRoomProperties was called', () => {
   const updateRoom = jest.fn();
   const setEditingRoom = jest.fn();
+  const setParams = jest.fn();
 
   const currentRoom: any = {
     allAdmins: false,
@@ -30,10 +31,11 @@ describe('when updateRoomProperties was called', () => {
   const newRoom: any = {
     allAdmins: true,
     description: 'Hello 1',
+    name: 'INX',
   };
 
   beforeEach(() => {
-    updateRoomProperties(newRoom, currentRoom)(updateRoom, setEditingRoom);
+    updateRoomProperties(newRoom, currentRoom)(updateRoom, setEditingRoom, setParams);
   });
 
   it('should call updateRoom with merged room states and users', () => {
@@ -42,7 +44,7 @@ describe('when updateRoomProperties was called', () => {
       description: 'Hello 1',
       discovered: false,
       id: '1234',
-      name: 'inbox',
+      name: 'INX',
       poker: {
         cards: CARDS.STANDARD_POKER,
         description: 'Standard Scrum Poker',
@@ -66,5 +68,10 @@ describe('when updateRoomProperties was called', () => {
   it('should call setEditingRoom with "false"', () => {
     expect(setEditingRoom)
       .toHaveBeenCalledWith(false);
+  });
+
+  it('should call setParams when newRoom name is different than old one', () => {
+    expect(setParams)
+      .toHaveBeenCalledWith({ roomName: 'INX' });
   });
 });

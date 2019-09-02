@@ -55,7 +55,7 @@ export const _Room = ({
 
   const getRoomModalsProps = () => ({
     isSelecting, room, user, isJiraPusherVisible, isEditingRoom,
-    setSelecting, setJiraPusherVisibility, setEditingRoom, handleReset
+    setSelecting, setJiraPusherVisibility, setEditingRoom, handleReset, setParams: navigation.setParams,
   });
 
   return (
@@ -87,11 +87,11 @@ export const _Room = ({
   );
 };
 
-_Room.navigationOptions = (props: NavigationProps & StateProps) => ({
-  title: translate(TRANSLATIONS.ROOM),
-  headerLeft: <HeaderBackButton navigation={props.navigation} screen={SCREENS.MULTI_PLAYER} />,
-  headerRight: props.navigation.getParam('isAdmin') && (
-    <HeaderRightIcon icon="edit" onPress={props.navigation.getParam('handleEditRoom')} />
+_Room.navigationOptions = ({ navigation }: NavigationProps) => ({
+  title: navigation.getParam('roomName'),
+  headerLeft: <HeaderBackButton navigation={navigation} screen={SCREENS.MULTI_PLAYER} />,
+  headerRight: navigation.getParam('isAdmin') && (
+    <HeaderRightIcon icon="edit" onPress={navigation.getParam('handleEditRoom')} />
   ),
 });
 
