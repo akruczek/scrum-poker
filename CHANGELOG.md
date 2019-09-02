@@ -1,3 +1,8 @@
+## 0.5.2
+### Fixed:
+- Fonts mismatch
+- “No project” project name when choose “No project” option in edit room view
+
 ## 0.5.1
 ### Improved:
 - Inputs behavior - use inputs settings like auto correct, input types, secure text entry and more!
