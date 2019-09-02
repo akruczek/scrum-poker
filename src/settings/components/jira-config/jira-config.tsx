@@ -8,7 +8,7 @@ import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/model
 import { ButtonsSet, JiraConfigurationFields } from '@core/components';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
-import { useSetJiraConfiguration } from '../../hooks/set-jira-configuration.hook';
+import { useSetJiraConfiguration } from '../../hooks/set-jira-configuration/set-jira-configuration.hook';
 import { JiraConfigHeader } from './components/jira-config-header/jira-config-header';
 
 interface Props {

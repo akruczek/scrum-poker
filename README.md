@@ -1,10 +1,15 @@
 #### 🃏Make your Refinements a little bit more interesting with this simple mobile app for android and iOS! 
 
 # Scrum poker - mobile App
-1. [Installation](#installation)
-2. [Update](#update)
-3. [How to set up the App and connect with Jira?](#how-to-set-up-the-app-and-connect-with-jira?)
-4. [Technical](#technical)
+1. [What is Scrum Poker?](#what-is-scrum-poker?)
+2. [Installation](#installation)
+3. [Update](#update)
+4. [How to set up the App and connect with Jira?](#how-to-set-up-the-app-and-connect-with-jira?)
+5. [Technical](#technical)
+
+## What is Scrum Poker?
+#### Scrum Poker (or Planning Poker) is a technique to estimate the complexity of a software feature. After discuss the feature, each member of development team pick a vote. The vote remains hidden until all members have voted to avoid influence from other team members. After everyone has voted the highest and lowest estimates explain their choice and the process is repeated until the team agrees on one final estimation.
+#### Scrum Poker App is mobile implementation of this technique. It can help to speed up Refinement and Planning meetings (especially in the case of remote teams). It is also possible to connect App with JIRA software to automatically push final estimations to JIRA, so you can conduct whole Estimation process (or even whole meeting) via only one application.
 
 ## Installation
 ### Installation through Expo app:
