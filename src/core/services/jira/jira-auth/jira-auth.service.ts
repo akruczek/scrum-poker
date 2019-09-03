@@ -1,5 +1,6 @@
 import { JiraAuthModel } from '../../../models';
 import { encodeBasicAuthorization } from '../../../helpers';
+import { DEV_ERRORS } from '../../../constants';
 import { getJiraAuthResponse } from '../helpers/get-jira-auth-response/get-jira-auth-response.helper';
 
 export const JiraAuth = (payload: JiraAuthModel) =>
@@ -16,6 +17,6 @@ export const JiraAuth = (payload: JiraAuthModel) =>
       const data = await response.json();
       return getJiraAuthResponse(data);
     } else {
-      throw Error('error');
+      throw Error(DEV_ERRORS.jira.myself);
     }
   });
