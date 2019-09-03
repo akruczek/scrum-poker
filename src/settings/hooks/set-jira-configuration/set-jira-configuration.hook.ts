@@ -15,13 +15,16 @@ interface Setters {
 }
 
 type ReturnType = [
-  Fields, Setters, () => void,
+  boolean, boolean, Fields, Setters, () => void,
 ];
 
 export const useSetJiraConfiguration = (
   jiraConfiguration: JiraConfigurationModel,
   setJiraConfiguration: (jiraConfiguration: JiraConfigurationModel) => void,
+  handleClose: () => void,
 ): ReturnType => {
+  const [ isSuccess, setSuccess ] = React.useState(false);
+  const [ isDirty, setDirty ] = React.useState(false);
   const [ customField, setCustomField ] = React.useState('');
   const [ defaultIssueType, setDefaultIssueType ] = React.useState('')
   const [ defaultIssueStatus, setDefaultIssueStatus ] = React.useState('');
@@ -35,6 +38,12 @@ export const useSetJiraConfiguration = (
   const handleApply = () => {
     if (customField) {
       setJiraConfiguration({ customField, defaultIssueType, defaultIssueStatus });
+      setDirty(false);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        handleClose();
+      }, 1500);
     }
   };
 
@@ -42,9 +51,16 @@ export const useSetJiraConfiguration = (
     customField, defaultIssueType, defaultIssueStatus,
   };
 
+  const handleChange = (method: (value: string) => void) => (value: string) =>  {
+    setDirty(true);
+    method(value);
+  }
+
   const setters = {
-    setCustomField, setDefaultIssueType, setDefaultIssueStatus,
+    setCustomField: handleChange(setCustomField),
+    setDefaultIssueType: handleChange(setDefaultIssueType),
+    setDefaultIssueStatus: handleChange(setDefaultIssueStatus),
   };
 
-  return [ fields, setters, handleApply ];
+  return [ isSuccess, isDirty, fields, setters, handleApply ];
 };

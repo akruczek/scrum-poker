@@ -5,7 +5,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ScrollContainer, AppContainer } from '@core/styled';
 import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
-import { ButtonsSet, JiraConfigurationFields } from '@core/components';
+import { ButtonsSet, JiraConfigurationFields, ActionModal } from '@core/components';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 import { useSetJiraConfiguration } from '../../hooks/set-jira-configuration/set-jira-configuration.hook';
@@ -28,7 +28,8 @@ interface StateProps {
 export const _JiraConfig = ({
   jiraUser, jiraConfiguration, handleClose, jiraSignOut, setJiraConfiguration,
 }: Props & DispatchProps & StateProps) => {
-  const [ fields, setters, handleApply ] = useSetJiraConfiguration(jiraConfiguration, setJiraConfiguration);
+  const [ isSuccess, isDirty, fields, setters, handleApply ] =
+    useSetJiraConfiguration(jiraConfiguration, setJiraConfiguration, handleClose);
 
   const handleLogout = () => {
     jiraSignOut();
@@ -47,8 +48,13 @@ export const _JiraConfig = ({
         <ButtonsSet
             titles={[ TRANSLATIONS.APPLY, TRANSLATIONS.DISMISS ]}
             onPress={[ handleApply, handleClose ]}
+            disabled={[ !isDirty, false ]}
         />
       </AppContainer>
+
+      {isSuccess && (
+        <ActionModal type="success" message={TRANSLATIONS.JIRA_UPDATE_CONFIG_SUCCESS} />
+      )}
     </Modal>
   );
 };

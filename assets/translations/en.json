@@ -63,5 +63,6 @@
   "default_issue_type_placeholder": "Issue type",
   "default_issue_status_placeholder": "Status",
   "default_type": "Default type",
-  "default_status": "Default status"
+  "default_status": "Default status",
+  "jira_update_config_success": "Updated successfully!"
 }

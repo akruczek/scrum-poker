@@ -69,6 +69,7 @@ export enum TRANSLATIONS {
   DEFAULT_ISSUE_STATUS_PLACEHOLDER = 'default_issue_status_placeholder',
   DEFAULT_TYPE = 'default_type',
   DEFAULT_STATUS = 'default_status',
+  JIRA_UPDATE_CONFIG_SUCCESS = 'jira_update_config_success',
 }
 
 export type Translation = {[key: string]: string};

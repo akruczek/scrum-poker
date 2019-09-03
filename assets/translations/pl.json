@@ -63,5 +63,6 @@
   "default_issue_type_placeholder": "Typ taska",
   "default_issue_status_placeholder": "Status",
   "default_type": "Domyślny typ",
-  "default_status": "Domyślny status"
+  "default_status": "Domyślny status",
+  "jira_update_config_success": "Zaktualizowano pomyślnie!"
 }

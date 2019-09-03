@@ -10,15 +10,16 @@ describe('when useSetJiraConfiguration was called', () => {
     defaultIssueType: 'Story',
     defaultIssueStatus: 'To Do',
   };
+  const handleClose = jest.fn();
 
   beforeEach(() => {
     testHook(() => {
-      hook = useSetJiraConfiguration(jiraConfiguration, setJiraConfiguration);
+      hook = useSetJiraConfiguration(jiraConfiguration, setJiraConfiguration, handleClose);
     });
   });
 
   it('should return by default empty fields from given configuration', () => {
-    const [ fields ] = hook;
+    const [ _, __, fields ] = hook;
     const expectedFields = {
       customField: '',
       defaultIssueType: '',
@@ -30,13 +31,13 @@ describe('when useSetJiraConfiguration was called', () => {
   });
 
   it('should return changed fields after call specific setter', () => {
-    const [ _, setters ] = hook;
+    const [ _, __, ___, setters ] = hook;
 
     act(() => {
       setters['setCustomField']('someValue');
     });
 
-    const [ fields ] = hook;
+    const [ ____, _____, fields ] = hook;
 
     expect(fields['customField'])
       .toEqual('someValue');
