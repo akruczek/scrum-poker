@@ -6,7 +6,7 @@ import { JiraAuthModel, TRANSLATIONS, ICON_SIZES } from '@core/models';
 import { Container, AppContainer, Text, CustomIcon, KeyboardAvoidingContainer } from '@core/styled';
 import { translate } from '@core/services/translations/translate';
 import { TEXT_SIZES, defaultFont } from '@core/constants';
-import { Preloader, ActionModal, ButtonsSet } from '@core/components';
+import { Preloader, ActionModal, ButtonsSet, StatusBarCover } from '@core/components';
 import { isPlatform } from '@core/helpers';
 import { SpaceNameInput } from './components/space-name-input/space-name-input';
 import { TokenInput } from './components/token-input/token-input';
@@ -46,6 +46,7 @@ export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraS
   return (
     <>
       <Modal animationType="slide">
+        <StatusBarCover />
         <AppContainer>
           <KeyboardAvoidingContainer keyboardVerticalOffset={offset}>
             <Container justifyContent="space-around" alignItems="center" margins="30px 0 0">

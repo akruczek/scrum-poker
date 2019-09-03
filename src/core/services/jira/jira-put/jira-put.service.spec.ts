@@ -25,9 +25,11 @@ describe('JiraPut', () => {
         fetchMock.mock(`end:.atlassian.net/rest/api/2/issue/${key}`, mockedResponse)
       });
       
-      it('should return specific response', () => {
-        return JiraPut(auth).issue(key).property(prop).set(10).then(response => {
-          expect(response).toEqual(mockedResponse);
+      it('should return specific response', async done => {
+        return JiraPut(auth).issue(key).property(prop).set(10).then(async response => {
+          const data = await response.json();
+          expect(data).toEqual(mockedResponse);
+          done();
         });
       });
 

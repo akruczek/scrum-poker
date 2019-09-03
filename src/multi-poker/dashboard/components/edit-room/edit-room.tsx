@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Modal } from 'react-native';
 import { Container, AppContainer, ScrollContainer } from '@core/styled';
 import { TRANSLATIONS, JiraConfigurationModel, EDIT_ROOMS_TYPES, RoomModel } from '@core/models';
-import { ButtonsSet } from '@core/components';
+import { ButtonsSet, StatusBarCover } from '@core/components';
 import { prepareRoomPayload } from '../../helpers/prepare-room-payload/prepare-room-payload.helper';
 import { getSettingMethod } from '../../helpers/get-setting-method/get-setting-method.helper';
 import { useUpdateRoom } from './hooks/update-room/update-room.hook';
@@ -50,6 +50,7 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
 
   return (
     <Modal animationType="slide">
+      <StatusBarCover />
       <AppContainer>
         <ScrollContainer>
           <Container margins="10px 0">

@@ -20,7 +20,7 @@ export const JiraPut = ({ email, token, spaceName }: JiraAuthModel) => ({
             },
           }),
         })
-        .then(catchResponse(DEV_ERRORS.jira.setIssue(spaceName, email, key, prop))),
+        .then(catchResponse(DEV_ERRORS.jira.setIssue(spaceName, email, key, prop), true)),
     }),
   }),
 });

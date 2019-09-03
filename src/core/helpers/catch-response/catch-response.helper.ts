@@ -1,9 +1,13 @@
 export const catchResponse = (
   error: string,
-) => async (response: any) => {
+  noCallback?: boolean,
+) => async (response: Response) => {
   if (response.ok) {
-    const data = await response.json();
-    return data;
+    if (!noCallback) {
+      const data = await response.json();
+      return data;
+    }
+    return response;
   }
   throw Error(error);
-}
+};

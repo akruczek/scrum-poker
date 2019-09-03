@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as R from 'ramda';
-import { Modal } from 'react-native';
+import { Modal, View } from 'react-native';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ScrollContainer, AppContainer } from '@core/styled';
 import { JiraUserModel, TRANSLATIONS, JiraConfigurationModel } from '@core/models';
-import { ButtonsSet, JiraConfigurationFields, ActionModal } from '@core/components';
+import { ButtonsSet, JiraConfigurationFields, ActionModal, StatusBarCover } from '@core/components';
 import { jiraSignOut, setJiraConfiguration } from '@core/services/jira/store/jira.actions';
 import { JiraConfigBadge } from './components/jira-config-badge/jira-config-badge';
 import { useSetJiraConfiguration } from '../../hooks/set-jira-configuration/set-jira-configuration.hook';
@@ -38,6 +38,7 @@ export const _JiraConfig = ({
 
   return (
     <Modal animationType="slide">
+      <StatusBarCover />
       <AppContainer>
         <ScrollContainer>
           <JiraConfigHeader />

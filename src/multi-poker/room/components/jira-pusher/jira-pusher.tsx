@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppContainer, Container, ScrollContainer } from '@core/styled';
 import { TRANSLATIONS, SetIssueStoryPointsPayload, PokerCard, JiraIssueModel } from '@core/models';
 import { setIssueStoryPoints, clearJiraStatus, getProjectIssues } from '@core/services/jira/store/jira.actions'
-import { ButtonsSet } from '@core/components';
+import { ButtonsSet, StatusBarCover } from '@core/components';
 import { JiraPusherForm } from '../jira-pusher-form/jira-pusher-form';
 import { JiraPusherModals } from '../jira-pusher-modals/jira-pusher-modals';
 import { useGetProjectIssues } from '../../hooks/get-project-issues/get-project-issues.hook';
@@ -48,6 +48,7 @@ export const _JiraPusher = ({
   return (
     <>
       <Modal animationType="slide">
+        <StatusBarCover />
         <AppContainer>
           <ScrollContainer>
             <Container margins="10px 0">

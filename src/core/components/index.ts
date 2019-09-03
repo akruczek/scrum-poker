@@ -10,5 +10,6 @@ export * from './header-right-icon/header-right-icon';
 export * from './jira-configuration-fields/jira-configuration-fields';
 export * from './link-button/link-button';
 export * from './preloader/preloader';
+export * from './status-bar-cover/status-bar-cover';
 export * from './tab-bar-icon/tab-bar-icon';
 export * from './text-avatar/text-avatar';
