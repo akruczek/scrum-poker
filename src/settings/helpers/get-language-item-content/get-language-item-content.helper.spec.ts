@@ -1,5 +1,5 @@
+import { LANGUAGE_CODES, TRANSLATIONS } from '@core/models';
 import { getLanguageItemContent } from './get-language-item-content.helper';
-import { LANGUAGE_CODES, TRANSLATIONS } from '../../../core/models';
 
 describe('when getLanguageItemContent was called', () => {
   it('should return specific title or subtitle translation based on given language code', () => {

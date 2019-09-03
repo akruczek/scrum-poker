@@ -1,6 +1,6 @@
 import { pokers } from '@core/constants';
-import { USER_ROLE } from '../../../../core/models';
-import { testHook } from '../../../../../test-utils/test-hook';
+import { testHook } from '@test-utils/test-hook';
+import { USER_ROLE } from '@core/models';
 import { useSubscribeRoom } from './subscribe-room.hook';
 
 describe('useSubscribeRoom', () => {

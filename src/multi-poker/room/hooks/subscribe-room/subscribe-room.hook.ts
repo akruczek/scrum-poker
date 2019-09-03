@@ -3,9 +3,9 @@ import * as R from 'ramda';
 import { NavigationScreenProp } from 'react-navigation';
 import { Firebase } from '@core/services/firebase/firebase.service';
 import { RoomModel, UserModel } from '@core/models';
+import { isPresent } from '@core/helpers';
 import { addDefaultUser, hasAdmin } from '../../helpers';
 import { AddUserPayload } from '../../../dashboard/store/dashboard.actions';
-import { isPresent } from '../../../../core/helpers';
 
 export const useSubscribeRoom = (
   room: RoomModel,

@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { COLORS } from '@core/constants';
-import { _cond } from '../../../../core/helpers';
+import { _cond } from '@core/helpers';
 import { isDivergence } from '../is-divergence/is-divergence.helper';
 import { isEqualDivergence } from '../is-equal-divergence/is-equal-divergence.helper';
 

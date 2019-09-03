@@ -6,11 +6,11 @@ import { loadAssets } from '@assets/load-assets';
 import { Container } from '@core/styled';
 import { ifElse, isPlatform, isBlank } from '@core/helpers';
 import { Firebase } from '@core/services/firebase/firebase.service';
+import { JIRA_ACTIONS } from '@core/services/jira/store/jira.actions';
+import { TRANSLATIONS_ACTIONS } from '@core/services/translations/store/translations.actions';
 import { AppNavigator } from './App.navigation';
 import { appStore } from './src/store/configure-store';
-import { JIRA_ACTIONS } from './src/core/services/jira/store/jira.actions';
 import { AUTH_ACTIONS } from './src/auth/store/auth.actions';
-import { TRANSLATIONS_ACTIONS } from './src/core/services/translations/store/translations.actions';
 
 interface Props {
   skipLoadingScreen?: boolean;

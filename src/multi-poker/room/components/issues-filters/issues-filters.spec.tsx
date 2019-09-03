@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { Checkbox } from '@core/components';
 import { IssuesFilters } from './issues-filters';
-import { Checkbox } from '../../../../core/components';
 
 describe('IssuesFilters', () => {
   const setOnlyType = jest.fn();

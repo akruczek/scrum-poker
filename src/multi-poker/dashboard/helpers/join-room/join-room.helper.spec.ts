@@ -1,6 +1,5 @@
+import { SCREENS } from '@core/navigation/screens';
 import { joinRoom } from './join-room.helper';
-import { SCREENS } from '../../../../core/navigation/screens';
-import { act } from 'react-test-renderer';
 
 describe('when joinRoom was called', () => {
   const setRoom = jest.fn();

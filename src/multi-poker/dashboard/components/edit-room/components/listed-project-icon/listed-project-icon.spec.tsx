@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { TextAvatar } from '@core/components';
 import { ListedProjectIcon } from './listed-project-icon';
-import { TextAvatar } from '../../../../../../core/components';
 
 describe('ListedProjectIcon', () => {
   describe('when ListedProjectIcon was mounted with all needed props', () => {

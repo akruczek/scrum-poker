@@ -5,9 +5,8 @@ import { TouchableOpacity } from 'react-native';
 import riskPokerIcon from '@assets/custom-icons/risk-poker.png';
 import { CARDS } from '@core/constants';
 import { ICON_SIZES } from '@core/models';
+import { CustomIcon } from '@core/styled';
 import { ListItem } from './list-item';
-import { ListItemIcon } from '../list-item-icon/list-item-icon';
-import { CustomIcon } from '../../../core/styled';
 
 describe('ListItem', () => {
   const handlePress = jest.fn();

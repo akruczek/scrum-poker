@@ -1,4 +1,4 @@
-import { PokerModel } from '../../../../core/models';
+import { PokerModel } from '@core/models';
 
 export const prepareRoomPayload = (
   name: string,

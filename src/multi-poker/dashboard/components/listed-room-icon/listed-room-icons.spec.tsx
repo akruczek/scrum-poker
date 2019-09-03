@@ -2,8 +2,8 @@ import * as React from 'react';
 import renderer from 'react-test-renderer';
 import { pokers } from '@core/constants';
 import { CustomIcon } from '@core/styled';
+import { ICON_SIZES } from '@core/models';
 import { ListedRoomIcon } from './listed-room-icon';
-import { ICON_SIZES } from '../../../../core/models';
 
 describe('ListedRoomIcon', () => {
   describe('when ListedRoomIcon was mounted with all needed props', () => {

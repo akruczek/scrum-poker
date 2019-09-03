@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { PokerCard } from '../../../../core/models';
+import { PokerCard } from '@core/models';
 
 export const getMiddleEstimations = R.when(
   (array: PokerCard[]) => array.length > 3,

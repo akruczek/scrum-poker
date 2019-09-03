@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { JiraIssueModel } from '@core/models';
 import { filterIssues } from '../../helpers';
-import { JiraIssueModel } from '../../../../core/models';
 
 type ReturnType = [
   (value: boolean) => void,
