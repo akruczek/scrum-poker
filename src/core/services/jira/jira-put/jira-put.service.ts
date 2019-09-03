@@ -1,5 +1,7 @@
-import { encodeBasicAuthorization } from '../../../helpers/encode-basic-authorization/encode-basic-authorization.helper';
+import { encodeBasicAuthorization } from '../../../helpers';
 import { JiraAuthModel } from '../../../models';
+import { catchResponse } from '../../../helpers';
+import { DEV_ERRORS } from '../../../constants';
 
 export const JiraPut = ({ email, token, spaceName }: JiraAuthModel) => ({
   issue: (key: string) => ({
@@ -17,7 +19,8 @@ export const JiraPut = ({ email, token, spaceName }: JiraAuthModel) => ({
               [prop]: [{ set: value }],
             },
           }),
-        }),
+        })
+        .then(catchResponse(DEV_ERRORS.jira.setIssue(spaceName, email, key, prop))),
     }),
   }),
 });

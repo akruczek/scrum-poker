@@ -54,18 +54,6 @@ describe('when jiraPusherUpdate was called', () => {
         expect(clearJiraStatus)
           .toHaveBeenCalled();
       });
-
-      it('should call setSuccess with "false", handleClose and handleReset after 2000ms', done => {
-        setTimeout(() => {
-          expect(setSuccess)
-            .toHaveBeenCalledWith(false);
-          expect(handleClose)
-            .toHaveBeenCalled();
-          expect(handleReset)
-            .toHaveBeenCalled();
-          done();
-        }, 2001)
-      });
     });
 
     describe('and "isError" equals true', () => {

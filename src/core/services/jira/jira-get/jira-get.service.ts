@@ -1,5 +1,7 @@
-import { encodeBasicAuthorization } from '../../../helpers/encode-basic-authorization/encode-basic-authorization.helper';
+import { encodeBasicAuthorization } from '../../../helpers';
 import { JiraAuthModel } from '../../../models';
+import { catchResponse } from '../../../helpers';
+import { DEV_ERRORS } from '../../../constants';
 
 export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
   issue: (key: string) =>
@@ -9,7 +11,8 @@ export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
         Authorization: encodeBasicAuthorization(email, token),
         'Content-Type': 'application/json',
       }),
-    }),
+    })
+    .then(catchResponse(DEV_ERRORS.jira.issue(spaceName, email, key))),
 
   project: (key: string) => ({
     issues: (maxResults?: number) =>
@@ -20,9 +23,8 @@ export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
           'Content-Type': 'application/json',
         }),
       })
-      .then(response => response
-        .json()
-        .then(data => data.issues)),
+      .then(catchResponse(DEV_ERRORS.jira.issues(spaceName, key)))
+      .then(response => response.issues),
   }),
 
   projects: () =>
@@ -33,7 +35,6 @@ export const JiraGet = ({ email, token, spaceName }: JiraAuthModel) => ({
         'Content-Type': 'application/json',
       }),
     })
-    .then(response => response
-      .json()
-      .then(data => data.values)),
+    .then(catchResponse(DEV_ERRORS.jira.projects(spaceName)))
+    .then(response => response.values),
 });

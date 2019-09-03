@@ -1,3 +1,4 @@
+export * from './catch-response/catch-response.helper';
 export * from './encode-basic-authorization/encode-basic-authorization.helper';
 export * from './ramda';
 export * from './is-platform/is-platform';

@@ -17,6 +17,6 @@ export const JiraAuth = (payload: JiraAuthModel) =>
       const data = await response.json();
       return getJiraAuthResponse(data);
     } else {
-      throw Error(DEV_ERRORS.jira.myself);
+      throw Error(DEV_ERRORS.jira.myself(payload.spaceName));
     }
   });

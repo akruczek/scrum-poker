@@ -51,7 +51,8 @@ describe('JiraAuth', () => {
       });
 
       it('should throw specific error', () => {
-        return expect(JiraAuth(payload)).rejects.toThrow(new Error(DEV_ERRORS.jira.myself));
+        return expect(JiraAuth(payload)).rejects
+          .toThrow(new Error(DEV_ERRORS.jira.myself('space-name')));
       });
 
       afterEach(() => {
