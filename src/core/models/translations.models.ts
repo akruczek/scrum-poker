@@ -70,6 +70,10 @@ export enum TRANSLATIONS {
   DEFAULT_TYPE = 'default_type',
   DEFAULT_STATUS = 'default_status',
   JIRA_UPDATE_CONFIG_SUCCESS = 'jira_update_config_success',
+  RESET_USERS = 'reset_users',
+  RESET_USERS_MESSAGE = 'reset_users_message',
+  YES = 'yes',
+  NO = 'no',
 }
 
 export type Translation = {[key: string]: string};

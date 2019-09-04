@@ -13,6 +13,8 @@ import { AllAdminsCheckbox } from './components/all-admins-checkbox/all-admins-c
 import { JiraConfigurationForm } from './components/jira-configuration-form/jira-configuration-form';
 import { useGetJiraConfiguration } from './hooks/get-jira-configuration/get-jira-configuration.hook';
 import { useUpdateForm } from './hooks/update-form/update-form.hook';
+import { ResetUsers } from './components/reset-users/reset-users';
+import { ResetUserModal } from './components/reset-users-modal/reset-users-modal';
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
@@ -25,6 +27,8 @@ interface Props {
 type State = 'name' | 'description' | 'projectKey' | 'customField' | 'defaultIssueType' | 'defaultIssueStatus';
 
 export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfiguration }: Props) => {
+  const [ isResetUsers, setResetUsers ] = React.useState(false);
+
   const [
     name, description, projectKey, allAdmins, poker,
     setName, setDescription, setProjectKey, setAllAdmins, setPoker,
@@ -46,6 +50,11 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
     );
   };
 
+  const handleReset = () => {
+    // TODO: reset users
+    console.log('reset users');
+  };
+
   const isCreating = R.propEq('CREATE', type, EDIT_ROOMS_TYPES);
 
   return (
@@ -62,6 +71,7 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
                 defaultIssueStatus, setDefaultIssueStatus }}
             />
             <AllAdminsCheckbox {...{ isCreating, setAllAdmins }} />
+            <ResetUsers {...{ isCreating, setResetUsers }} />
           </Container>
         </ScrollContainer>
 
@@ -70,6 +80,10 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
             onPress={[ handleUpdate, handleDismiss ]}
         />
       </AppContainer>
+
+      {isResetUsers && (
+        <ResetUserModal handleYes={handleReset} handleNo={() => setResetUsers(false)} />
+      )}
     </Modal>
   );
 };

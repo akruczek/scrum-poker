@@ -64,5 +64,9 @@
   "default_issue_status_placeholder": "Status",
   "default_type": "Default type",
   "default_status": "Default status",
-  "jira_update_config_success": "Updated successfully!"
+  "jira_update_config_success": "Updated successfully!",
+  "reset_users": "Reset users",
+  "reset_users_message": "Are you sure you want to reset all users?",
+  "yes": "Yes",
+  "no": "No"
 }

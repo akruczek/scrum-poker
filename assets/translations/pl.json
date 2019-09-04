@@ -64,5 +64,9 @@
   "default_issue_status_placeholder": "Status",
   "default_type": "Domyślny typ",
   "default_status": "Domyślny status",
-  "jira_update_config_success": "Zaktualizowano pomyślnie!"
+  "jira_update_config_success": "Zaktualizowano pomyślnie!",
+  "reset_users": "Zresetuj użytkowników",
+  "reset_users_message": "Czy chcesz zresetować wszustkich użytkowników?",
+  "yes": "Tak",
+  "no": "Nie"
 }
