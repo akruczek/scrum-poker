@@ -1,4 +1,4 @@
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 import { forceQuitRoom } from './force-quit-room.helper';
 
 describe('when forceQuitRoom was called', () => {

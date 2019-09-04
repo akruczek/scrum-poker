@@ -2,8 +2,8 @@ import * as React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { SCREENS } from '@core/constants';
 import { HeaderBackButton } from './header-back-button';
-import { SCREENS } from '../../navigation/screens';
 
 describe('HeaderBackButton', () => {
   const navigation: any = {

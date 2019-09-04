@@ -1,10 +1,8 @@
 import React from 'react';
 import { ScrollContainer, AppContainer, Container, ViewContainer } from '@core/styled';
-import { NavigationProps } from '@core/navigation/navigation.model';
-import { SCREENS } from '@core/navigation/screens';
 import { HeaderBackButton, CardButton } from '@core/components';
-import { PokerCard } from '@core/models';
-import { headerTitleStyle } from '@core/constants';
+import { PokerCard, NavigationProps } from '@core/models';
+import { headerTitleStyle, SCREENS } from '@core/constants';
 import { FullScreenCard } from './components/full-screen-card/full-screen-card';
 import { useSelectCard } from './hooks/select-cards/select-cards.hook';
 

@@ -1,4 +1,4 @@
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 
 export const forceQuitRoom = (
   setSelecting: (value: boolean) => void,

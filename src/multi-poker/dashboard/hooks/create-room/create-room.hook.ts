@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RoomModel } from '@core/models';
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 import { addNewRoom } from '../../helpers/add-new-room/add-new-room.helper';
 import { joinRoom } from '../../helpers/join-room/join-room.helper';
 

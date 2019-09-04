@@ -80,14 +80,6 @@ describe('when jiraPusherUpdate was called', () => {
         expect(setWaiting)
           .toHaveBeenCalledWith(false);
       });
-
-      it('should call setError with "false" after 3000ms', done => {
-        setTimeout(() => {
-          expect(setError)
-            .toHaveBeenCalledWith(false);
-          done();
-        }, 3001)
-      })
     });
   });
 });

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { NavigationProps } from '../../navigation/navigation.model';
-import { SCREENS } from '../../navigation/screens';
+import { SCREENS } from '@core/constants';
+import { NavigationProps } from '@core/models';
 
 interface Props {
   screen: SCREENS;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavigationProps } from '@core/navigation/navigation.model';
-import { TRANSLATIONS } from '@core/models';
+import { TRANSLATIONS, NavigationProps } from '@core/models';
 import { headerTitleStyle } from '@core/constants';
 import { translate } from '@core/services/translations/translate';
 import { PokersList } from '../../single-poker/components/pokers-list/pokers-list';

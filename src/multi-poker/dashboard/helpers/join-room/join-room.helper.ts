@@ -1,4 +1,4 @@
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 import { RoomModel } from '@core/models';
 
 export const joinRoom = (

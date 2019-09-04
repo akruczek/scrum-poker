@@ -1,5 +1,5 @@
 import { pokers } from '@core/constants';
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 import { navigateToPoker } from './navigate-to-poker.helper';
 
 describe('when navigateToPoker was called', () => {

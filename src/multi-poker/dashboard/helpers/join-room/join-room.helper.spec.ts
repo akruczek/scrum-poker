@@ -1,4 +1,4 @@
-import { SCREENS } from '@core/navigation/screens';
+import { SCREENS } from '@core/constants';
 import { joinRoom } from './join-room.helper';
 
 describe('when joinRoom was called', () => {
