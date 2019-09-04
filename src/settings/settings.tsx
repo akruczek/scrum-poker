@@ -21,12 +21,13 @@ interface DispatchProps {
 interface StateProps {
   isJiraPending: boolean;
   jiraUser: JiraUserModel;
+  email: string;
 }
 
-export const _SettingsOverview = ({ signOut, authJira, isJiraPending, jiraUser }: DispatchProps & StateProps) => (
+export const _SettingsOverview = ({ signOut, authJira, isJiraPending, jiraUser, email }: DispatchProps & StateProps) => (
   <AppContainer>
     <Container justifyContent="flex-start" margins="10px 0 0">
-      <JiraBadge authJira={authJira} isPending={isJiraPending} jiraUser={jiraUser} clearJiraStatus={clearJiraStatus} />
+      <JiraBadge {...{ isPending: isJiraPending, authJira, jiraUser, clearJiraStatus, email }} />
     </Container>
 
     <Container justifyContent="flex-end" margins="20px 0 0">
@@ -46,6 +47,7 @@ export const _SettingsOverview = ({ signOut, authJira, isJiraPending, jiraUser }
 const mapStateToProps = R.applySpec<StateProps>({
   isJiraPending: R.path([ 'jira', 'isPending' ]),
   jiraUser: R.path([ 'jira', 'user' ]),
+  email: R.path([ 'auth', 'model', 'email' ]),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(

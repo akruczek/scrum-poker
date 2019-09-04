@@ -19,11 +19,12 @@ interface Props {
   clearJiraStatus: () => void;
   isPending: boolean;
   isUser: boolean;
+  defaultEmail: string;
 }
 
-export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraStatus }: Props) => {
+export const JiraLogin = ({ authJira, handleClose, isPending, isUser, clearJiraStatus, defaultEmail }: Props) => {
   const [ spaceName, setSpaceName ] = React.useState('');
-  const [ email, setEmail ] = React.useState('');
+  const [ email, setEmail ] = React.useState(defaultEmail || '');
   const [ token, setToken ] = React.useState('');
   const [ waiting, setWaiting ] = React.useState(false);
   const [ displaySuccess, setSuccess ] = React.useState(false);

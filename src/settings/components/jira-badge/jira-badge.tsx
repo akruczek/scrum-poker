@@ -14,9 +14,10 @@ interface Props {
   clearJiraStatus: () => void;
   jiraUser: JiraUserModel;
   isPending: boolean;
+  email: string;
 }
 
-export const JiraBadge = ({ authJira, isPending, jiraUser, clearJiraStatus }: Props) => {
+export const JiraBadge = ({ authJira, isPending, jiraUser, clearJiraStatus, email }: Props) => {
   const [ isSigningIn, setSigningIn ] = React.useState(false);
   const [ isEditingConfig, setEditingConfig ] = React.useState(false);
 
@@ -47,6 +48,7 @@ export const JiraBadge = ({ authJira, isPending, jiraUser, clearJiraStatus }: Pr
               authJira={authJira}
               handleClose={() => setSigningIn(false)}
               clearJiraStatus={clearJiraStatus}
+              defaultEmail={email}
           />
         ),
         isEditingConfig, (
