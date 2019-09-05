@@ -5,6 +5,7 @@ import {
   GetTranslationsAction, GetTranslationsSuccessAction, GetTranslationsErrorAction,
   SetLanguageAction, SetLanguageSuccessAction, SetLanguageErrorAction,
 } from './translations.actions';
+import { selectReducer } from '../../../helpers';
 
 const initialState: TranslationsStateModel = {
   isPending: false,
@@ -51,9 +52,5 @@ const reducers = {
   [TRANSLATIONS_ACTIONS.INITIALIZE]: () => R.identity,
 };
 
-const selectReducer = (type: TRANSLATIONS_ACTIONS): any =>
-  reducers[type] || R.always(R.identity);
-
-export function translationsReducer(state = initialState, action: TranslationsActions) {
-  return selectReducer(action.type)(action)(state);
-}
+export const translationsReducer = (state = initialState, action: TranslationsActions) =>
+  selectReducer(action.type, reducers)(action)(state);

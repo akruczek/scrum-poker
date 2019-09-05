@@ -9,7 +9,8 @@ import { headerTitleStyle, SCREENS } from '@core/constants';
 import { ListedUser } from './components/listed-user/listed-user';
 import { RoomButtonsSet } from './components/room-buttons-set/room-buttons-set';
 import { getEstimation, getResetPayload, hasAdmin, forceQuitRoom } from './helpers';
-import { addUser, showDown, reset, setRoom, AddUserPayload } from '../dashboard/store/dashboard.actions';
+import { setRoom } from '../dashboard/store/dashboard.actions';
+import { addUser, showDown, reset, AddUserPayload } from '../room/store/room.actions';
 import { RoomModals } from './components/room-modals/room-modals';
 import { useSubscribeRoom } from './hooks/subscribe-room/subscribe-room.hook';
 

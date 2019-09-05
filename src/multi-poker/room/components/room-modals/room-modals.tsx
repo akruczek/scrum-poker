@@ -5,11 +5,10 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { _cond } from '@core/helpers';
 import { RoomModel, EDIT_ROOMS_TYPES, UserModel, PokerCard } from '@core/models';
 import { getNewEstimation, updateRoomProperties, getEstimationProposition } from '../../helpers';
-import { SetValuePayload } from '../../../dashboard/store/dashboard.actions';
+import { SetValuePayload, updateRoom, setValue } from '../../../room/store/room.actions';
 import { SelectCard } from '../../../dashboard/components/select-card/select-card';
 import { JiraPusher } from '../jira-pusher/jira-pusher';
 import { EditRoom } from '../../../dashboard/components/edit-room/edit-room';
-import { updateRoom, setValue } from '../../../dashboard/store/dashboard.actions';
 
 interface Props {
   isSelecting: boolean;

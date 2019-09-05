@@ -1,13 +1,14 @@
 import { combineEpics } from 'redux-observable';
+import { addRoomEpic, removeRoomEpic } from '../multi-poker/dashboard/store/dashboard.epics';
 import {
   signInEpic, signInSuccessEpic, signOutEpic, initializeAuthEpic,
 } from '../auth/store/auth.epics';
 import {
+  updateRoomEpic, showDownEpic, resetEpic, setValueEpic, addUserEpic,
+} from '../multi-poker/room/store/room.epics';
+import {
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic, initializeTranslationsEpic,
 } from '@core/services/translations/store/translations.epics';
-import {
-  addRoomEpic, removeRoomEpic, addUserEpic, showDownEpic, resetEpic, setValueEpic, updateRoomEpic,
-} from '../multi-poker/dashboard/store/dashboard.epics';
 import {
   initializeJiraEpic,
   setIssueStoryPointsEpic, getIssueEpic, getProjectsEpic,

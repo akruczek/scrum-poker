@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import { RoomsStateModel } from '@core/models';
+import { selectReducer } from '@core/helpers';
 import {
-  DASHBOARD_ACTIONS, DashboardActions, SetRoomsAction, SetRoomAction,
-  AddRoomAction, RemoveRoomAction, AddUserAction, RoomAction, SetValueAction,
+  DASHBOARD_ACTIONS, DashboardActions, SetRoomsAction, SetRoomAction, AddRoomAction, RemoveRoomAction
 } from './dashboard.actions';
 
 const initialState: RoomsStateModel = {
@@ -26,33 +26,14 @@ const removeRoomReducer = (action: RemoveRoomAction) => R.evolve({
   models: R.remove(Number(action.payload), 1),
 });
 
-const addUserReducer = (action: AddUserAction) => R.evolve({
-  models: R.append(action.payload),
-});
-
-const resetReducer = (action: RoomAction) => R.pipe(
-  R.assoc('model', action.payload),
-);
-
-const setValueReducer = (action: SetValueAction) => R.pipe(
-  R.assocPath([ 'model', action.payload.roomId, 'users', action.payload.userId ], action.payload.value),
-);
-
-const roomsReducers = {
+export const dashboardReducers = {
   [DASHBOARD_ACTIONS.SET_ROOMS]: setRoomsReducer,
   [DASHBOARD_ACTIONS.SET_ROOM]: setRoomReducer,
   [DASHBOARD_ACTIONS.ADD_ROOM]: addRoomReducer,
   [DASHBOARD_ACTIONS.ADD_ROOM_SUCCESS]: setRoomsReducer,
   [DASHBOARD_ACTIONS.REMOVE_ROOM]: removeRoomReducer,
   [DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS]: setRoomsReducer,
-  [DASHBOARD_ACTIONS.ADD_USER]: addUserReducer,
-  [DASHBOARD_ACTIONS.RESET]: resetReducer,
-  [DASHBOARD_ACTIONS.SET_VALUE]: setValueReducer,
 };
 
-const selectReducer = (type: DASHBOARD_ACTIONS, reducers: any): any =>
-  reducers[type] || R.always(R.identity);
-
-export function roomsReducer(state = initialState, action: DashboardActions) {
-  return selectReducer(action.type, roomsReducers)(action)(state);
-}
+export const dashboardReducer = (state = initialState, action: DashboardActions) =>
+  selectReducer(action.type, dashboardReducers)(action)(state);

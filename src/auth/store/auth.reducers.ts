@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import { AuthStateModel, USER_ROLE } from '@core/models';
+import { selectReducer } from '@core/helpers';
 import {
   AUTH_ACTIONS, AuthActions,
   SignInAction, SignInSuccessAction, SignInErrorAction, SignOutAction, signOut,
@@ -53,9 +54,5 @@ const reducers = {
   [AUTH_ACTIONS.INITIALIZE]: signInReducer,
 };
 
-const selectReducer = (type: AUTH_ACTIONS): any =>
-  reducers[type] || R.always(R.identity);
-
-export function authReducer(state = initialState, action: AuthActions) {
-  return selectReducer(action.type)(action)(state);
-}
+export const authReducer = (state = initialState, action: AuthActions) =>
+  selectReducer<AUTH_ACTIONS>(action.type, reducers)(action)(state);

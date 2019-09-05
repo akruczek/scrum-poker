@@ -2,6 +2,7 @@ import * as R from 'ramda';
 import { JiraStateModel } from '../../../models';
 import { JiraActions, JIRA_ACTIONS, AuthJiraAction, SetJiraConfigurationAction } from './jira.actions';
 import { AUTH_ACTIONS, AuthActions } from '../../../../auth/store/auth.actions';
+import { selectReducer } from '../../../helpers';
 
 const initialState: JiraStateModel = {
   isPending: false,
@@ -160,9 +161,5 @@ const reducers = {
   [AUTH_ACTIONS.SIGN_OUT]: signOutReducer,
 };
 
-const selectReducer = (type: JIRA_ACTIONS): any =>
-  reducers[type] || R.always(R.identity);
-
-export function jiraReducer(state = initialState, action: JiraActions) {
-  return selectReducer(action.type)(action)(state);
-}
+export const jiraReducer = (state = initialState, action: JiraActions) =>
+  selectReducer<JIRA_ACTIONS>(action.type, reducers)(action)(state);
