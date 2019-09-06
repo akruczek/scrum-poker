@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { addRoomEpic, removeRoomEpic } from '../multi-poker/dashboard/store/dashboard.epics';
+import { addRoomEpic, removeRoomEpic, resetUsersEpic } from '../multi-poker/dashboard/store/dashboard.epics';
 import {
   signInEpic, signInSuccessEpic, signOutEpic, initializeAuthEpic,
 } from '../auth/store/auth.epics';
@@ -19,7 +19,7 @@ import {
 export const epics = combineEpics(
   initializeAuthEpic, initializeJiraEpic, initializeTranslationsEpic,
   signInEpic, signInSuccessEpic, signOutEpic,
-  addRoomEpic, removeRoomEpic, updateRoomEpic,
+  addRoomEpic, removeRoomEpic, updateRoomEpic, resetUsersEpic,
   showDownEpic, resetEpic, setValueEpic, setIssueStoryPointsEpic, addUserEpic,
   getTranslationsEpic, setLanguageEpic, setLanguageSuccessEpic,
   getIssueEpic, getProjectsEpic, getProjectIssuesEpic,

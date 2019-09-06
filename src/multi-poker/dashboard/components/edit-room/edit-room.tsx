@@ -18,15 +18,16 @@ import { ResetUserModal } from './components/reset-users-modal/reset-users-modal
 
 interface Props {
   type: EDIT_ROOMS_TYPES;
-  handleSubmit: (payload: any) => void;
-  handleDismiss: () => void;
   room?: RoomModel;
   jiraConfiguration?: JiraConfigurationModel;
+  handleSubmit: (payload: any) => void;
+  handleDismiss: () => void;
+  resetUsers?: (id: string) => void;
 }
 
 type State = 'name' | 'description' | 'projectKey' | 'customField' | 'defaultIssueType' | 'defaultIssueStatus';
 
-export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfiguration }: Props) => {
+export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfiguration, resetUsers }: Props) => {
   const [ isResetUsers, setResetUsers ] = React.useState(false);
 
   const [
@@ -50,9 +51,12 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
     );
   };
 
-  const handleReset = () => {
-    // TODO: reset users
-    console.log('reset users');
+  const handleResetUsers = () => {
+    if (resetUsers) {
+      resetUsers(R.propOr('', 'id', room));
+      setResetUsers(false);
+      handleDismiss();
+    }
   };
 
   const isCreating = R.propEq('CREATE', type, EDIT_ROOMS_TYPES);
@@ -81,8 +85,8 @@ export const EditRoom = ({ type, room, handleSubmit, handleDismiss, jiraConfigur
         />
       </AppContainer>
 
-      {isResetUsers && (
-        <ResetUserModal handleYes={handleReset} handleNo={() => setResetUsers(false)} />
+      {isResetUsers && resetUsers && (
+        <ResetUserModal handleYes={handleResetUsers} handleNo={() => setResetUsers(false)} />
       )}
     </Modal>
   );

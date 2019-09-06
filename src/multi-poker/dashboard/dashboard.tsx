@@ -28,8 +28,8 @@ interface StateProps {
 }
 
 export const _Dashboard = ({
-  setRooms, setRoom, addRoom, removeRoom, rooms,
-  jiraAccountId, navigation, jiraConfiguration,
+  setRooms, setRoom, addRoom, removeRoom,
+  jiraAccountId, navigation, jiraConfiguration, rooms,
 }: StateProps & DispatchProps & NavigationProps) => {
   const [ isPending ] = useSubscribeRooms(setRooms);
   const [ isSwiping, setSwiping, handleRemoveRoom ] = useRemoveRoom(removeRoom);

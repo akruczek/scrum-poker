@@ -6,6 +6,7 @@ import { _cond } from '@core/helpers';
 import { RoomModel, EDIT_ROOMS_TYPES, UserModel, PokerCard } from '@core/models';
 import { getNewEstimation, updateRoomProperties, getEstimationProposition } from '../../helpers';
 import { SetValuePayload, updateRoom, setValue } from '../../../room/store/room.actions';
+import { resetUsers } from '../../../dashboard/store/dashboard.actions';
 import { SelectCard } from '../../../dashboard/components/select-card/select-card';
 import { JiraPusher } from '../jira-pusher/jira-pusher';
 import { EditRoom } from '../../../dashboard/components/edit-room/edit-room';
@@ -26,10 +27,11 @@ interface Props {
 interface DispatchProps {
   setValue: (payload: SetValuePayload) => void;
   updateRoom: (room: RoomModel) => void;
+  resetUsers: (id: string) => void;
 }
 
 export const _RoomModals = ({
-  isSelecting, room, user, isJiraPusherVisible, isEditingRoom,
+  isSelecting, room, user, isJiraPusherVisible, isEditingRoom, resetUsers,
   setSelecting, setJiraPusherVisibility, setEditingRoom, setValue, updateRoom, handleReset, setParams,
 }: Props & DispatchProps) => {
   const handleSelectCard = (card: PokerCard) => {
@@ -59,7 +61,7 @@ export const _RoomModals = ({
           type={EDIT_ROOMS_TYPES.UPDATE}
           handleSubmit={handleUpdateRoom}
           handleDismiss={() => setEditingRoom(false)}
-          room={room}
+          {...{ room, resetUsers }}
       />
     ),
     R.T, null,
@@ -67,7 +69,7 @@ export const _RoomModals = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
-  { updateRoom, setValue },
+  { updateRoom, setValue, resetUsers },
   dispatch,
 );
 

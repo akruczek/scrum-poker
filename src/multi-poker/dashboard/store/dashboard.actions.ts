@@ -11,6 +11,9 @@ export enum DASHBOARD_ACTIONS {
   REMOVE_ROOM = '[Dashboard]: Remove room',
   REMOVE_ROOM_SUCCESS = '[Dashboard]: Remove room success',
   REMOVE_ROOM_ERROR = '[Dashboard]: Remove room error',
+  RESET_USERS = '[Room]: Reset users',
+  RESET_USERS_SUCCESS = '[Room]: Reset users success',
+  RESET_USERS_ERROR = '[Room]: Reset users error',
 }
 
 export interface SetRoomsAction extends Action {
@@ -37,13 +40,18 @@ export interface RemoveRoomSuccessAction extends Action {
   payload: {[key: string]: RoomModel};
 }
 
+export interface ResetUsersAction extends Action {
+  payload: string;
+}
+
 export type DashboardActions =
   SetRoomsAction &
   SetRoomAction &
   AddRoomAction &
   AddRoomSuccessAction &
   RemoveRoomAction &
-  RemoveRoomSuccessAction;
+  RemoveRoomSuccessAction &
+  ResetUsersAction;
 
 export const setRooms = newAction<DASHBOARD_ACTIONS, RoomModel[]>(DASHBOARD_ACTIONS.SET_ROOMS);
 export const setRoom = newAction<DASHBOARD_ACTIONS, RoomModel>(DASHBOARD_ACTIONS.SET_ROOM);
@@ -55,3 +63,7 @@ export const addRoomError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.
 export const removeRoom = newAction<DASHBOARD_ACTIONS, string>(DASHBOARD_ACTIONS.REMOVE_ROOM);
 export const removeRoomSuccess = newAction<DASHBOARD_ACTIONS, RoomModel[]>(DASHBOARD_ACTIONS.REMOVE_ROOM_SUCCESS);
 export const removeRoomError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.REMOVE_ROOM_ERROR);
+
+export const resetUsers = newAction<DASHBOARD_ACTIONS, string>(DASHBOARD_ACTIONS.RESET_USERS);
+export const resetUsersSuccess = newAction<DASHBOARD_ACTIONS, {}>(DASHBOARD_ACTIONS.RESET_USERS_SUCCESS);
+export const resetUsersError = newAction<DASHBOARD_ACTIONS, any>(DASHBOARD_ACTIONS.RESET_USERS_ERROR);
