@@ -1,3 +1,13 @@
+## 0.6.0
+### Added:
+- Jira Messages and Errors handling
+- Possibility to Reset all users in Room
+### Improved:
+- App optimization
+- Jira login form - auto fill email field
+### Fixed:
+- iOS: Status Bar covering app content 
+
 ## 0.5.2
 ### Fixed:
 - Fonts mismatch
